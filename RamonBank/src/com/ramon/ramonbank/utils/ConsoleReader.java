@@ -7,7 +7,7 @@ public class ConsoleReader {
 	public static String readLn(){
      Scanner in = new Scanner(System.in);   
      
-     return in.nextLine() + "PENE";
+     return in.nextLine();
      
 	}
 }
