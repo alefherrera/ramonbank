@@ -1,6 +1,7 @@
 package com.ramon.ramonbank.dbaccess;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public interface ITables {
 	
@@ -12,6 +13,6 @@ public interface ITables {
 	
 	public boolean Delete();
 	
-	public ITables Load(); 
+	public ITables Load() throws SQLException; 
 	
 }

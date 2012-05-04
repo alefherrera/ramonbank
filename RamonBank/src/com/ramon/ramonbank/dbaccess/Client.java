@@ -2,10 +2,6 @@ package com.ramon.ramonbank.dbaccess;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import java.sql.Connection;
-import com.ramon.ramonbank.connection.ConnectionHandler;
 
 public class Client implements ITables {
 
@@ -15,7 +11,13 @@ public class Client implements ITables {
 	private String _apellido;
 	private String _direccion;
 	private String _email;
-
+	private ExecuteQuery execute;
+	
+	public Client()
+	{
+		execute = new ExecuteQuery();
+	}
+	
 	public int get_id() {
 		return _id;
 	}
@@ -67,35 +69,43 @@ public class Client implements ITables {
 	// Acceso a BD
 
 	public ResultSet Select() {
-		ConnectionHandler cnHandler = new ConnectionHandler();
-		Connection con = cnHandler.getConnection();
-		Statement st = null;
-		try {
-			st = con.createStatement();
-			st.execute("CALL cliente_Select");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			cnHandler.closeResources(st, con);
-		}
-		return null;
+		
+		return execute.ExecSelect(GenerarString("call cliente_select"));
 	}
 
 	public int Insert() {
-		return 0;
+		return execute.ExecInsert(GenerarString("call cliente_insert"));
 	}
 
 	public boolean Update() {
-		return false;
+		return execute.ExecUpdate_Delete(GenerarString("call cliente_update"));
 	}
 
 	public boolean Delete() {
-		return false;
+		return execute.ExecUpdate_Delete(GenerarString("call cliente_delete"));
 	}
 
-	public Client Load() {
-		return null;
+	public Client Load() throws SQLException {
+		ResultSet rs = this.Select();
+		rs.next();
+		Client cliente = new Client();
+		cliente.set_id(rs.getInt("id"));
+		cliente.set_dni(rs.getString("dni"));
+		cliente.set_nombre(rs.getString("nombre"));
+		cliente.set_apellido(rs.getString("apellido"));
+		cliente.set_direccion(rs.getString("direccion"));
+		cliente.set_email(rs.getString("eMail"));
+		return cliente;
 	}
 
+	private String GenerarString(String Query){
+		return Query + " " +
+				+ this._id + ","
+				+ this._dni + ","
+				+ this._nombre + ","
+				+ this._apellido + ","
+				+ this._direccion + ","
+				+ this._email;		
+	}
+	
 }
