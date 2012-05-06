@@ -9,4 +9,10 @@ public class Validator {
 			return false;
 		}
 	}
+	
+	public static boolean validMail(String str){
+		
+		return true;
+	}
+	
 }
