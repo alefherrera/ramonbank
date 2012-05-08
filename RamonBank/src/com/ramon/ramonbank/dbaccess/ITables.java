@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 public interface ITables {
 	
-	public ResultSet Select() throws SQLException;
+	public ResultSet Select();
 	
-	public int Insert() throws SQLException;
+	public int Insert();
 	
-	public boolean Update() throws SQLException;
+	public boolean Update();
 	
-	public boolean Delete() throws SQLException;
+	public boolean Delete();
 	
-	public ITables Load() throws SQLException;
+	public ITables Load();
 	
 }

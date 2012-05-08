@@ -36,7 +36,7 @@ public class ExecuteQuery {
 			 ResultSet rs = st.executeQuery(Query);
 			if(rs.next())
 			{
-				return rs.getInt(0);
+				return rs.getInt("LAST");
 			}
 			return 0;
 		} catch (SQLException e) {

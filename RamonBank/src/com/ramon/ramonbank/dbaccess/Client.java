@@ -12,18 +12,17 @@ public class Client implements ITables {
 	private String _direccion;
 	private String _email;
 	private ExecuteQuery execute;
-	
-	public Client()
-	{
+
+	public Client() {
 		execute = new ExecuteQuery();
 		_id = -1;
-		_dni = "''";
-		_nombre = "''";
-		_apellido = "''";
-		_direccion = "''";
-		_email = "''";
+		_dni = "";
+		_nombre = "";
+		_apellido = "";
+		_direccion = "";
+		_email = "";
 	}
-	
+
 	public int get_id() {
 		return _id;
 	}
@@ -73,44 +72,88 @@ public class Client implements ITables {
 	}
 
 	// Acceso a BD
-
 	public ResultSet Select() {
-		return execute.ExecSelect(GenerarString("call cliente_select"));
+		String Query = new String();
+		Query = "call cliente_select(";
+		Query += "'";
+		Query += this._id;
+		Query += "','";
+		Query += this._dni;
+		Query += "','";
+		Query += this._nombre;
+		Query += "','";
+		Query += this._apellido;
+		Query += "','";
+		Query += this._direccion;
+		Query += "','";
+		Query += this._email;
+		Query += "')";
+
+		return execute.ExecSelect(Query);
 	}
 
 	public int Insert() {
-		return execute.ExecInsert(GenerarString("call cliente_insert"));
+		String Query = new String();
+		Query = "call cliente_insert(";
+		Query += "'";
+		Query += this._dni;
+		Query += "','";
+		Query += this._nombre;
+		Query += "','";
+		Query += this._apellido;
+		Query += "','";
+		Query += this._direccion;
+		Query += "','";
+		Query += this._email;
+		Query += "')";
+
+		return execute.ExecInsert(Query);
 	}
 
 	public boolean Update() {
-		return execute.ExecUpdate_Delete(GenerarString("call cliente_update"));
+		String Query = new String();
+		Query = "call cliente_update(";
+		Query += "'";
+		Query += this._id;
+		Query += "','";
+		Query += this._dni;
+		Query += "','";
+		Query += this._nombre;
+		Query += "','";
+		Query += this._apellido;
+		Query += "','";
+		Query += this._direccion;
+		Query += "','";
+		Query += this._email;
+		Query += "')";
+
+		return execute.ExecUpdate_Delete(Query);
 	}
 
 	public boolean Delete() {
-		return execute.ExecUpdate_Delete(GenerarString("call cliente_delete"));
+		String Query = new String();
+		Query = "call cliente_delete(";
+		Query += "'";
+		Query += this._id + "')";
+		Query += "')";
+		
+		return execute.ExecUpdate_Delete(Query);
 	}
 
-	public Client Load() throws SQLException {
+	public Client Load() {
 		ResultSet rs = this.Select();
-		rs.next();
 		Client cliente = new Client();
-		cliente.set_id(rs.getInt("id"));
-		cliente.set_dni(rs.getString("dni"));
-		cliente.set_nombre(rs.getString("nombre"));
-		cliente.set_apellido(rs.getString("apellido"));
-		cliente.set_direccion(rs.getString("direccion"));
-		cliente.set_email(rs.getString("eMail"));
+		try {
+			rs.next();
+			cliente.set_id(rs.getInt("id"));
+			cliente.set_dni(rs.getString("dni"));
+			cliente.set_nombre(rs.getString("nombre"));
+			cliente.set_apellido(rs.getString("apellido"));
+			cliente.set_direccion(rs.getString("direccion"));
+			cliente.set_email(rs.getString("eMail"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return cliente;
 	}
-
-	private String GenerarString(String Query){
-		return Query + "("
-				+ this._id + ","
-				+ this._dni + ","
-				+ this._nombre + ","
-				+ this._apellido + ","
-				+ this._direccion + ","
-				+ this._email + ")";		
-	}
-	
 }
