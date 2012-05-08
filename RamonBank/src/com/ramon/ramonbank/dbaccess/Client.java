@@ -99,13 +99,13 @@ public class Client implements ITables {
 	}
 
 	private String GenerarString(String Query){
-		return Query + " " +
+		return Query + " (" +
 				+ this._id + ","
 				+ this._dni + ","
 				+ this._nombre + ","
 				+ this._apellido + ","
 				+ this._direccion + ","
-				+ this._email;		
+				+ this._email + ")";		
 	}
 	
 }
