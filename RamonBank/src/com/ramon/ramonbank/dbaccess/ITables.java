@@ -7,7 +7,7 @@ public interface ITables {
 	
 	public ResultSet Select();
 	
-	public int Insert();
+	public int Insert() throws SQLException;
 	
 	public boolean Update();
 	

@@ -33,11 +33,16 @@ public class ExecuteQuery {
 		Statement st = null;
 		try {
 			st = con.createStatement();
-			return st.executeUpdate(Query);
+			 ResultSet rs = st.executeQuery(Query);
+			if(rs.next())
+			{
+				return rs.getInt(0);
+			}
+			return 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return 0;
+			return -1;
 		} finally {
 			cnHandler.closeResources(st, con);
 		}		
