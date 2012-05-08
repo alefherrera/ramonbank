@@ -12,12 +12,11 @@ public class Client implements ITables {
 	private String _direccion;
 	private String _email;
 	private ExecuteQuery execute;
-	
-	public Client()
-	{
+
+	public Client() {
 		execute = new ExecuteQuery();
 	}
-	
+
 	public int get_id() {
 		return _id;
 	}
@@ -69,7 +68,7 @@ public class Client implements ITables {
 	// Acceso a BD
 
 	public ResultSet Select() {
-		
+
 		return execute.ExecSelect(GenerarString("call cliente_select"));
 	}
 
@@ -87,25 +86,22 @@ public class Client implements ITables {
 
 	public Client Load() throws SQLException {
 		ResultSet rs = this.Select();
-		rs.next();
 		Client cliente = new Client();
-		cliente.set_id(rs.getInt("id"));
-		cliente.set_dni(rs.getString("dni"));
-		cliente.set_nombre(rs.getString("nombre"));
-		cliente.set_apellido(rs.getString("apellido"));
-		cliente.set_direccion(rs.getString("direccion"));
-		cliente.set_email(rs.getString("eMail"));
+		if (rs.next()) {
+			cliente.set_id(rs.getInt("id"));
+			cliente.set_dni(rs.getString("dni"));
+			cliente.set_nombre(rs.getString("nombre"));
+			cliente.set_apellido(rs.getString("apellido"));
+			cliente.set_direccion(rs.getString("direccion"));
+			cliente.set_email(rs.getString("eMail"));
+		}
 		return cliente;
 	}
 
-	private String GenerarString(String Query){
-		return Query + " (" +
-				+ this._id + ","
-				+ this._dni + ","
-				+ this._nombre + ","
-				+ this._apellido + ","
-				+ this._direccion + ","
-				+ this._email + ")";		
+	private String GenerarString(String Query) {
+		return Query + " (" + +this._id + "," + this._dni + "," + this._nombre
+				+ "," + this._apellido + "," + this._direccion + ","
+				+ this._email + ")";
 	}
-	
+
 }
