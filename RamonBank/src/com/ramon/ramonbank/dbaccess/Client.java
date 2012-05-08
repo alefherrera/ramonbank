@@ -2,6 +2,10 @@ package com.ramon.ramonbank.dbaccess;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.ramon.ramonbank.RamonBank;
 
 public class Client implements ITables {
 
@@ -12,7 +16,8 @@ public class Client implements ITables {
 	private String _direccion;
 	private String _email;
 	private ExecuteQuery execute;
-
+	private Logger _log = Logger.getLogger("Log");
+	
 	public Client() {
 		execute = new ExecuteQuery();
 		_id = -1;
