@@ -16,6 +16,12 @@ public class Client implements ITables {
 	public Client()
 	{
 		execute = new ExecuteQuery();
+		_id = -1;
+		_dni = "''";
+		_nombre = "''";
+		_apellido = "''";
+		_direccion = "''";
+		_email = "''";
 	}
 	
 	public int get_id() {
@@ -69,7 +75,6 @@ public class Client implements ITables {
 	// Acceso a BD
 
 	public ResultSet Select() {
-		
 		return execute.ExecSelect(GenerarString("call cliente_select"));
 	}
 
@@ -99,13 +104,13 @@ public class Client implements ITables {
 	}
 
 	private String GenerarString(String Query){
-		return Query + " " +
+		return Query + "("
 				+ this._id + ","
 				+ this._dni + ","
 				+ this._nombre + ","
 				+ this._apellido + ","
 				+ this._direccion + ","
-				+ this._email;		
+				+ this._email + ")";		
 	}
 	
 }
