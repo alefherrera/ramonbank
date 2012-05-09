@@ -17,7 +17,7 @@ public class Client implements ITables {
 	private String _email;
 	private ExecuteQuery execute;
 	private Logger _log = Logger.getLogger("Log");
-	
+
 	public Client() {
 		execute = new ExecuteQuery();
 		_id = -1;
@@ -141,23 +141,22 @@ public class Client implements ITables {
 		Query += "'";
 		Query += this._id;
 		Query += "')";
-		
+
 		return execute.ExecUpdate_Delete(Query);
 	}
 
 	public Client Load() {
 		ResultSet rs = this.Select();
 		Client cliente = new Client();
-		
+
 		try {
-			if (rs.next())
-			{
-			cliente.set_id(rs.getInt("id"));
-			cliente.set_dni(rs.getString("dni"));
-			cliente.set_nombre(rs.getString("nombre"));
-			cliente.set_apellido(rs.getString("apellido"));
-			cliente.set_direccion(rs.getString("direccion"));
-			cliente.set_email(rs.getString("eMail"));
+			if (rs.next()) {
+				cliente.set_id(rs.getInt("id"));
+				cliente.set_dni(rs.getString("dni"));
+				cliente.set_nombre(rs.getString("nombre"));
+				cliente.set_apellido(rs.getString("apellido"));
+				cliente.set_direccion(rs.getString("direccion"));
+				cliente.set_email(rs.getString("eMail"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -2,11 +2,14 @@ package com.ramon.ramonbank;
 
 
 
+import java.util.logging.Logger;
+
 import com.ramon.ramonbank.dbaccess.Client;
 import com.ramon.ramonbank.utils.RBLogger;
 
 public class RamonBank {
 
+	private Logger _log = Logger.getLogger("Log");
 	private static RamonBank _instance;
 
 	public static void main(String[] args) {
