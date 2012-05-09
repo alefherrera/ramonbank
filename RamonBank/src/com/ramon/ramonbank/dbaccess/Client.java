@@ -150,13 +150,15 @@ public class Client implements ITables {
 		Client cliente = new Client();
 		
 		try {
-			rs.next();
+			if (rs.next())
+			{
 			cliente.set_id(rs.getInt("id"));
 			cliente.set_dni(rs.getString("dni"));
 			cliente.set_nombre(rs.getString("nombre"));
 			cliente.set_apellido(rs.getString("apellido"));
 			cliente.set_direccion(rs.getString("direccion"));
 			cliente.set_email(rs.getString("eMail"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
