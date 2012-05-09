@@ -139,7 +139,7 @@ public class Client implements ITables {
 		String Query = new String();
 		Query = "call cliente_delete(";
 		Query += "'";
-		Query += this._id + "')";
+		Query += this._id;
 		Query += "')";
 		
 		return execute.ExecUpdate_Delete(Query);
@@ -148,6 +148,7 @@ public class Client implements ITables {
 	public Client Load() {
 		ResultSet rs = this.Select();
 		Client cliente = new Client();
+		
 		try {
 			rs.next();
 			cliente.set_id(rs.getInt("id"));

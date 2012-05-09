@@ -17,8 +17,9 @@ public class RamonBank {
 		RBLogger.load();
 		
 		Client oClient = new Client();
-		oClient.set_nombre("pito");
-		oClient.Insert();
+		oClient.set_id(3);
+		oClient.set_email("PEPE");
+		oClient.Delete();
 		System.out.println(oClient.Load().get_nombre());
 	}
 }
