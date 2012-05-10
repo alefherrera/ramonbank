@@ -1,4 +1,4 @@
-package com.ramon.ramonbank.dbaccess;
+package com.ramon.ramonbank.dbaccess.tables;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,8 +6,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ramon.ramonbank.RamonBank;
+import com.ramon.ramonbank.dbaccess.ExecuteQuery;
+import com.ramon.ramonbank.dbaccess.ITables;
 
-public class Client implements ITables {
+public class Cliente implements ITables {
 
 	private int _id;
 	private String _dni;
@@ -18,7 +20,7 @@ public class Client implements ITables {
 	private ExecuteQuery execute;
 	private Logger _log = Logger.getLogger("Log");
 
-	public Client() {
+	public Cliente() {
 		execute = new ExecuteQuery();
 		_id = -1;
 		_dni = "";
@@ -79,7 +81,7 @@ public class Client implements ITables {
 	// Acceso a BD
 	public ResultSet Select() {
 		String Query = new String();
-		Query = "call cliente_select(";
+		Query = "call clientes_select(";
 		Query += "'";
 		Query += this._id;
 		Query += "','";
@@ -99,7 +101,7 @@ public class Client implements ITables {
 
 	public int Insert() {
 		String Query = new String();
-		Query = "call cliente_insert(";
+		Query = "call clientes_insert(";
 		Query += "'";
 		Query += this._dni;
 		Query += "','";
@@ -117,7 +119,7 @@ public class Client implements ITables {
 
 	public boolean Update() {
 		String Query = new String();
-		Query = "call cliente_update(";
+		Query = "call clientes_update(";
 		Query += "'";
 		Query += this._id;
 		Query += "','";
@@ -137,7 +139,7 @@ public class Client implements ITables {
 
 	public boolean Delete() {
 		String Query = new String();
-		Query = "call cliente_delete(";
+		Query = "call clientes_delete(";
 		Query += "'";
 		Query += this._id;
 		Query += "')";
@@ -145,22 +147,34 @@ public class Client implements ITables {
 		return execute.ExecUpdate_Delete(Query);
 	}
 
-	public Client Load() {
+	public Cliente Load() {
 		ResultSet rs = this.Select();
-		Client cliente = new Client();
+		Cliente oCliente = new Cliente();
 
 		try {
 			if (rs.next()) {
-				cliente.set_id(rs.getInt("id"));
-				cliente.set_dni(rs.getString("dni"));
-				cliente.set_nombre(rs.getString("nombre"));
-				cliente.set_apellido(rs.getString("apellido"));
-				cliente.set_direccion(rs.getString("direccion"));
-				cliente.set_email(rs.getString("eMail"));
+				oCliente.set_id(rs.getInt("id"));
+				oCliente.set_dni(rs.getString("dni"));
+				oCliente.set_nombre(rs.getString("nombre"));
+				oCliente.set_apellido(rs.getString("apellido"));
+				oCliente.set_direccion(rs.getString("direccion"));
+				oCliente.set_email(rs.getString("eMail"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			_log.log(Level.WARNING, e.getStackTrace().toString());
 		}
-		return cliente;
+		return oCliente;
+	}
+	
+	public int Cantidad()
+	{
+		ResultSet rs = this.Select();
+		try {
+			rs.last();
+		return rs.getRow();
+		} catch (SQLException e) {
+			_log.log(Level.WARNING, e.getStackTrace().toString());
+		}
+		return -1;
 	}
 }

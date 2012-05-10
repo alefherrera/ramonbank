@@ -15,4 +15,5 @@ public interface ITables {
 	
 	public ITables Load();
 	
+	public int Cantidad();
 }
