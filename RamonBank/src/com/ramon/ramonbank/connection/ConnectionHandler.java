@@ -24,7 +24,7 @@ public class ConnectionHandler implements IConnectionHandler {
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://nacho692.dyndns.org:3306/ramonbank","ale","ale123");
 		} catch (SQLException e) {
-			System.out.println("Error al abrir conexion con base de datos de ramoncito.");
+			System.out.println("Error al abrir conexion con base de datos.");
 			e.printStackTrace();
 		}
 		return connection;

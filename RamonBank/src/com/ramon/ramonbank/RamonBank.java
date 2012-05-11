@@ -26,21 +26,14 @@ public class RamonBank {
 	}
 
 	public RamonBank() {
-		RBLogger.load();
+		//RBLogger.load();
+		System.setProperty("https.proxyHost", "proxy2.frgp2"); 
+		System.setProperty("https.proxyPort", "3128");  
 		
 		Cliente oCliente = new Cliente();
 		oCliente.set_dni("36610363");
 		
-		Cuenta oCuenta = new Cuenta();
-		oCuenta.set_idCliente(1);
-		oCuenta.set_saldo(2412412);
-		oCuenta.set_tipo(CONST_TIPOCUENTA.CAJA_AHORROS);
-		ServiciosCliente oOper = new ServiciosCliente(oCliente, oCuenta);
-		try {
-			oOper.crearCuenta();
-		} catch (OperationException e) {
-			e.printStackTrace();
-		}
-	
+		oCliente = oCliente.Load();
+		System.out.println(oCliente.get_nombre());
 	}
 }
