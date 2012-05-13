@@ -8,6 +8,7 @@ import com.ramon.ramonbank.businesslogic.ServiciosCliente;
 import com.ramon.ramonbank.businesslogic.utils.CONST_TIPOCUENTA;
 import com.ramon.ramonbank.dbaccess.tables.Cliente;
 import com.ramon.ramonbank.dbaccess.tables.Cuenta;
+import com.ramon.ramonbank.dbaccess.tables.Prestamo;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.utils.RBLogger;
 
@@ -26,14 +27,26 @@ public class RamonBank {
 	}
 
 	public RamonBank() {
-		//RBLogger.load();
-		System.setProperty("https.proxyHost", "proxy2.frgp2"); 
-		System.setProperty("https.proxyPort", "3128");  
+		RBLogger.load();
 		
 		Cliente oCliente = new Cliente();
 		oCliente.set_dni("36610363");
 		
-		oCliente = oCliente.Load();
-		System.out.println(oCliente.get_nombre());
-	}
+		try {
+			oCliente = oCliente.Load();
+		} catch (OperationException e) {
+			e.printStackTrace();
+		}
+		ServiciosCliente _serv = new ServiciosCliente(oCliente);
+		try {
+			_serv.solicitarPrestamo(5000, 1);
+			Prestamo _prestamo = new Prestamo();
+			_prestamo.Load();
+			System.out.println(_prestamo.get_monto());
+		} catch (OperationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}	
 }

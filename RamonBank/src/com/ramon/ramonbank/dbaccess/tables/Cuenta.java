@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.ramon.ramonbank.dbaccess.ExecuteQuery;
 import com.ramon.ramonbank.dbaccess.ITables;
+import com.ramon.ramonbank.exceptions.OperationException;
 
 public class Cuenta implements ITables {
 
@@ -15,10 +16,9 @@ public class Cuenta implements ITables {
 	private int _estado;
 	private double _saldo;
 	private double _descubierto;
-	
+
 	private ExecuteQuery execute;
 	private Logger _log = Logger.getLogger("Log");
-	
 
 	public Cuenta() {
 		execute = new ExecuteQuery();
@@ -37,6 +37,7 @@ public class Cuenta implements ITables {
 	public void set_id(int _id) {
 		this._id = _id;
 	}
+
 	public int get_idCliente() {
 		return _idCliente;
 	}
@@ -44,7 +45,7 @@ public class Cuenta implements ITables {
 	public void set_idCliente(int _idCliente) {
 		this._idCliente = _idCliente;
 	}
-	
+
 	public int get_tipo() {
 		return _tipo;
 	}
@@ -52,6 +53,7 @@ public class Cuenta implements ITables {
 	public void set_tipo(int _tipo) {
 		this._tipo = _tipo;
 	}
+
 	public int get_estado() {
 		return _estado;
 	}
@@ -84,7 +86,6 @@ public class Cuenta implements ITables {
 		this.execute = execute;
 	}
 
-
 	// Acceso a BD
 	public ResultSet Select() {
 		String Query = new String();
@@ -114,8 +115,9 @@ public class Cuenta implements ITables {
 		Query += "','";
 		Query += this._tipo;
 		Query += "',";
-		//El query manda true o false, en la base de datos es boolean, se hace asi por filtro del select
-		Query += this._estado == 1? 1:0;
+		// El query manda true o false, en la base de datos es boolean, se hace
+		// asi por filtro del select
+		Query += this._estado == 1 ? 1 : 0;
 		Query += ",'";
 		Query += this._saldo;
 		Query += "','";
@@ -135,8 +137,9 @@ public class Cuenta implements ITables {
 		Query += "','";
 		Query += this._tipo;
 		Query += "',";
-		//El query manda true o false, en la base de datos es boolean, se hace asi por filtro del select
-		Query += this._estado == 1? 1:0;
+		// El query manda true o false, en la base de datos es boolean, se hace
+		// asi por filtro del select
+		Query += this._estado == 1 ? 1 : 0;
 		Query += ",'";
 		Query += this._saldo;
 		Query += "','";
@@ -156,7 +159,7 @@ public class Cuenta implements ITables {
 		return execute.ExecUpdate_Delete(Query);
 	}
 
-	public Cuenta Load() {
+	public Cuenta Load() throws OperationException {
 		ResultSet rs = this.Select();
 		Cuenta oCuenta = new Cuenta();
 
@@ -165,23 +168,27 @@ public class Cuenta implements ITables {
 				oCuenta.set_id(rs.getInt("id"));
 				oCuenta.set_idCliente(rs.getInt("idCliente"));
 				oCuenta.set_tipo(rs.getInt("Tipo"));
-				//Como la base de datos tiene un boolean, tengo que transformarlo a int
-				oCuenta.set_estado(rs.getBoolean("Estado")?1:0);
+				// Como la base de datos tiene un boolean, tengo que
+				// transformarlo a int
+				oCuenta.set_estado(rs.getBoolean("Estado") ? 1 : 0);
 				oCuenta.set_saldo(rs.getInt("Saldo"));
 				oCuenta.set_descubierto(rs.getInt("Descubierto"));
+			} else {
+				throw new OperationException("No se encontro ningun "
+						+ this.getClass().getName());
 			}
+
 		} catch (SQLException e) {
 			_log.log(Level.WARNING, e.getStackTrace().toString());
 		}
 		return oCuenta;
 	}
-	
-	public int Cantidad()
-	{
+
+	public int Cantidad() {
 		ResultSet rs = this.Select();
 		try {
 			rs.last();
-		return rs.getRow();
+			return rs.getRow();
 		} catch (SQLException e) {
 			_log.log(Level.WARNING, e.getStackTrace().toString());
 		}

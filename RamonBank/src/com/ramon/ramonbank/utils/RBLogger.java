@@ -11,7 +11,7 @@ public class  RBLogger {
 	private static Logger _log = Logger.getLogger("Log");
 	
 	public static void load(){
-		final String LOG_PATH = "./log/log.txt"; // Nombre del archivo de log
+		final String LOG_PATH = "./log.txt"; // Nombre del archivo de log
 		FileHandler fh;
 		
 		try {

@@ -1,8 +1,6 @@
 package com.ramon.ramonbank.businesslogic;
 
-import java.sql.ResultSet;
-import java.util.Calendar;
-import java.util.Date;
+
 import java.util.logging.Logger;
 import com.ramon.ramonbank.dbaccess.tables.Cliente;
 import com.ramon.ramonbank.dbaccess.tables.Cuenta;
@@ -26,6 +24,11 @@ public class ServiciosCliente {
 
 	public ServiciosCliente(Cliente _cliente) {
 		this._cliente = _cliente;
+	}
+	
+	public ServiciosCliente(int _idCliente) throws OperationException{
+		this._cliente.set_id(_idCliente);
+		this._cliente = this._cliente.Load();
 	}
 
 	public int crearCuenta(int _tipo) throws OperationException {

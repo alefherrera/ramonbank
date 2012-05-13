@@ -2,39 +2,56 @@ package com.ramon.ramonbank.dbaccess.tables;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ramon.ramonbank.dbaccess.ExecuteQuery;
 import com.ramon.ramonbank.dbaccess.ITables;
+import com.ramon.ramonbank.exceptions.OperationException;
 
 public class Prestamo implements ITables {
+	public String get_filtro_fechaDesde() {
+		return _filtro_fechaDesde;
+	}
+
+
+	public void set_filtro_fechaDesde(String _filtro_fechaDesde) {
+		this._filtro_fechaDesde = _filtro_fechaDesde;
+	}
+
+
+	public String get_filtro_fechaHasta() {
+		return _filtro_fechaHasta;
+	}
+
+
+	public void set_filtro_fechaHasta(String _filtro_fechaHasta) {
+		this._filtro_fechaHasta = _filtro_fechaHasta;
+	}
+
 	private ExecuteQuery execute;
 
 	private Logger _log = Logger.getLogger("Log");
+	//private SimpleDateFormat _dateFormat = new SimpleDateFormat("yyyy-dd-MM");
 	
 	private int _id;
-	private Date _fechaAlta;
+	private String _fechaAlta;
 	private double _monto;
 	private int _cantCuotas;
 	private double _interes;
 	private int _idCliente;
 	private int _idCuenta;
+	private String _filtro_fechaDesde;
+	private String _filtro_fechaHasta;
 	
 	public Prestamo() {
 		execute = new ExecuteQuery();
-		SimpleDateFormat _dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		
 		this._id = -1;
-		try {
-			this._fechaAlta = _dateFormat.parse("01-01-1900");
-		} catch (ParseException e) {
-			_log.log(Level.SEVERE, "Error al parsear formato de fecha \n" + e.getMessage());
-		}
-		
+		this._fechaAlta = "0";
+		this._filtro_fechaDesde = "0";
+		this._filtro_fechaHasta = "0";
 		this._monto = -1;
 		this._cantCuotas = -1;
 		this._interes = -1;
@@ -51,11 +68,11 @@ public class Prestamo implements ITables {
 		this._id = _id;
 	}
 
-	public Date get_fechaAlta() {
+	public String get_fechaAlta() {
 		return _fechaAlta;
 	}
 
-	public void set_fechaAlta(Date _fechaAlta) {
+	public void set_fechaAlta(String _fechaAlta) {
 		this._fechaAlta = _fechaAlta;
 	}
 
@@ -105,9 +122,11 @@ public class Prestamo implements ITables {
 			Query = "call prestamos_select(";
 			Query += "'";
 			Query += this._id;
-			Query += "','";
-			Query += this._fechaAlta;
-			Query += "','";
+			Query += "',";
+			Query += this._filtro_fechaDesde;
+			Query += ",";
+			Query += this._filtro_fechaHasta;
+			Query += ",'";
 			Query += this._monto;
 			Query += "','";
 			Query += this._cantCuotas;
@@ -117,7 +136,6 @@ public class Prestamo implements ITables {
 			Query += this._idCliente;
 			Query += "','";
 			Query += this._idCuenta;
-			Query += "','";
 			Query += "')";
 
 			return execute.ExecSelect(Query);
@@ -127,8 +145,6 @@ public class Prestamo implements ITables {
 			String Query = new String();
 			Query = "call prestamos_insert(";
 			Query += "'";
-			Query += this._fechaAlta;
-			Query += "','";
 			Query += this._monto;
 			Query += "','";
 			Query += this._cantCuotas;
@@ -148,8 +164,6 @@ public class Prestamo implements ITables {
 			Query = "call prestamos_update(";
 			Query += "'";
 			Query += this._id;
-			Query += "','";
-			Query += this._fechaAlta;
 			Query += "','";
 			Query += this._monto;
 			Query += "','";
@@ -175,24 +189,27 @@ public class Prestamo implements ITables {
 			return execute.ExecUpdate_Delete(Query);
 		}
 
-		public Cuenta Load() {
+		public Prestamo Load() throws OperationException {
 			ResultSet rs = this.Select();
-			Cuenta oCuenta = new Cuenta();
+			Prestamo oPrestamo = new Prestamo();
 
 			try {
 				if (rs.next()) {
-					oCuenta.set_id(rs.getInt("id"));
-					oCuenta.set_idCliente(rs.getInt("idCliente"));
-					oCuenta.set_tipo(rs.getInt("Tipo"));
-					//Como la base de datos tiene un boolean, tengo que transformarlo a int
-					oCuenta.set_estado(rs.getBoolean("Estado")?1:0);
-					oCuenta.set_saldo(rs.getInt("Saldo"));
-					oCuenta.set_descubierto(rs.getInt("Descubierto"));
-				}
-			} catch (SQLException e) {
-				_log.log(Level.WARNING, e.getStackTrace().toString());
+					oPrestamo.set_id(rs.getInt("id"));
+					oPrestamo.set_fechaAlta(rs.getTime("FechaAlta").toString());
+					oPrestamo.set_monto(rs.getDouble("Monto"));
+					oPrestamo.set_cantCuotas(rs.getInt("CantCuotas"));
+					oPrestamo.set_interes(rs.getDouble("Interes"));
+					oPrestamo.set_idCliente(rs.getInt("idCliente"));
+					oPrestamo.set_idCuenta(rs.getInt("idCuenta"));
+				} else {
+					throw new OperationException("No se encontro ningun " + this.getClass().getName());
 			}
-			return oCuenta;
+
+			} catch (SQLException e) {
+				_log.log(Level.WARNING, e.getStackTrace().toString() + "\n" + e.getMessage());
+			}
+			return oPrestamo;
 		}
 		
 		public int Cantidad()

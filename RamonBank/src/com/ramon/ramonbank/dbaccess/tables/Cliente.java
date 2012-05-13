@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.ramon.ramonbank.dbaccess.ExecuteQuery;
 import com.ramon.ramonbank.dbaccess.ITables;
+import com.ramon.ramonbank.exceptions.OperationException;
 
 public class Cliente implements ITables {
 
@@ -146,7 +147,7 @@ public class Cliente implements ITables {
 		return execute.ExecUpdate_Delete(Query);
 	}
 
-	public Cliente Load() {
+	public Cliente Load() throws OperationException {
 		ResultSet rs = this.Select();
 		Cliente oCliente = new Cliente();
 
@@ -158,19 +159,21 @@ public class Cliente implements ITables {
 				oCliente.set_apellido(rs.getString("apellido"));
 				oCliente.set_direccion(rs.getString("direccion"));
 				oCliente.set_email(rs.getString("eMail"));
+			} else {
+					throw new OperationException("No se encontro ningun " + this.getClass().getName());
 			}
+
 		} catch (SQLException e) {
 			_log.log(Level.WARNING, e.getStackTrace().toString());
 		}
 		return oCliente;
 	}
-	
-	public int Cantidad()
-	{
+
+	public int Cantidad() {
 		ResultSet rs = this.Select();
 		try {
 			rs.last();
-		return rs.getRow();
+			return rs.getRow();
 		} catch (SQLException e) {
 			_log.log(Level.WARNING, e.getStackTrace().toString());
 		}
