@@ -4,6 +4,7 @@ package com.ramon.ramonbank.businesslogic;
 import java.util.logging.Logger;
 import com.ramon.ramonbank.dbaccess.tables.Cliente;
 import com.ramon.ramonbank.dbaccess.tables.Cuenta;
+import com.ramon.ramonbank.dbaccess.tables.Movimiento;
 import com.ramon.ramonbank.dbaccess.tables.Prestamo;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.businesslogic.utils.CONST_TIPOCUENTA;
@@ -68,10 +69,17 @@ public class ServiciosCliente {
 		if (this._cliente == null) {
 			throw new OperationException("El objeto cliente es null");
 		}
-		// TODO: Minimo para prestamos, sacar el hardcore del minimo
+		
+		if (_idCuenta <= 0){
+			throw new OperationException("La cuenta es incorrecta");
+		}
+			
+		
 		if (_cantPrestamo < CONST_PRESTAMOS.MINIMO.cantMinimo()) {
 			throw new OperationException("El minimo de un prestamo es 5000");
 		}
+		
+		
 		Cuenta _cuenta = new Cuenta();
 		_cuenta.set_id(_idCuenta);
 		_cuenta = _cuenta.Load();
@@ -80,17 +88,29 @@ public class ServiciosCliente {
 
 		// Cobro en caso de tener un costo de movimiento
 		if (_cuenta.get_saldo() > _cantPrestamo * _costoMovimiento) {
+			
+			// TODO:Registrar Sacar el hardcode del tipo de movimiento y origen
+			Movimiento _movimiento = new Movimiento();
+			_movimiento.set_idcuenta(_idCuenta);
+			_movimiento.set_saldo(_cuenta.get_saldo());
+			_movimiento.set_tipo(2);
+			_movimiento.set_origen(4);
+			_movimiento.set_monto(_cantPrestamo);
+			_movimiento.Insert();
+			
 			_cuenta.set_saldo(_cuenta.get_saldo()
 					- (_cantPrestamo * _costoMovimiento));
+			_cuenta.set_saldo(_cuenta.get_saldo()+_cantPrestamo);
+			
 			_cuenta.Update();
 		} else {
 			throw new OperationException(
 					"No hay suficiente saldo para realizar el movimiento");
 		}
 
-		// TODO:Registrar movimiento, falta la clase
 
-		// TODO:TODO: Sacar el hardcore del prestamo
+		
+		// TODO:TODO: Sacar el hardcore del interes del prestamo
 		Prestamo _prestamo = new Prestamo();
 		_prestamo.set_interes(10);
 		_prestamo.set_idCliente(_cuenta.get_idCliente());
@@ -114,7 +134,7 @@ public class ServiciosCliente {
 			throw new OperationException("El minimo de un prestamo es 5000");
 		}
 
-		// TODO: Sacar el hardcore del prestamo
+		// TODO: Sacar el hardcore del interes del prestamo
 		Prestamo _prestamo = new Prestamo();
 		_prestamo.set_interes(15);
 		_prestamo.set_idCliente(_cliente.get_id());

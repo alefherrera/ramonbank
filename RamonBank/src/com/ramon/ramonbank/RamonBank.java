@@ -39,7 +39,7 @@ public class RamonBank {
 		}
 		ServiciosCliente _serv = new ServiciosCliente(oCliente);
 		try {
-			_serv.solicitarPrestamo(5000, 1);
+			_serv.solicitarPrestamo(5000, 1, 2);
 			Prestamo _prestamo = new Prestamo();
 			_prestamo.Load();
 			System.out.println(_prestamo.get_monto());

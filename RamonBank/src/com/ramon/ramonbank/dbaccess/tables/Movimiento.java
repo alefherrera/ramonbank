@@ -87,14 +87,6 @@ public class Movimiento implements ITables {
 		this._filtro_fechaHasta = _filtro_fechaHasta;
 	}
 
-	public Logger get_log() {
-		return _log;
-	}
-
-	public void set_log(Logger _log) {
-		this._log = _log;
-	}
-
 	private int _idcuenta;
 	private String _fecha;
 	private int _tipo;
