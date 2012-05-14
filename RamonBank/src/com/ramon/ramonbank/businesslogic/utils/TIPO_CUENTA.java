@@ -33,7 +33,7 @@ package com.ramon.ramonbank.businesslogic.utils;
 //    }
 //}
 
-public enum CONST_TIPOCUENTA {
+public enum TIPO_CUENTA {
 	CAJA_AHORROS(1, 1, "Caja de Ahorros", 0.0), CUENTA_CORRIENTE(2, 5,
 			"Cuenta Corriente", 0.06);
 
@@ -42,7 +42,7 @@ public enum CONST_TIPOCUENTA {
 	private String _nombre;
 	private double _costoMovimiento;
 
-	CONST_TIPOCUENTA(int _key, int _cantidadMax, String _nombre,
+	TIPO_CUENTA(int _key, int _cantidadMax, String _nombre,
 			double _costoMovimiento) {
 		this._key = _key;
 		this._cantidadMax = _cantidadMax;
@@ -66,7 +66,7 @@ public enum CONST_TIPOCUENTA {
 		return this._costoMovimiento;
 	}
 
-	public static CONST_TIPOCUENTA get_enum(int _key) {
+	public static TIPO_CUENTA get_enum(int _key) {
 		switch (_key) {
 		case 1:
 			return CAJA_AHORROS;

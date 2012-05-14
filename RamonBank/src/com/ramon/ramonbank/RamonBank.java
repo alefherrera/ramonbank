@@ -5,7 +5,7 @@ package com.ramon.ramonbank;
 import java.util.logging.Logger;
 
 import com.ramon.ramonbank.businesslogic.ServiciosCliente;
-import com.ramon.ramonbank.businesslogic.utils.CONST_TIPOCUENTA;
+import com.ramon.ramonbank.businesslogic.utils.TIPO_CUENTA;
 import com.ramon.ramonbank.dbaccess.tables.Cliente;
 import com.ramon.ramonbank.dbaccess.tables.Cuenta;
 import com.ramon.ramonbank.dbaccess.tables.Prestamo;
