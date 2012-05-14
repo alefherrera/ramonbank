@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import com.ramon.ramonbank.dbaccess.tables.Cliente;
 import com.ramon.ramonbank.dbaccess.tables.Cuenta;
 import com.ramon.ramonbank.dbaccess.tables.Movimiento;
+import com.ramon.ramonbank.dbaccess.tables.PagoPrestamo;
 import com.ramon.ramonbank.dbaccess.tables.Prestamo;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.businesslogic.utils.MOVIMIENTO;
@@ -176,7 +177,8 @@ public class ServiciosCliente {
 //		_prestamo.Load();
 //
 //		// TODO: Traer Prestamos pagados de este prestamo y hacer la resta
-//		PrestamoPagado _prestamosP = new PrestamoPagado();
+//		PagoPrestamo _prestamosP = new PagoPrestamo();
+//		_prestamosP.set_
 //		int _cuotasPagadas = _prestamosP.cuotasPagas();
 //		
 //		if(_cuotasPagadas == _prestamo.get_cantCuotas()){
