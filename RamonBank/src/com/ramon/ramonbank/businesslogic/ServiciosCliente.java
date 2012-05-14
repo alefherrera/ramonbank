@@ -7,10 +7,9 @@ import com.ramon.ramonbank.dbaccess.tables.Cuenta;
 import com.ramon.ramonbank.dbaccess.tables.Movimiento;
 import com.ramon.ramonbank.dbaccess.tables.Prestamo;
 import com.ramon.ramonbank.exceptions.OperationException;
-import com.ramon.ramonbank.businesslogic.utils.CONST_MOVIMIENTO_ORIGEN;
-import com.ramon.ramonbank.businesslogic.utils.CONST_MOVIMIENTO_TIPO;
-import com.ramon.ramonbank.businesslogic.utils.CONST_TIPOCUENTA;
-import com.ramon.ramonbank.businesslogic.utils.CONST_PRESTAMOS;
+import com.ramon.ramonbank.businesslogic.utils.MOVIMIENTO;
+import com.ramon.ramonbank.businesslogic.utils.TIPO_CUENTA;
+import com.ramon.ramonbank.businesslogic.utils.PRESTAMO;
 
 public class ServiciosCliente {
 	private Cliente _cliente;
@@ -50,14 +49,14 @@ public class ServiciosCliente {
 		// Verifico cantidad de cuentas, 1 maximo caja de ahorro, 5 maximo
 		// cuenta corriente
 
-		if (CONST_TIPOCUENTA.get_enum(_cuenta.get_tipo()).cantMax() > _cuenta
+		if (TIPO_CUENTA.get_enum(_cuenta.get_tipo()).cantMax() > _cuenta
 				.Cantidad()) {
 			// Puedo crear la cuenta
 			return _cuenta.Insert();
 		} else {
 			throw new OperationException("El cliente tiene "
 					+ _cuenta.Cantidad() + " "
-					+ CONST_TIPOCUENTA.get_enum(_cuenta.get_tipo()).cantMax()
+					+ TIPO_CUENTA.get_enum(_cuenta.get_tipo()).cantMax()
 					+ "/s");
 		}
 	}
@@ -79,7 +78,7 @@ public class ServiciosCliente {
 		}
 			
 		
-		if (_cantPrestamo < CONST_PRESTAMOS.MINIMO.number()) {
+		if (_cantPrestamo < PRESTAMO.MINIMO.number()) {
 			throw new OperationException("El minimo de un prestamo es 5000");
 		}
 		
@@ -87,7 +86,7 @@ public class ServiciosCliente {
 		Cuenta _cuenta = new Cuenta();
 		_cuenta.set_id(_idCuenta);
 		_cuenta = _cuenta.Load();
-		double _costoMovimiento = CONST_TIPOCUENTA.get_enum(_cuenta.get_tipo())
+		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuenta.get_tipo())
 				.costoMovimiento();
 
 		// Cobro en caso de tener un costo de movimiento
@@ -97,8 +96,8 @@ public class ServiciosCliente {
 			Movimiento _movimiento = new Movimiento();
 			_movimiento.set_idcuenta(_idCuenta);
 			_movimiento.set_saldo(_cuenta.get_saldo());
-			_movimiento.set_tipo(CONST_MOVIMIENTO_TIPO.DEPOSITO.id());
-			_movimiento.set_origen(CONST_MOVIMIENTO_ORIGEN.PRESTAMO.id());
+			_movimiento.set_tipo(MOVIMIENTO.TIPO.DEPOSITO.id());
+			_movimiento.set_origen(MOVIMIENTO.ORIGEN.PRESTAMO.id());
 			_movimiento.set_monto(_cantPrestamo);
 			_movimiento.Insert();
 			
@@ -116,7 +115,7 @@ public class ServiciosCliente {
 		// TODO:TODO: Sacar el hardcore del interes del prestamo
 		Prestamo _prestamo = new Prestamo();
 		//Son decimales, mas facil de manejar para codigo, en la base de datos guardo enteros
-		_prestamo.set_interes(CONST_PRESTAMOS.INTERES_SIN_CUENTA.number()*100);
+		_prestamo.set_interes(PRESTAMO.INTERES_SIN_CUENTA.number()*100);
 		_prestamo.set_idCliente(_cuenta.get_idCliente());
 		_prestamo.set_cantCuotas(_cantCuotas);
 		_prestamo.set_idCuenta(_cuenta.get_id());
@@ -135,14 +134,14 @@ public class ServiciosCliente {
 			throw new OperationException("El objeto cliente es null");
 		}
 
-		if (_cantPrestamo < CONST_PRESTAMOS.MINIMO.number()) {
+		if (_cantPrestamo < PRESTAMO.MINIMO.number()) {
 			throw new OperationException("El minimo de un prestamo es 5000");
 		}
 
 		// TODO: Sacar el hardcore del interes del prestamo
 		Prestamo _prestamo = new Prestamo();
 		//Son decimales, mas facil de manejar para codigo, en la base de datos guardo enteros
-		_prestamo.set_interes(CONST_PRESTAMOS.INTERES_CON_CUENTA.number()*100);
+		_prestamo.set_interes(PRESTAMO.INTERES_CON_CUENTA.number()*100);
 		_prestamo.set_idCliente(_cliente.get_id());
 		_prestamo.set_cantCuotas(_cantCuotas);
 		_prestamo.set_idCuenta(0);
