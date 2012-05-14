@@ -7,6 +7,8 @@ import com.ramon.ramonbank.dbaccess.tables.Cuenta;
 import com.ramon.ramonbank.dbaccess.tables.Movimiento;
 import com.ramon.ramonbank.dbaccess.tables.Prestamo;
 import com.ramon.ramonbank.exceptions.OperationException;
+import com.ramon.ramonbank.businesslogic.utils.CONST_MOVIMIENTO_ORIGEN;
+import com.ramon.ramonbank.businesslogic.utils.CONST_MOVIMIENTO_TIPO;
 import com.ramon.ramonbank.businesslogic.utils.CONST_TIPOCUENTA;
 import com.ramon.ramonbank.businesslogic.utils.CONST_PRESTAMOS;
 
@@ -60,6 +62,8 @@ public class ServiciosCliente {
 		}
 	}
 
+	
+	//PRESTAMO CON CUENTA
 	public int solicitarPrestamo(int _cantPrestamo, int _cantCuotas,
 			int _idCuenta) throws OperationException {
 		if (_cantCuotas <= 0) {
@@ -75,7 +79,7 @@ public class ServiciosCliente {
 		}
 			
 		
-		if (_cantPrestamo < CONST_PRESTAMOS.MINIMO.cantMinimo()) {
+		if (_cantPrestamo < CONST_PRESTAMOS.MINIMO.number()) {
 			throw new OperationException("El minimo de un prestamo es 5000");
 		}
 		
@@ -93,8 +97,8 @@ public class ServiciosCliente {
 			Movimiento _movimiento = new Movimiento();
 			_movimiento.set_idcuenta(_idCuenta);
 			_movimiento.set_saldo(_cuenta.get_saldo());
-			_movimiento.set_tipo(2);
-			_movimiento.set_origen(4);
+			_movimiento.set_tipo(CONST_MOVIMIENTO_TIPO.DEPOSITO.id());
+			_movimiento.set_origen(CONST_MOVIMIENTO_ORIGEN.PRESTAMO.id());
 			_movimiento.set_monto(_cantPrestamo);
 			_movimiento.Insert();
 			
@@ -108,11 +112,11 @@ public class ServiciosCliente {
 					"No hay suficiente saldo para realizar el movimiento");
 		}
 
-
 		
 		// TODO:TODO: Sacar el hardcore del interes del prestamo
 		Prestamo _prestamo = new Prestamo();
-		_prestamo.set_interes(10);
+		//Son decimales, mas facil de manejar para codigo, en la base de datos guardo enteros
+		_prestamo.set_interes(CONST_PRESTAMOS.INTERES_SIN_CUENTA.number()*100);
 		_prestamo.set_idCliente(_cuenta.get_idCliente());
 		_prestamo.set_cantCuotas(_cantCuotas);
 		_prestamo.set_idCuenta(_cuenta.get_id());
@@ -120,6 +124,7 @@ public class ServiciosCliente {
 		return _prestamo.Insert();
 	}
 
+	//PRESTAMO CON CUENTA
 	public int solicitarPrestamo(int _cantPrestamo, int _cantCuotas)
 			throws OperationException {
 		if (_cantCuotas <= 0) {
@@ -130,13 +135,14 @@ public class ServiciosCliente {
 			throw new OperationException("El objeto cliente es null");
 		}
 
-		if (_cantPrestamo < CONST_PRESTAMOS.MINIMO.cantMinimo()) {
+		if (_cantPrestamo < CONST_PRESTAMOS.MINIMO.number()) {
 			throw new OperationException("El minimo de un prestamo es 5000");
 		}
 
 		// TODO: Sacar el hardcore del interes del prestamo
 		Prestamo _prestamo = new Prestamo();
-		_prestamo.set_interes(15);
+		//Son decimales, mas facil de manejar para codigo, en la base de datos guardo enteros
+		_prestamo.set_interes(CONST_PRESTAMOS.INTERES_CON_CUENTA.number()*100);
 		_prestamo.set_idCliente(_cliente.get_id());
 		_prestamo.set_cantCuotas(_cantCuotas);
 		_prestamo.set_idCuenta(0);
