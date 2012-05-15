@@ -92,8 +92,6 @@ public class ServiciosCliente {
 
 		// Cobro en caso de tener un costo de movimiento
 		if (_cuenta.get_saldo() > _cantPrestamo * _costoMovimiento) {
-			
-			// TODO:Registrar Sacar el hardcode del tipo de movimiento y origen
 			Movimiento _movimiento = new Movimiento();
 			_movimiento.set_idcuenta(_idCuenta);
 			_movimiento.set_saldo(_cuenta.get_saldo());
@@ -113,7 +111,6 @@ public class ServiciosCliente {
 		}
 
 		
-		// TODO:TODO: Sacar el hardcore del interes del prestamo
 		Prestamo _prestamo = new Prestamo();
 		//Son decimales, mas facil de manejar para codigo, en la base de datos guardo enteros
 		_prestamo.set_interes(PRESTAMO.INTERES_SIN_CUENTA.number()*100);
@@ -139,7 +136,7 @@ public class ServiciosCliente {
 			throw new OperationException("El minimo de un prestamo es 5000");
 		}
 
-		// TODO: Sacar el hardcore del interes del prestamo
+		
 		Prestamo _prestamo = new Prestamo();
 		//Son decimales, mas facil de manejar para codigo, en la base de datos guardo enteros
 		_prestamo.set_interes(PRESTAMO.INTERES_CON_CUENTA.number()*100);
@@ -172,17 +169,18 @@ public class ServiciosCliente {
 					+ _cantidadCuotas);
 		}
 
-//		Prestamo _prestamo = new Prestamo();
-//		_prestamo.set_id(_idPrestamo);
-//		_prestamo.Load();
-//
-//		// TODO: Traer Prestamos pagados de este prestamo y hacer la resta
-//		PagoPrestamo _prestamosP = new PagoPrestamo();
-//		_prestamosP.set_
-//		int _cuotasPagadas = _prestamosP.cuotasPagas();
+		Prestamo _prestamo = new Prestamo();
+		_prestamo.set_id(_idPrestamo);
+		_prestamo = _prestamo.Load();
+
+		// TODO: Traer Prestamos pagados de este prestamo y hacer la resta
+		PagoPrestamo _prestamosP = new PagoPrestamo();
+		_prestamosP.set_idPrestamo(_idPrestamo);
+//		
+//		int _cuotasPagadas = _prestamosP.Cantidad();
 //		
 //		if(_cuotasPagadas == _prestamo.get_cantCuotas()){
-//			throw new OperationException("El prestamo ya se encuentra pago.")
+//			throw new OperationException("El prestamo ya se encuentra pago.");
 //		}
 //		
 //		int _cuotasPagar = _prestamo.get_cantCuotas()-_cuotasPagadas;
@@ -195,8 +193,8 @@ public class ServiciosCliente {
 //		
 //		double _totalPagar = _prestamo.get_monto()*(0.1*_prestamo.get_interes());
 //		if(Calendar.getInstance().getTime().getDate())
-//		
-//		// TODO: PagoPrestamo, cargar idCuenta en 0
+		
+		// TODO: PagoPrestamo, cargar idCuenta en 0
 		return 0;
 	}
 

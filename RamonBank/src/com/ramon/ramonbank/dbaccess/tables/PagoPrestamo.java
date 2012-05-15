@@ -16,6 +16,17 @@ public class PagoPrestamo implements ITables {
 	private Logger _log = Logger.getLogger("Log");
 
 	
+
+	private int _id;
+	private String _fecha;
+	private int _origen;
+	private int _idPrestamo;
+	private int _cantCuotas;
+	private int _monto;
+	private String _filtro_fechaDesde;
+	private String _filtro_fechaHasta;
+	
+
 	public int get_id() {
 		return _id;
 	}
@@ -40,20 +51,12 @@ public class PagoPrestamo implements ITables {
 		this._origen = _origen;
 	}
 
-	public int get_idcliente() {
-		return _idcliente;
+	public int get_idPrestamo() {
+		return _idPrestamo;
 	}
 
-	public void set_idcliente(int _idcliente) {
-		this._idcliente = _idcliente;
-	}
-
-	public int get_idcuenta() {
-		return _idcuenta;
-	}
-
-	public void set_idcuenta(int _idcuenta) {
-		this._idcuenta = _idcuenta;
+	public void set_idPrestamo(int _idcliente) {
+		this._idPrestamo = _idcliente;
 	}
 
 	public String get_filtro_fechaDesde() {
@@ -72,14 +75,25 @@ public class PagoPrestamo implements ITables {
 		this._filtro_fechaHasta = _filtro_fechaHasta;
 	}
 
-	private int _id;
-	private String _fecha;
-	private int _origen;
-	private int _idcliente;
-	private int _idcuenta;
-	private String _filtro_fechaDesde;
-	private String _filtro_fechaHasta;
-	
+
+	public int get_cantCuotas() {
+		return _cantCuotas;
+	}
+
+	public void set_cantCuotas(int _cantCuotas) {
+		this._cantCuotas = _cantCuotas;
+	}
+
+	public int get_monto() {
+		return _monto;
+	}
+
+	public void set_monto(int _monto) {
+		this._monto = _monto;
+	}
+
+
+
 	@Override
 	public ResultSet Select() {
 		String Query = new String();
@@ -93,14 +107,17 @@ public class PagoPrestamo implements ITables {
 		Query += ",'";
 		Query += this._origen;
 		Query += "','";
-		Query += this._idcliente;
+		Query += this._idPrestamo;
+		Query += ",'";
+		Query += this._cantCuotas;
 		Query += "','";
-		Query += this._idcuenta;
+		Query += this._monto;
 		Query += "')";
 
 		return execute.ExecSelect(Query);
 	}
-
+	
+	
 	@Override
 	public int Insert() {
 		String Query = new String();
@@ -108,9 +125,11 @@ public class PagoPrestamo implements ITables {
 		Query += "'";
 		Query += this._origen;
 		Query += "','";
-		Query += this._idcliente;
+		Query += this._idPrestamo;
+		Query += ",'";
+		Query += this._cantCuotas;
 		Query += "','";
-		Query += this._idcuenta;
+		Query += this._monto;
 		Query += "')";
 
 		return execute.ExecInsert(Query);
@@ -125,9 +144,11 @@ public class PagoPrestamo implements ITables {
 		Query += "','";
 		Query += this._origen;
 		Query += "','";
-		Query += this._idcliente;
+		Query += this._idPrestamo;
+		Query += ",'";
+		Query += this._cantCuotas;
 		Query += "','";
-		Query += this._idcuenta;
+		Query += this._monto;
 		Query += "')";
 
 		return execute.ExecUpdate_Delete(Query);
@@ -154,8 +175,9 @@ public class PagoPrestamo implements ITables {
 				oPagoPrestamo.set_id(rs.getInt("id"));
 				oPagoPrestamo.set_fecha(rs.getTime("Fecha").toString());
 				oPagoPrestamo.set_origen(rs.getInt("Origen"));
-				oPagoPrestamo.set_idcliente(rs.getInt("idCliente"));
-				oPagoPrestamo.set_idcuenta(rs.getInt("idCuenta"));
+				oPagoPrestamo.set_idPrestamo(rs.getInt("idPrestamo"));
+				oPagoPrestamo.set_cantCuotas(rs.getInt("CantCuotas"));
+				oPagoPrestamo.set_monto(rs.getInt("Monto"));
 			} else {
 				throw new OperationException("No se encontro ningun " + this.getClass().getName());
 		}
