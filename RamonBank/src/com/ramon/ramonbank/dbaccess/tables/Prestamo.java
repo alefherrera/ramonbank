@@ -6,52 +6,31 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ramon.ramonbank.dbaccess.ExecuteQuery;
-import com.ramon.ramonbank.dbaccess.ITables;
+import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
+import com.ramon.ramonbank.utils.Fecha;
 
-public class Prestamo implements ITables {
-	public String get_filtro_fechaDesde() {
-		return _filtro_fechaDesde;
-	}
-
-
-	public void set_filtro_fechaDesde(String _filtro_fechaDesde) {
-		this._filtro_fechaDesde = _filtro_fechaDesde;
-	}
-
-
-	public String get_filtro_fechaHasta() {
-		return _filtro_fechaHasta;
-	}
-
-
-	public void set_filtro_fechaHasta(String _filtro_fechaHasta) {
-		this._filtro_fechaHasta = _filtro_fechaHasta;
-	}
-
-	private ExecuteQuery execute;
-
+public class Prestamo extends Tables {
+	
 	private Logger _log = Logger.getLogger("Log");
 	//private SimpleDateFormat _dateFormat = new SimpleDateFormat("yyyy-dd-MM");
 	
 	private int _id;
-	private String _fechaAlta;
+	private Fecha _fechaAlta;
 	private double _monto;
 	private int _cantCuotas;
 	private double _interes;
 	private int _idCliente;
 	private int _idCuenta;
-	private String _filtro_fechaDesde;
-	private String _filtro_fechaHasta;
+	private Fecha _filtro_fechaDesde;
+	private Fecha _filtro_fechaHasta;
 	
 	public Prestamo() {
-		execute = new ExecuteQuery();
 		
 		this._id = -1;
-		this._fechaAlta = "0";
-		this._filtro_fechaDesde = "0";
-		this._filtro_fechaHasta = "0";
+		this._fechaAlta = new Fecha();
+		this._filtro_fechaDesde = new Fecha();
+		this._filtro_fechaHasta = new Fecha();
 		this._monto = -1;
 		this._cantCuotas = -1;
 		this._interes = -1;
@@ -69,11 +48,11 @@ public class Prestamo implements ITables {
 	}
 
 	public String get_fechaAlta() {
-		return _fechaAlta;
+		return _fechaAlta.get_Fecha();
 	}
 
-	public void set_fechaAlta(String _fechaAlta) {
-		this._fechaAlta = _fechaAlta;
+	public void set_fechaAlta(String fecha) {
+		this._fechaAlta.set_Fecha(fecha);
 	}
 
 	public double get_monto() {
@@ -115,78 +94,62 @@ public class Prestamo implements ITables {
 	public void set_idCuenta(int _idCuenta) {
 		this._idCuenta = _idCuenta;
 	}
+	
+	public String get_filtro_fechaDesde() {
+		return _filtro_fechaDesde.get_Fecha();
+	}
+
+	public void set_filtro_fechaDesde(String filtro_fechaDesde) {
+		this._filtro_fechaDesde.set_Fecha(filtro_fechaDesde);
+	}
+
+	public String get_filtro_fechaHasta() {
+		return _filtro_fechaHasta.get_Fecha();
+	}
+
+	public void set_filtro_fechaHasta(String filtro_fechaHasta) {
+		this._filtro_fechaHasta.set_Fecha(filtro_fechaHasta);
+	}
 
 		// Acceso a BD
 		public ResultSet Select() {
-			String Query = new String();
-			Query = "call prestamos_select(";
-			Query += "'";
-			Query += this._id;
-			Query += "',";
-			Query += this._filtro_fechaDesde;
-			Query += ",";
-			Query += this._filtro_fechaHasta;
-			Query += ",'";
-			Query += this._monto;
-			Query += "','";
-			Query += this._cantCuotas;
-			Query += "','";
-			Query += this._interes;
-			Query += "','";
-			Query += this._idCliente;
-			Query += "','";
-			Query += this._idCuenta;
-			Query += "')";
-
-			return execute.ExecSelect(Query);
+			Lista.clear();
+			Lista.add(this._id);		
+			Lista.add(this._filtro_fechaDesde);
+			Lista.add(this._filtro_fechaHasta);
+			Lista.add(this._monto);
+			Lista.add(this._cantCuotas);
+			Lista.add(this._interes);
+			Lista.add(this._idCliente);
+			Lista.add(this._idCuenta);
+			return super.Select(Lista);	
 		}
 
 		public int Insert() {
-			String Query = new String();
-			Query = "call prestamos_insert(";
-			Query += "'";
-			Query += this._monto;
-			Query += "','";
-			Query += this._cantCuotas;
-			Query += "','";
-			Query += this._interes;
-			Query += "','";
-			Query += this._idCliente;
-			Query += "','";
-			Query += this._idCuenta;
-			Query += "')";
-
-			return execute.ExecInsert(Query);
+			Lista.clear();
+			Lista.add(this._monto);
+			Lista.add(this._cantCuotas);
+			Lista.add(this._interes);
+			Lista.add(this._idCliente);
+			Lista.add(this._idCuenta);
+			return super.Insert(Lista);				
 		}
 
 		public boolean Update() {
-			String Query = new String();
-			Query = "call prestamos_update(";
-			Query += "'";
-			Query += this._id;
-			Query += "','";
-			Query += this._monto;
-			Query += "','";
-			Query += this._cantCuotas;
-			Query += "','";
-			Query += this._interes;
-			Query += "','";
-			Query += this._idCliente;
-			Query += "','";
-			Query += this._idCuenta;
-			Query += "')";
-
-			return execute.ExecUpdate_Delete(Query);
+			Lista.clear();
+			Lista.add(this._id);
+			Lista.add(this._monto);
+			Lista.add(this._cantCuotas);
+			Lista.add(this._interes);
+			Lista.add(this._idCliente);
+			Lista.add(this._idCuenta);
+			return super.Update(Lista);	
 		}
 
 		public boolean Delete() {
-			String Query = new String();
-			Query = "call prestamos_delete(";
-			Query += "'";
-			Query += this._id;
-			Query += "')";
-
-			return execute.ExecUpdate_Delete(Query);
+			Lista.clear();
+			Lista.add(this._id);		
+			return super.Delete(Lista);
 		}
 
 		public Prestamo Load() throws OperationException {

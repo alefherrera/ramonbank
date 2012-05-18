@@ -5,11 +5,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ramon.ramonbank.dbaccess.ExecuteQuery;
-import com.ramon.ramonbank.dbaccess.ITables;
+import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
 
-public class Cliente implements ITables {
+public class Cliente extends Tables {
 
 	private int _id;
 	private String _dni;
@@ -17,11 +16,9 @@ public class Cliente implements ITables {
 	private String _apellido;
 	private String _direccion;
 	private String _email;
-	private ExecuteQuery execute;
 	private Logger _log = Logger.getLogger("Log");
 
 	public Cliente() {
-		execute = new ExecuteQuery();
 		_id = -1;
 		_dni = "";
 		_nombre = "";
@@ -80,71 +77,45 @@ public class Cliente implements ITables {
 
 	// Acceso a BD
 	public ResultSet Select() {
-		String Query = new String();
-		Query = "call clientes_select(";
-		Query += "'";
-		Query += this._id;
-		Query += "','";
-		Query += this._dni;
-		Query += "','";
-		Query += this._nombre;
-		Query += "','";
-		Query += this._apellido;
-		Query += "','";
-		Query += this._direccion;
-		Query += "','";
-		Query += this._email;
-		Query += "')";
-
-		return execute.ExecSelect(Query);
+		
+		Lista.clear();
+		Lista.add(this._id);		
+		Lista.add(this._dni);
+		Lista.add(this._nombre);
+		Lista.add(this._apellido);
+		Lista.add(this._direccion);
+		Lista.add(this._email);	
+		return super.Select(Lista);	
+		
 	}
 
 	public int Insert() {
-		String Query = new String();
-		Query = "call clientes_insert(";
-		Query += "'";
-		Query += this._dni;
-		Query += "','";
-		Query += this._nombre;
-		Query += "','";
-		Query += this._apellido;
-		Query += "','";
-		Query += this._direccion;
-		Query += "','";
-		Query += this._email;
-		Query += "')";
-
-		return execute.ExecInsert(Query);
+		
+		Lista.clear();
+		Lista.add(this._id);
+		Lista.add(this._nombre);
+		Lista.add(this._apellido);
+		Lista.add(this._direccion);
+		Lista.add(this._email);	
+		return super.Insert(Lista);
 	}
 
 	public boolean Update() {
-		String Query = new String();
-		Query = "call clientes_update(";
-		Query += "'";
-		Query += this._id;
-		Query += "','";
-		Query += this._dni;
-		Query += "','";
-		Query += this._nombre;
-		Query += "','";
-		Query += this._apellido;
-		Query += "','";
-		Query += this._direccion;
-		Query += "','";
-		Query += this._email;
-		Query += "')";
-
-		return execute.ExecUpdate_Delete(Query);
+		
+		Lista.clear();
+		Lista.add(this._id);
+		Lista.add(this._dni);
+		Lista.add(this._nombre);
+		Lista.add(this._apellido);
+		Lista.add(this._direccion);
+		Lista.add(this._email);	
+		return super.Update(Lista);
 	}
 
 	public boolean Delete() {
-		String Query = new String();
-		Query = "call clientes_delete(";
-		Query += "'";
-		Query += this._id;
-		Query += "')";
-
-		return execute.ExecUpdate_Delete(Query);
+		Lista.clear();
+		Lista.add(this._id);		
+		return super.Delete(Lista);	
 	}
 
 	public Cliente Load() throws OperationException {

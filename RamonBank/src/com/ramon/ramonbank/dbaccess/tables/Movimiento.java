@@ -2,17 +2,16 @@ package com.ramon.ramonbank.dbaccess.tables;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ramon.ramonbank.RamonBank;
-import com.ramon.ramonbank.dbaccess.ExecuteQuery;
 import com.ramon.ramonbank.dbaccess.ITables;
+import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
+import com.ramon.ramonbank.utils.Fecha;
 
 
-public class Movimiento implements ITables {
+public class Movimiento extends Tables {
 	
 	private int _id;
 	public int get_id() {
@@ -32,11 +31,11 @@ public class Movimiento implements ITables {
 	}
 
 	public String get_fecha() {
-		return _fecha;
+		return _fecha.get_Fecha();
 	}
 
-	public void set_fecha(String _fecha) {
-		this._fecha = _fecha;
+	public void set_fecha(String fecha) {
+		this._fecha.set_Fecha(fecha);
 	}
 
 	public int get_tipo() {
@@ -72,122 +71,85 @@ public class Movimiento implements ITables {
 	}
 
 	public String get_filtro_fechaDesde() {
-		return _filtro_fechaDesde;
+		return _filtro_fechaDesde.get_Fecha();
 	}
 
-	public void set_filtro_fechaDesde(String _filtro_fechaDesde) {
-		this._filtro_fechaDesde = _filtro_fechaDesde;
+	public void set_filtro_fechaDesde(String filtro_fechaDesde) {
+		this._filtro_fechaDesde.set_Fecha(filtro_fechaDesde);
 	}
 
 	public String get_filtro_fechaHasta() {
-		return _filtro_fechaHasta;
+		return _filtro_fechaHasta.get_Fecha();
 	}
 
-	public void set_filtro_fechaHasta(String _filtro_fechaHasta) {
-		this._filtro_fechaHasta = _filtro_fechaHasta;
+	public void set_filtro_fechaHasta(String filtro_fechaHasta) {
+		this._filtro_fechaHasta.set_Fecha(filtro_fechaHasta);
 	}
 
 	private int _idcuenta;
-	private String _fecha;
+	private Fecha _fecha;
 	private int _tipo;
 	private int _origen;
 	private double _saldo;
 	private double _monto;
-	private String _filtro_fechaDesde;
-	private String _filtro_fechaHasta;
-
-	private ExecuteQuery execute;
+	private Fecha _filtro_fechaDesde;
+	private Fecha _filtro_fechaHasta;
 
 	private Logger _log = Logger.getLogger("Log");
 	
-	public Movimiento() {
-		execute = new ExecuteQuery();
-		
+	public Movimiento() {		
 		this._id = -1;
 		this._idcuenta = -1;
-		this._fecha = "0";
+		this._fecha = new Fecha();
 		this._tipo = -1;
 		this._origen = -1;
 		this._saldo = -1;
 		this._monto = -1;
-		this._filtro_fechaDesde = "0";
-		this._filtro_fechaHasta = "0";
+		this._filtro_fechaDesde = new Fecha();
+		this._filtro_fechaHasta = new Fecha();
 	}
 	
-	@Override
+
 	public ResultSet Select() {
-		String Query = new String();
-		Query = "call movimientos_select(";
-		Query += "'";
-		Query += this._id;
-		Query += "',";
-		Query += this._filtro_fechaDesde;
-		Query += ",";
-		Query += this._filtro_fechaHasta;
-		Query += ",'";
-		Query += this._tipo;
-		Query += "','";
-		Query += this._origen;
-		Query += "','";
-		Query += this._saldo;
-		Query += "','";
-		Query += this._monto;
-		Query += "')";
-
-		return execute.ExecSelect(Query);
+		
+		Lista.clear();
+		Lista.add(this._id);		
+		Lista.add(this._filtro_fechaDesde);
+		Lista.add(this._filtro_fechaHasta);
+		Lista.add(this._tipo);
+		Lista.add(this._origen);
+		Lista.add(this._saldo);
+		Lista.add(this._monto);
+		return super.Select(Lista);	
 
 	}
 
-	@Override
+
 	public int Insert() {
-		String Query = new String();
-		Query = "call movimientos_insert(";
-		Query += "'";
-		Query += this._idcuenta;
-		Query += "','";
-		Query += this._tipo;
-		Query += "','";
-		Query += this._origen;
-		Query += "','";
-		Query += this._saldo;
-		Query += "','";
-		Query += this._monto;
-		Query += "')";
-
-		return execute.ExecInsert(Query);
-
+		Lista.clear();
+		Lista.add(this._idcuenta);
+		Lista.add(this._tipo);
+		Lista.add(this._origen);
+		Lista.add(this._saldo);
+		Lista.add(this._monto);
+		return super.Insert(Lista);	
 	}
 
-	@Override
 	public boolean Update() {
-		String Query = new String();
-		Query = "call movimientos_update(";
-		Query += "'";
-		Query += this._id;
-		Query += "','";		
-		Query += this._idcuenta;
-		Query += "','";
-		Query += this._tipo;
-		Query += "','";
-		Query += this._origen;
-		Query += "','";
-		Query += this._saldo;
-		Query += "','";
-		Query += this._monto;
-		Query += "')";
-
-		return execute.ExecUpdate_Delete(Query);
+		Lista.clear();
+		Lista.add(this._id);
+		Lista.add(this._idcuenta);
+		Lista.add(this._tipo);
+		Lista.add(this._origen);
+		Lista.add(this._saldo);
+		Lista.add(this._monto);
+		return super.Update(Lista);		
 	}
 
-	@Override
 	public boolean Delete() {
-		String Query = new String();
-		Query = "call movimientos_delete(";
-		Query += "'";
-		Query += this._id;
-		Query += "')";
-
-		return execute.ExecUpdate_Delete(Query);
+		Lista.clear();
+		Lista.add(this._id);		
+		return super.Delete(Lista);	
 	}
 
 	@Override

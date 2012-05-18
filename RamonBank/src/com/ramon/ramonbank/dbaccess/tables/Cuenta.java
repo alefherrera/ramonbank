@@ -4,30 +4,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.ramon.ramonbank.dbaccess.ExecuteQuery;
-import com.ramon.ramonbank.dbaccess.ITables;
+import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
 
-public class Cuenta implements ITables {
+public class Cuenta extends Tables {
 
 	private int _id;
 	private int _idCliente;
 	private int _tipo;
-	private int _estado;
+	private int _filtroEstado;
+	private boolean _estado;
 	private double _saldo;
 	private double _descubierto;
 
-	private ExecuteQuery execute;
 	private Logger _log = Logger.getLogger("Log");
 
 	public Cuenta() {
-		execute = new ExecuteQuery();
 		_id = -1;
 		_idCliente = -1;
 		_tipo = -1;
-		_estado = -1;
+		_estado = true;
+		_filtroEstado = -1;
 		_saldo = -1;
 		_descubierto = -1;
+	}
+
+	public void set_estado(boolean _estado) {
+		this._estado = _estado;
 	}
 
 	public int get_id() {
@@ -54,12 +57,12 @@ public class Cuenta implements ITables {
 		this._tipo = _tipo;
 	}
 
-	public int get_estado() {
-		return _estado;
+	public int get_filtroEstado() {
+		return _filtroEstado;
 	}
 
-	public void set_estado(int i) {
-		this._estado = i;
+	public void set_filtroEstado(int i) {
+		this._filtroEstado = i;
 	}
 
 	public double get_saldo() {
@@ -78,85 +81,44 @@ public class Cuenta implements ITables {
 		this._descubierto = _descubierto;
 	}
 
-	public ExecuteQuery getExecute() {
-		return execute;
-	}
-
-	public void setExecute(ExecuteQuery execute) {
-		this.execute = execute;
-	}
 
 	// Acceso a BD
 	public ResultSet Select() {
-		String Query = new String();
-		Query = "call cuentas_select(";
-		Query += "'";
-		Query += this._id;
-		Query += "','";
-		Query += this._idCliente;
-		Query += "','";
-		Query += this._tipo;
-		Query += "','";
-		Query += this._estado;
-		Query += "','";
-		Query += this._saldo;
-		Query += "','";
-		Query += this._descubierto;
-		Query += "')";
-
-		return execute.ExecSelect(Query);
+		Lista.clear();
+		Lista.add(this._id);		
+		Lista.add(this._idCliente);
+		Lista.add(this._tipo);
+		Lista.add(this._filtroEstado);
+		Lista.add(this._saldo);
+		Lista.add(this._descubierto);	
+		return super.Select(Lista);
 	}
 
 	public int Insert() {
-		String Query = new String();
-		Query = "call cuentas_insert(";
-		Query += "'";
-		Query += this._idCliente;
-		Query += "','";
-		Query += this._tipo;
-		Query += "',";
-		// El query manda true o false, en la base de datos es boolean, se hace
-		// asi por filtro del select
-		Query += this._estado == 1 ? 1 : 0;
-		Query += ",'";
-		Query += this._saldo;
-		Query += "','";
-		Query += this._descubierto;
-		Query += "')";
-
-		return execute.ExecInsert(Query);
+		Lista.clear();		
+		Lista.add(this._idCliente);
+		Lista.add(this._tipo);
+		Lista.add(this._estado);
+		Lista.add(this._saldo);
+		Lista.add(this._descubierto);	
+		return super.Insert(Lista);
 	}
 
 	public boolean Update() {
-		String Query = new String();
-		Query = "call cuentas_update(";
-		Query += "'";
-		Query += this._id;
-		Query += "','";
-		Query += this._idCliente;
-		Query += "','";
-		Query += this._tipo;
-		Query += "',";
-		// El query manda true o false, en la base de datos es boolean, se hace
-		// asi por filtro del select
-		Query += this._estado == 1 ? 1 : 0;
-		Query += ",'";
-		Query += this._saldo;
-		Query += "','";
-		Query += this._descubierto;
-		Query += "')";
-
-		return execute.ExecUpdate_Delete(Query);
+		Lista.clear();	
+		Lista.add(this._id);	
+		Lista.add(this._idCliente);
+		Lista.add(this._tipo);		
+		Lista.add(this._estado);
+		Lista.add(this._saldo);
+		Lista.add(this._descubierto);	
+		return super.Update(Lista);		
 	}
 
 	public boolean Delete() {
-		String Query = new String();
-		Query = "call cuentas_delete(";
-		Query += "'";
-		Query += this._id;
-		Query += "')";
-
-		return execute.ExecUpdate_Delete(Query);
+		Lista.clear();
+		Lista.add(this._id);		
+		return super.Delete(Lista);	
 	}
 
 	public Cuenta Load() throws OperationException {
@@ -170,7 +132,7 @@ public class Cuenta implements ITables {
 				oCuenta.set_tipo(rs.getInt("Tipo"));
 				// Como la base de datos tiene un boolean, tengo que
 				// transformarlo a int
-				oCuenta.set_estado(rs.getBoolean("Estado") ? 1 : 0);
+				oCuenta.set_estado(rs.getBoolean("Estado"));
 				oCuenta.set_saldo(rs.getInt("Saldo"));
 				oCuenta.set_descubierto(rs.getInt("Descubierto"));
 			} else {
