@@ -212,6 +212,4 @@ public class ServiciosCliente {
 		// TODO: PagoPrestamo, cargar idCuenta en 0
 		return 0;
 	}
-
-	
 }
