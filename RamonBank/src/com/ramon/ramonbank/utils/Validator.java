@@ -11,7 +11,7 @@ public class Validator {
 	}
 	
 	public static boolean validMail(String str){
-		
+		//TODO: Una validacion posta
 		return true;
 	}
 	

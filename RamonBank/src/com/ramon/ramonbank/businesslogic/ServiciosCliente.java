@@ -147,14 +147,24 @@ public class ServiciosCliente {
 		return _prestamo.Insert();
 	}
 
-	public int pagarPrestamo(Prestamos _prestamo, Cuentas _cuenta,
+	public int pagarPrestamo(Prestamos _prestamo,
 			int _cantidadCuotas) throws OperationException {
 		if (this._cliente == null) {
 			throw new OperationException("El objeto cliente es null");
 		}
-
+		if (_cantidadCuotas <= 0) {
+			throw new OperationException("Cantidad de cuotas incorrecta: "
+					+ _cantidadCuotas);
+		}
+		if(_prestamo.Cantidad() == 0){
+			throw new OperationException("El prestamo no existe");
+		}
+		
 		// TODO: PagoPrestamo, cargar idCuenta en 0
-
+		PagoPrestamos _pagoPrestamo = new PagoPrestamos();
+		_pagoPrestamo.set_cantCuotas(_cantidadCuotas);
+		_pagoPrestamo.set_idPrestamo(_prestamo.get_id());
+		
 		return 0;
 	}
 
@@ -168,9 +178,14 @@ public class ServiciosCliente {
 			throw new OperationException("Cantidad de cuotas incorrecta: "
 					+ _cantidadCuotas);
 		}
-
+		
 		Prestamos _prestamo = new Prestamos();
 		_prestamo.set_id(_idPrestamo);
+		
+		if(_prestamo.Cantidad() == 0){
+			throw new OperationException("El prestamo no existe");
+		}
+
 		_prestamo = _prestamo.Load();
 
 		// TODO: Traer Prestamos pagados de este prestamo y hacer la resta

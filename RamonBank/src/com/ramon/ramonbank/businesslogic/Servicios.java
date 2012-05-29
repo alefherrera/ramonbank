@@ -6,6 +6,7 @@ import com.ramon.ramonbank.utils.Validator;
 
 public class Servicios {
 	/**
+	 * Verifica los datos del objeto cliente y lo registra si todo es correcto
 	 * @param _cliente
 	 * @return id del Cliente creado
 	 * @throws OperationException
@@ -39,5 +40,27 @@ public class Servicios {
 		//Proceso
 		return _cliente.Insert();
 	}
-
+	
+	/**
+	 * Verifica que el dni este registrado y devuelve el objeto cliente cargado
+	 * de base de datos
+	 * @param _cliente
+	 * @return Objeto cliente cargado de base de datos
+	 * @throws OperationException
+	 */
+	public static Clientes loguear(Clientes _cliente) throws OperationException{
+		if(_cliente == null){
+			throw new OperationException("El objeto cliente es null");
+		}
+		if(!Validator.valDNI(_cliente.get_dni())){
+			throw new OperationException("DNI incorrecto");
+		}
+		
+		if(_cliente.Cantidad() == 0){
+			throw new OperationException("El cliente no existe");
+		}
+		_cliente = _cliente.Load();
+		
+		return _cliente;
+	}
 }

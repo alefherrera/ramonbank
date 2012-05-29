@@ -38,13 +38,11 @@ public abstract class Tables implements ITables {
 
 	@Override
 	public ITables Load() throws OperationException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int Cantidad() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

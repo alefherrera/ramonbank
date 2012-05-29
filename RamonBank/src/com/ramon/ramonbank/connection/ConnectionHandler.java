@@ -33,7 +33,6 @@ public class ConnectionHandler implements IConnectionHandler {
 
 	@Override
 	public void closeResources(Statement st, Connection cn) {
-		// TODO Auto-generated method stub
 		
 	}
 	
