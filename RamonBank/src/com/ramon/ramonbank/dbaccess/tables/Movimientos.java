@@ -11,7 +11,7 @@ import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.utils.Fecha;
 
 
-public class Movimiento extends Tables {
+public class Movimientos extends Tables {
 	
 	private int _id;
 	public int get_id() {
@@ -97,7 +97,7 @@ public class Movimiento extends Tables {
 
 	private Logger _log = Logger.getLogger("Log");
 	
-	public Movimiento() {		
+	public Movimientos() {		
 		this._id = -1;
 		this._idcuenta = -1;
 		this._fecha = new Fecha();
@@ -155,7 +155,7 @@ public class Movimiento extends Tables {
 	@Override
 	public ITables Load() throws OperationException {
 		ResultSet rs = this.Select();
-		Movimiento oMovimiento = new Movimiento();
+		Movimientos oMovimiento = new Movimientos();
 
 		try {
 			if (rs.next()) {

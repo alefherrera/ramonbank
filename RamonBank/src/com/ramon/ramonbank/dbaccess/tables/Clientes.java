@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
 
-public class Cliente extends Tables {
+public class Clientes extends Tables {
 
 	private int _id;
 	private String _dni;
@@ -18,7 +18,7 @@ public class Cliente extends Tables {
 	private String _email;
 	private Logger _log = Logger.getLogger("Log");
 
-	public Cliente() {
+	public Clientes() {
 		_id = -1;
 		_dni = "";
 		_nombre = "";
@@ -118,9 +118,9 @@ public class Cliente extends Tables {
 		return super.Delete(Lista);	
 	}
 
-	public Cliente Load() throws OperationException {
+	public Clientes Load() throws OperationException {
 		ResultSet rs = this.Select();
-		Cliente oCliente = new Cliente();
+		Clientes oCliente = new Clientes();
 
 		try {
 			if (rs.next()) {

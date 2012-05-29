@@ -15,4 +15,17 @@ public class Validator {
 		return true;
 	}
 	
+	public static boolean valDNI(String str){
+		str = str.replace(".", "");
+		str = str.replace(",", "");
+		if (!isNumeric(str)){
+			return false;
+		}
+		Double dni = Double.parseDouble(str);
+		if (dni <= 0 || dni >= 900000000){
+			return false;
+		}
+		return true;
+	}
+	
 }

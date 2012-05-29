@@ -50,7 +50,7 @@ public abstract class Tables implements ITables {
 
 	private String GenerarQuery(String Tipo, ArrayList<Object> Lista) {
 		String Query;
-		Query = "call " + this.getClass().getSimpleName() + "s_";
+		Query = "call " + this.getClass().getSimpleName() + "_";
 
 		Query += Tipo;
 

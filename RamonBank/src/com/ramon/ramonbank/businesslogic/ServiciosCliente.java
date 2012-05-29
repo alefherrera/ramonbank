@@ -2,30 +2,30 @@ package com.ramon.ramonbank.businesslogic;
 
 
 import java.util.logging.Logger;
-import com.ramon.ramonbank.dbaccess.tables.Cliente;
-import com.ramon.ramonbank.dbaccess.tables.Cuenta;
-import com.ramon.ramonbank.dbaccess.tables.Movimiento;
-import com.ramon.ramonbank.dbaccess.tables.PagoPrestamo;
-import com.ramon.ramonbank.dbaccess.tables.Prestamo;
+import com.ramon.ramonbank.dbaccess.tables.Clientes;
+import com.ramon.ramonbank.dbaccess.tables.Cuentas;
+import com.ramon.ramonbank.dbaccess.tables.Movimientos;
+import com.ramon.ramonbank.dbaccess.tables.PagoPrestamos;
+import com.ramon.ramonbank.dbaccess.tables.Prestamos;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.businesslogic.utils.MOVIMIENTO;
 import com.ramon.ramonbank.businesslogic.utils.TIPO_CUENTA;
 import com.ramon.ramonbank.businesslogic.utils.PRESTAMO;
 
 public class ServiciosCliente {
-	private Cliente _cliente;
+	private Clientes _cliente;
 
 	private Logger _log = Logger.getLogger("Log");
 
-	public Cliente get_cliente() {
+	public Clientes get_cliente() {
 		return _cliente;
 	}
 
-	public void set_cliente(Cliente oCliente) {
+	public void set_cliente(Clientes oCliente) {
 		this._cliente = oCliente;
 	}
 
-	public ServiciosCliente(Cliente _cliente) {
+	public ServiciosCliente(Clientes _cliente) {
 		this._cliente = _cliente;
 	}
 	
@@ -35,7 +35,7 @@ public class ServiciosCliente {
 	}
 
 	public int crearCuenta(int _tipo) throws OperationException {
-		Cuenta _cuenta = new Cuenta();
+		Cuentas _cuenta = new Cuentas();
 		_cuenta.set_tipo(_tipo);
 		_cuenta.set_idCliente(_cliente.get_id());
 		// Validaciones iniciales
@@ -84,7 +84,7 @@ public class ServiciosCliente {
 		}
 		
 		
-		Cuenta _cuenta = new Cuenta();
+		Cuentas _cuenta = new Cuentas();
 		_cuenta.set_id(_idCuenta);
 		_cuenta = _cuenta.Load();
 		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuenta.get_tipo())
@@ -92,7 +92,7 @@ public class ServiciosCliente {
 
 		// Cobro en caso de tener un costo de movimiento
 		if (_cuenta.get_saldo() > _cantPrestamo * _costoMovimiento) {
-			Movimiento _movimiento = new Movimiento();
+			Movimientos _movimiento = new Movimientos();
 			_movimiento.set_idcuenta(_idCuenta);
 			_movimiento.set_saldo(_cuenta.get_saldo());
 			_movimiento.set_tipo(MOVIMIENTO.TIPO.DEPOSITO.id());
@@ -111,7 +111,7 @@ public class ServiciosCliente {
 		}
 
 		
-		Prestamo _prestamo = new Prestamo();
+		Prestamos _prestamo = new Prestamos();
 		//Son decimales, mas facil de manejar para codigo, en la base de datos guardo enteros
 		_prestamo.set_interes(PRESTAMO.INTERES_SIN_CUENTA.number()*100);
 		_prestamo.set_idCliente(_cuenta.get_idCliente());
@@ -137,7 +137,7 @@ public class ServiciosCliente {
 		}
 
 		
-		Prestamo _prestamo = new Prestamo();
+		Prestamos _prestamo = new Prestamos();
 		//Son decimales, mas facil de manejar para codigo, en la base de datos guardo enteros
 		_prestamo.set_interes(PRESTAMO.INTERES_CON_CUENTA.number()*100);
 		_prestamo.set_idCliente(_cliente.get_id());
@@ -147,7 +147,7 @@ public class ServiciosCliente {
 		return _prestamo.Insert();
 	}
 
-	public int pagarPrestamo(Prestamo _prestamo, Cuenta _cuenta,
+	public int pagarPrestamo(Prestamos _prestamo, Cuentas _cuenta,
 			int _cantidadCuotas) throws OperationException {
 		if (this._cliente == null) {
 			throw new OperationException("El objeto cliente es null");
@@ -169,12 +169,12 @@ public class ServiciosCliente {
 					+ _cantidadCuotas);
 		}
 
-		Prestamo _prestamo = new Prestamo();
+		Prestamos _prestamo = new Prestamos();
 		_prestamo.set_id(_idPrestamo);
 		_prestamo = _prestamo.Load();
 
 		// TODO: Traer Prestamos pagados de este prestamo y hacer la resta
-		PagoPrestamo _prestamosP = new PagoPrestamo();
+		PagoPrestamos _prestamosP = new PagoPrestamos();
 		_prestamosP.set_idPrestamo(_idPrestamo);
 //		
 //		int _cuotasPagadas = _prestamosP.Cantidad();

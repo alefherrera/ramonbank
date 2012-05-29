@@ -10,7 +10,7 @@ import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.utils.Fecha;
 
-public class PagoPrestamo extends Tables {
+public class PagoPrestamos extends Tables {
 	
 
 	private Logger _log = Logger.getLogger("Log");
@@ -26,7 +26,7 @@ public class PagoPrestamo extends Tables {
 	private Fecha _filtro_fechaDesde;
 	private Fecha _filtro_fechaHasta;
 	
-	public PagoPrestamo()
+	public PagoPrestamos()
 	{
 		
 		this._id = -1;
@@ -147,7 +147,7 @@ public class PagoPrestamo extends Tables {
 	@Override
 	public ITables Load() throws OperationException {
 		ResultSet rs = this.Select();
-		PagoPrestamo oPagoPrestamo = new PagoPrestamo();
+		PagoPrestamos oPagoPrestamo = new PagoPrestamos();
 
 		try {
 			if (rs.next()) {

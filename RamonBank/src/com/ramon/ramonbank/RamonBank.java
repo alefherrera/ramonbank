@@ -6,10 +6,10 @@ import java.util.logging.Logger;
 
 import com.ramon.ramonbank.businesslogic.ServiciosCliente;
 import com.ramon.ramonbank.businesslogic.utils.TIPO_CUENTA;
-import com.ramon.ramonbank.dbaccess.tables.Cliente;
-import com.ramon.ramonbank.dbaccess.tables.Cuenta;
-import com.ramon.ramonbank.dbaccess.tables.PagoPrestamo;
-import com.ramon.ramonbank.dbaccess.tables.Prestamo;
+import com.ramon.ramonbank.dbaccess.tables.Clientes;
+import com.ramon.ramonbank.dbaccess.tables.Cuentas;
+import com.ramon.ramonbank.dbaccess.tables.PagoPrestamos;
+import com.ramon.ramonbank.dbaccess.tables.Prestamos;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.utils.RBLogger;
 
@@ -30,7 +30,7 @@ public class RamonBank {
 	public RamonBank() {
 		RBLogger.load();
 		
-		PagoPrestamo oPagoPrestamo = new PagoPrestamo();
+		PagoPrestamos oPagoPrestamo = new PagoPrestamos();
 		oPagoPrestamo.Select();
 	}	
 }

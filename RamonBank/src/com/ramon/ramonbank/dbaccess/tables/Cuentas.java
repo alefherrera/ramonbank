@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
 
-public class Cuenta extends Tables {
+public class Cuentas extends Tables {
 
 	private int _id;
 	private int _idCliente;
@@ -19,7 +19,7 @@ public class Cuenta extends Tables {
 
 	private Logger _log = Logger.getLogger("Log");
 
-	public Cuenta() {
+	public Cuentas() {
 		_id = -1;
 		_idCliente = -1;
 		_tipo = -1;
@@ -121,9 +121,9 @@ public class Cuenta extends Tables {
 		return super.Delete(Lista);	
 	}
 
-	public Cuenta Load() throws OperationException {
+	public Cuentas Load() throws OperationException {
 		ResultSet rs = this.Select();
-		Cuenta oCuenta = new Cuenta();
+		Cuentas oCuenta = new Cuentas();
 
 		try {
 			if (rs.next()) {
