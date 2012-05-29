@@ -22,7 +22,7 @@ public class PagoPrestamos extends Tables {
 	private int _origen;
 	private int _idPrestamo;
 	private int _cantCuotas;
-	private int _monto;
+	private double _monto;
 	private Fecha _filtro_fechaDesde;
 	private Fecha _filtro_fechaHasta;
 	
@@ -96,11 +96,11 @@ public class PagoPrestamos extends Tables {
 		this._cantCuotas = _cantCuotas;
 	}
 
-	public int get_monto() {
+	public double get_monto() {
 		return _monto;
 	}
 
-	public void set_monto(int _monto) {
+	public void set_monto(double _monto) {
 		this._monto = _monto;
 	}
 
