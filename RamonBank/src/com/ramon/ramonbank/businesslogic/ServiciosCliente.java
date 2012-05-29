@@ -272,11 +272,6 @@ public class ServiciosCliente {
 		// Proceso
 		// TODO: Meter las validaciones de cantidad de cuotas a pagar de la
 		// sobrecarga
-
-		// Registro movimiento
-		// TODO: Chequear si tiene suficiente saldo para pagar las cuotas +
-		// costo de movimiento
-
 		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuenta.get_tipo())
 				.costoMovimiento();
 		double _monto = _prestamo.get_monto()
@@ -294,7 +289,8 @@ public class ServiciosCliente {
 			throw new OperationException(
 					"No hay suficiente saldo para realizar el movimiento");
 		}
-
+		
+		// Registro movimiento
 		Movimientos _movimiento = new Movimientos();
 		_movimiento.set_idcuenta(_cuenta.get_id());
 		_movimiento.set_monto(_monto);
@@ -382,8 +378,6 @@ public class ServiciosCliente {
 		_pagoPrestamo.set_cantCuotas(_cantidadCuotas);
 		_pagoPrestamo.set_idPrestamo(_prestamo.get_id());
 		_pagoPrestamo.set_origen(PAGO_PRESTAMO.CUENTA.id());
-		// TODO: Reemplazar el monto por el calculo en base a la cantidad de
-		// cuentas
 		_pagoPrestamo.set_monto(_monto);
 		return _pagoPrestamo.Insert();
 	}
