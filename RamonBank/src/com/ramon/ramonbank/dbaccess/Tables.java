@@ -10,7 +10,7 @@ import com.ramon.ramonbank.utils.Fecha;
 public abstract class Tables implements ITables {
 
 	// private String Query;
-	private ExecuteQuery execute;
+	protected ExecuteQuery execute;
 	private Logger _log = Logger.getLogger("Log");
 	protected ArrayList<Object> Lista = new ArrayList<Object>();
 	

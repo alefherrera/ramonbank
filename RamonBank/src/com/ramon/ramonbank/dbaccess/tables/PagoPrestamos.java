@@ -11,11 +11,8 @@ import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.utils.Fecha;
 
 public class PagoPrestamos extends Tables {
-	
 
 	private Logger _log = Logger.getLogger("Log");
-
-	
 
 	private int _id;
 	private Fecha _fecha;
@@ -25,10 +22,9 @@ public class PagoPrestamos extends Tables {
 	private double _monto;
 	private Fecha _filtro_fechaDesde;
 	private Fecha _filtro_fechaHasta;
-	
-	public PagoPrestamos()
-	{
-		
+
+	public PagoPrestamos() {
+
 		this._id = -1;
 		this._fecha = new Fecha();
 		this._origen = -1;
@@ -38,7 +34,7 @@ public class PagoPrestamos extends Tables {
 		this._filtro_fechaDesde = new Fecha();
 		this._filtro_fechaHasta = new Fecha();
 	}
-	
+
 	public int get_id() {
 		return _id;
 	}
@@ -87,7 +83,6 @@ public class PagoPrestamos extends Tables {
 		this._filtro_fechaHasta.set_Fecha(filtro_fechaHasta);
 	}
 
-
 	public int get_cantCuotas() {
 		return _cantCuotas;
 	}
@@ -104,44 +99,41 @@ public class PagoPrestamos extends Tables {
 		this._monto = _monto;
 	}
 
-
-
 	public ResultSet Select() {
 		Lista.clear();
-		Lista.add(this._id);		
+		Lista.add(this._id);
 		Lista.add(this._filtro_fechaDesde);
 		Lista.add(this._filtro_fechaHasta);
 		Lista.add(this._origen);
 		Lista.add(this._idPrestamo);
 		Lista.add(this._cantCuotas);
-		Lista.add(this._monto);		
-		return super.Select(Lista);		
-	}
-	
-	
-	public int Insert() {
-		Lista.clear();
-		Lista.add(this._origen);		
-		Lista.add(this._idPrestamo);
-		Lista.add(this._cantCuotas);
-		Lista.add(this._monto);				
-		return super.Insert(Lista);		
+		Lista.add(this._monto);
+		return super.Select(Lista);
 	}
 
-	public boolean Update() {
+	public int Insert() {
 		Lista.clear();
-		Lista.add(this._id);		
 		Lista.add(this._origen);
 		Lista.add(this._idPrestamo);
 		Lista.add(this._cantCuotas);
 		Lista.add(this._monto);
-		return super.Update(Lista);		
+		return super.Insert(Lista);
+	}
+
+	public boolean Update() {
+		Lista.clear();
+		Lista.add(this._id);
+		Lista.add(this._origen);
+		Lista.add(this._idPrestamo);
+		Lista.add(this._cantCuotas);
+		Lista.add(this._monto);
+		return super.Update(Lista);
 	}
 
 	public boolean Delete() {
 		Lista.clear();
-		Lista.add(this._id);		
-		return super.Delete(Lista);	
+		Lista.add(this._id);
+		return super.Delete(Lista);
 	}
 
 	@Override
@@ -158,11 +150,13 @@ public class PagoPrestamos extends Tables {
 				oPagoPrestamo.set_cantCuotas(rs.getInt("CantCuotas"));
 				oPagoPrestamo.set_monto(rs.getInt("Monto"));
 			} else {
-				throw new OperationException("No se encontro ningun " + this.getClass().getName());
-		}
+				throw new OperationException("No se encontro ningun "
+						+ this.getClass().getName());
+			}
 
 		} catch (SQLException e) {
-			_log.log(Level.WARNING, e.getStackTrace().toString() + "\n" + e.getMessage());
+			_log.log(Level.WARNING,
+					e.getStackTrace().toString() + "\n" + e.getMessage());
 		}
 		return oPagoPrestamo;
 	}
@@ -179,4 +173,21 @@ public class PagoPrestamos extends Tables {
 		return -1;
 	}
 
+	public int CantidadCuotas() {
+		ResultSet rs = execute.ExecSelect("call pagoprestamo_cantidadcuotas("
+				+ this._idPrestamo + ")");
+
+		try {
+			if (rs.next()) {
+				return rs.getInt("CantCuotas");
+			}
+		} catch (SQLException e) {
+			_log.log(Level.WARNING, e.getMessage() + "\n"
+					+ "call pagoprestamo_cantidadcuotas(" + this._idPrestamo
+					+ ")\n");
+			return -1;
+		}
+
+		return -1;
+	}
 }

@@ -18,6 +18,7 @@ public class PagoServicios extends Tables {
 	private int _id;
 	private Fecha _fechaAlta;
 	private double _nroCuenta;
+	private int _idServicio;
 	private Fecha _filtro_fechaDesde;
 	private Fecha _filtro_fechaHasta;
 
@@ -27,9 +28,11 @@ public class PagoServicios extends Tables {
 		this._id = -1;
 		this._fechaAlta = new Fecha();
 		this._nroCuenta = -1;
+		this._idServicio = -1;
 	}
 
-	
+
+
 	public int get_id() {
 		return _id;
 	}
@@ -70,6 +73,15 @@ public class PagoServicios extends Tables {
 		this._nroCuenta = _nroCuenta;
 	}
 
+	
+	public int get_idServicio() {
+		return _idServicio;
+	}
+
+
+	public void set_idServicio(int _idServicio) {
+		this._idServicio = _idServicio;
+	}
 
 
 		// Acceso a BD
@@ -79,12 +91,14 @@ public class PagoServicios extends Tables {
 			Lista.add(this._filtro_fechaDesde);
 			Lista.add(this._filtro_fechaHasta);
 			Lista.add(this._nroCuenta);
+			Lista.add(this._idServicio);
 			return super.Select(Lista);	
 		}
 
 		public int Insert() {
 			Lista.clear();
 			Lista.add(this._nroCuenta);
+			Lista.add(this._idServicio);
 			return super.Insert(Lista);				
 		}
 
@@ -92,6 +106,7 @@ public class PagoServicios extends Tables {
 			Lista.clear();
 			Lista.add(this._id);
 			Lista.add(this._nroCuenta);
+			Lista.add(this._idServicio);
 			return super.Update(Lista);	
 		}
 
@@ -110,6 +125,7 @@ public class PagoServicios extends Tables {
 					oPagoServicio.set_id(rs.getInt("id"));
 					oPagoServicio.set_fechaAlta(rs.getTime("FechaAlta").toString());
 					oPagoServicio.set_nroCuenta(rs.getInt("NroCuenta"));
+					oPagoServicio.set_idServicio(rs.getInt("idServicio"));
 				} else {
 					throw new OperationException("No se encontro ningun " + this.getClass().getName());
 			}

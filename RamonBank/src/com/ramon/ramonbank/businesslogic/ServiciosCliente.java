@@ -6,7 +6,9 @@ import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.dbaccess.tables.Cuentas;
 import com.ramon.ramonbank.dbaccess.tables.Movimientos;
 import com.ramon.ramonbank.dbaccess.tables.PagoPrestamos;
+import com.ramon.ramonbank.dbaccess.tables.PagoServicios;
 import com.ramon.ramonbank.dbaccess.tables.Prestamos;
+import com.ramon.ramonbank.dbaccess.tables.Servicios;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.utils.Fecha;
 import com.ramon.ramonbank.businesslogic.utils.MOVIMIENTO;
@@ -270,8 +272,23 @@ public class ServiciosCliente {
 		}
 
 		// Proceso
-		// TODO: Meter las validaciones de cantidad de cuotas a pagar de la
-		// sobrecarga
+		PagoPrestamos _prestamosP = new PagoPrestamos();
+		_prestamosP.set_idPrestamo(_prestamo.get_id());
+
+		int cuotasPagadas = _prestamosP.CantidadCuotas();
+
+		if (cuotasPagadas == _prestamo.get_cantCuotas()) {
+			throw new OperationException("El prestamo ya se encuentra pago.");
+		}
+
+		int cuotasPagar = _prestamo.get_cantCuotas() - cuotasPagadas;
+
+		if (_cantidadCuotas > cuotasPagar) {
+			throw new OperationException("Cantidad de cuotas incorrecta: "
+					+ _cantidadCuotas + " ingresadas, "
+					+ String.valueOf(cuotasPagar) + " a pagar.");
+		}
+
 		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuenta.get_tipo())
 				.costoMovimiento();
 		double _monto = _prestamo.get_monto()
@@ -289,7 +306,7 @@ public class ServiciosCliente {
 			throw new OperationException(
 					"No hay suficiente saldo para realizar el movimiento");
 		}
-		
+
 		// Registro movimiento
 		Movimientos _movimiento = new Movimientos();
 		_movimiento.set_idcuenta(_cuenta.get_id());
@@ -339,30 +356,30 @@ public class ServiciosCliente {
 			throw new OperationException("El prestamo no existe");
 		}
 
-		// Proceso
 		_prestamo = _prestamo.Load();
 
-		// TODO: Traer Prestamos pagados de este prestamo y hacer la resta
+		if (!(_prestamo.get_idCliente() == _cliente.get_id())) {
+			throw new OperationException(
+					"El cliente no coincide con el cliente que pidio el prestamo");
+		}
+
+		// Proceso
 		PagoPrestamos _prestamosP = new PagoPrestamos();
 		_prestamosP.set_idPrestamo(_prestamo.get_id());
-		//
-		// int _cuotasPagadas = _prestamosP.Cantidad();
-		//
-		// if(_cuotasPagadas == _prestamo.get_cantCuotas()){
-		// throw new OperationException("El prestamo ya se encuentra pago.");
-		// }
-		//
-		// int _cuotasPagar = _prestamo.get_cantCuotas()-_cuotasPagadas;
-		//
-		// if (_cantidadCuotas > _cuotasPagar) {
-		// throw new OperationException("Cantidad de cuotas incorrecta: "
-		// + _cantidadCuotas + " ingresadas, "
-		// + String.valueOf(_cuotasPagar) + " a pagar.");
-		// }
-		//
-		// double _totalPagar =
-		// _prestamo.get_monto()*(0.1*_prestamo.get_interes());
-		//
+
+		int cuotasPagadas = _prestamosP.CantidadCuotas();
+
+		if (cuotasPagadas == _prestamo.get_cantCuotas()) {
+			throw new OperationException("El prestamo ya se encuentra pago.");
+		}
+
+		int cuotasPagar = _prestamo.get_cantCuotas() - cuotasPagadas;
+
+		if (_cantidadCuotas > cuotasPagar) {
+			throw new OperationException("Cantidad de cuotas incorrecta: "
+					+ _cantidadCuotas + " ingresadas, "
+					+ String.valueOf(cuotasPagar) + " a pagar.");
+		}
 
 		double _monto = _prestamo.get_monto()
 				* (PRESTAMO.INTERES_SIN_CUENTA.number() + 1);
@@ -380,5 +397,70 @@ public class ServiciosCliente {
 		_pagoPrestamo.set_origen(PAGO_PRESTAMO.CUENTA.id());
 		_pagoPrestamo.set_monto(_monto);
 		return _pagoPrestamo.Insert();
+	}
+
+	
+	/**
+	 * Pago un servicio, solo desde una cuenta
+	 * 
+	 * @param _idServicio
+	 * @param _cuenta
+	 * @return
+	 * @throws OperationException
+	 */
+	public int pagarServicio(int _idServicio, Cuentas _cuenta)
+			throws OperationException {
+		// Validaciones
+		if (this._cliente == null) {
+			throw new OperationException("El objeto cliente es null");
+		}
+		if (_cuenta == null) {
+			throw new OperationException("El objeto cuenta es null");
+		}
+
+		Servicios _servicio = new Servicios();
+		_servicio.set_id(_idServicio);
+
+		if (_servicio.Cantidad() == 0) {
+			throw new OperationException("El servicio no existe");
+		}
+
+		if (_cuenta.Cantidad() <= 0) {
+			throw new OperationException("La cuenta es incorrecta");
+		}
+
+		_cuenta.Load();
+		_servicio.Load();
+
+		if (_cuenta.get_idCliente() != _cliente.get_id()) {
+			throw new OperationException("El cliente y la cuenta no concuerdan");
+		}
+
+		// Proceso
+		double _monto = _servicio.get_monto();
+		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuenta.get_tipo())
+				.costoMovimiento();
+
+		if (_cuenta.get_saldo() < _monto + (_monto * _costoMovimiento)) {
+			throw new OperationException(
+					"No hay suficiente saldo para realizar el pago del servicio");
+		}
+
+		Movimientos _movimiento = new Movimientos();
+		_movimiento.set_idcuenta(_cuenta.get_id());
+		_movimiento.set_monto(_monto);
+		_movimiento.set_origen(MOVIMIENTO.ORIGEN.SERVICIO.id());
+		_movimiento.set_tipo(MOVIMIENTO.TIPO.EXTRACCION.id());
+		_movimiento.set_saldo(_cuenta.get_saldo());
+		_movimiento.Insert();
+
+		_cuenta.set_saldo(_cuenta.get_saldo() - (_monto * _costoMovimiento));
+		_cuenta.set_saldo(_cuenta.get_saldo() - _monto);
+		_cuenta.Update();
+
+		PagoServicios _pagoServicios = new PagoServicios();
+		_pagoServicios.set_nroCuenta(_cuenta.get_id());
+		_pagoServicios.set_idServicio(_servicio.get_id());
+		return _pagoServicios.Insert();
 	}
 }

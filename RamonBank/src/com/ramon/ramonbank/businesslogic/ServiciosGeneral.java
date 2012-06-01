@@ -4,7 +4,7 @@ import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.utils.Validator;
 
-public class Servicios {
+public class ServiciosGeneral {
 	/**
 	 * Verifica los datos del objeto cliente y lo registra si todo es correcto
 	 * @param _cliente
