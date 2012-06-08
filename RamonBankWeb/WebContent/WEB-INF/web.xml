@@ -29,4 +29,14 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/loginservlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RegistroServlet</display-name>
+    <servlet-name>RegistroServlet</servlet-name>
+    <servlet-class>servlets.RegistroServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegistroServlet</servlet-name>
+    <url-pattern>/registroservlet</url-pattern>
+  </servlet-mapping>
 </web-app>

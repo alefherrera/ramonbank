@@ -10,14 +10,13 @@ import com.ramon.ramonbank.utils.Fecha;
 public abstract class Tables implements ITables {
 
 	// private String Query;
-	protected ExecuteQuery execute;
+	protected ExecuteQuery execute = new ExecuteQuery();
 	private Logger _log = Logger.getLogger("Log");
 	protected ArrayList<Object> Lista = new ArrayList<Object>();
 	
 
 	@Override
 	public ResultSet Select(ArrayList<Object> Lista) {
-
 		return execute.ExecSelect(GenerarQuery("Select", Lista));
 	}
 

@@ -92,7 +92,7 @@ public class Clientes extends Tables {
 	public int Insert() {
 		
 		Lista.clear();
-		Lista.add(this._id);
+		Lista.add(this._dni);
 		Lista.add(this._nombre);
 		Lista.add(this._apellido);
 		Lista.add(this._direccion);
