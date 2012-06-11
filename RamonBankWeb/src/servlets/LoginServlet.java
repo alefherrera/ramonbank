@@ -15,7 +15,7 @@ public class LoginServlet extends BaseServlet {
      */
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	@Override

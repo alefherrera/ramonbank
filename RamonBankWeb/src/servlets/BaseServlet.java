@@ -16,7 +16,7 @@ public abstract class BaseServlet extends HttpServlet {
      */
     public BaseServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
@@ -33,7 +33,7 @@ public abstract class BaseServlet extends HttpServlet {
 		try {
 			Accion(request,response);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
