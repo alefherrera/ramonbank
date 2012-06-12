@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import scope.MessageBean;
+
 import com.ramon.ramonbank.businesslogic.ServiciosGeneral;
 import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.exceptions.OperationException;
@@ -17,6 +19,7 @@ public class RegistroServlet extends BaseServlet {
 	@Override
 	protected void Accion(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		String dir = new String();
 		Clientes cliente = new Clientes();
 		cliente.set_dni(request.getParameter("dni"));
 		cliente.set_nombre(request.getParameter("nombre"));
@@ -26,15 +29,19 @@ public class RegistroServlet extends BaseServlet {
 		try
 		{
 			ServiciosGeneral.crearCliente(cliente);
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			dir = "index.jsp";			
 		}
 		catch(OperationException ex)
 		{
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
+			MessageBean bean = new MessageBean();
+			bean.setMensaje(ex.getMessage());
+			request.setAttribute("msjBean", bean);
+			dir = "/registro/registro.jsp";
 		}
-		
-			
-
+		finally
+		{
+			request.getRequestDispatcher(dir).forward(request, response);
+		}
 		
 		
 	}
