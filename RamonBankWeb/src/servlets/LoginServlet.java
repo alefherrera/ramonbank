@@ -4,6 +4,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import scope.MessageBean;
+
+import com.ramon.ramonbank.businesslogic.ServiciosGeneral;
+import com.ramon.ramonbank.dbaccess.tables.Clientes;
+import com.ramon.ramonbank.exceptions.OperationException;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -21,10 +27,28 @@ public class LoginServlet extends BaseServlet {
 	@Override
 	protected void Accion(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
-		request.getSession().setAttribute("logon_user", request.getParameter("username"));
-		request.getSession().setAttribute("pass", request.getParameter("password"));
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		String dir = new String();
+		try
+		{
+			Clientes cliente = new Clientes();
+			cliente.set_dni(request.getParameter("dni"));
+			
+			cliente = ServiciosGeneral.loguear(cliente);
+			request.getSession().setAttribute("cliente", cliente);
+			dir = "index.jsp";			
+		}
+		catch(OperationException ex)
+		{
+			MessageBean bean = new MessageBean();
+			bean.setMensaje(ex.getMessage());
+			request.setAttribute("msjBean", bean);
+			dir = "/login/login.jsp";
+		}
+		finally
+		{
+			request.getRequestDispatcher(dir).forward(request, response);
+		}
+	
 	}
 
 	
