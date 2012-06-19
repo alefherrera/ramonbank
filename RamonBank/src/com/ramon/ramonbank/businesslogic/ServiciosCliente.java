@@ -57,7 +57,8 @@ public class ServiciosCliente {
 
 		// Verifico cantidad de cuentas, 1 maximo caja de ahorro, 5 maximo
 		// cuenta corriente
-
+		_cuenta.set_saldo(0);
+		_cuenta.set_descubierto(0);
 		if (TIPO_CUENTA.get_enum(_cuenta.get_tipo()).cantMax() > _cuenta
 				.Cantidad()) {
 			// Puedo crear la cuenta

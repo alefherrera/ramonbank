@@ -2,18 +2,20 @@ package com.ramon.ramonbank.dbaccess.tables;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.ramon.ramonbank.businesslogic.utils.MOVIMIENTO;
 import com.ramon.ramonbank.dbaccess.ITables;
 import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.utils.Fecha;
 
-
 public class Movimientos extends Tables {
-	
+
 	private int _id;
+
 	public int get_id() {
 		return _id;
 	}
@@ -96,8 +98,8 @@ public class Movimientos extends Tables {
 	private Fecha _filtro_fechaHasta;
 
 	private Logger _log = Logger.getLogger("Log");
-	
-	public Movimientos() {		
+
+	public Movimientos() {
 		this._id = -1;
 		this._idcuenta = -1;
 		this._fecha = new Fecha();
@@ -108,22 +110,20 @@ public class Movimientos extends Tables {
 		this._filtro_fechaDesde = new Fecha();
 		this._filtro_fechaHasta = new Fecha();
 	}
-	
 
 	public ResultSet Select() {
-		
+
 		Lista.clear();
-		Lista.add(this._id);		
+		Lista.add(this._id);
 		Lista.add(this._filtro_fechaDesde);
 		Lista.add(this._filtro_fechaHasta);
 		Lista.add(this._tipo);
 		Lista.add(this._origen);
 		Lista.add(this._saldo);
 		Lista.add(this._monto);
-		return super.Select(Lista);	
+		return super.Select(Lista);
 
 	}
-
 
 	public int Insert() {
 		Lista.clear();
@@ -132,7 +132,7 @@ public class Movimientos extends Tables {
 		Lista.add(this._origen);
 		Lista.add(this._saldo);
 		Lista.add(this._monto);
-		return super.Insert(Lista);	
+		return super.Insert(Lista);
 	}
 
 	public boolean Update() {
@@ -143,13 +143,13 @@ public class Movimientos extends Tables {
 		Lista.add(this._origen);
 		Lista.add(this._saldo);
 		Lista.add(this._monto);
-		return super.Update(Lista);		
+		return super.Update(Lista);
 	}
 
 	public boolean Delete() {
 		Lista.clear();
-		Lista.add(this._id);		
-		return super.Delete(Lista);	
+		Lista.add(this._id);
+		return super.Delete(Lista);
 	}
 
 	@Override
@@ -165,28 +165,55 @@ public class Movimientos extends Tables {
 				oMovimiento.set_tipo(rs.getInt("Tipo"));
 				oMovimiento.set_origen(rs.getInt("Origen"));
 				oMovimiento.set_saldo(rs.getDouble("Saldo"));
-				oMovimiento.set_monto(rs.getDouble("Monto"));			
+				oMovimiento.set_monto(rs.getDouble("Monto"));
 			} else {
-				throw new OperationException("No se encontro ningun " + this.getClass().getName());
-		}
+				throw new OperationException("No se encontro ningun "
+						+ this.getClass().getName());
+			}
 
 		} catch (SQLException e) {
-			_log.log(Level.WARNING, e.getStackTrace().toString() + "\n" + e.getMessage());
+			_log.log(Level.WARNING,
+					e.getStackTrace().toString() + "\n" + e.getMessage());
 		}
 		return oMovimiento;
 	}
 
 	@Override
-	public int Cantidad()
-	{
+	public int Cantidad() {
 		ResultSet rs = this.Select();
 		try {
 			rs.last();
-		return rs.getRow();
+			return rs.getRow();
 		} catch (SQLException e) {
 			_log.log(Level.WARNING, e.getStackTrace().toString());
 		}
 		return -1;
 	}
 
+	public ArrayList<Movimientos> LoadList() throws OperationException {
+		ArrayList<Movimientos> arrayMovimientos = new ArrayList<Movimientos>();
+
+		ResultSet rs = this.Select();
+		Movimientos oMovimiento;
+
+		try {
+			while (rs.next()) {
+				oMovimiento = new Movimientos();
+				oMovimiento.set_id(rs.getInt("id"));
+				oMovimiento.set_idcuenta(rs.getInt("idCuenta"));
+				oMovimiento.set_fecha(rs.getTime("Fecha").toString());
+				oMovimiento.set_tipo(rs.getInt("Tipo"));
+				oMovimiento.set_origen(rs.getInt("Origen"));
+				oMovimiento.set_saldo(rs.getDouble("Saldo"));
+				oMovimiento.set_monto(rs.getDouble("Monto"));
+				arrayMovimientos.add(oMovimiento);
+			}
+		}
+
+		catch (SQLException e) {
+			_log.log(Level.WARNING,
+					e.getStackTrace().toString() + "\n" + e.getMessage());
+		}
+		return arrayMovimientos;
+	}
 }
