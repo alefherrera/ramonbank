@@ -14,7 +14,10 @@ public abstract class Tables implements ITables {
 	private Logger _log = Logger.getLogger("Log");
 	protected ArrayList<Object> Lista = new ArrayList<Object>();
 	
-
+	
+	public ResultSet Custom(String query){
+		return execute.ExecSelect(query);
+	}
 	@Override
 	public ResultSet Select(ArrayList<Object> Lista) {
 		return execute.ExecSelect(GenerarQuery("Select", Lista));

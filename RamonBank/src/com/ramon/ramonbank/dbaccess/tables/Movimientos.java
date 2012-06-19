@@ -112,7 +112,6 @@ public class Movimientos extends Tables {
 	}
 
 	public ResultSet Select() {
-
 		Lista.clear();
 		Lista.add(this._id);
 		Lista.add(this._filtro_fechaDesde);
@@ -122,7 +121,6 @@ public class Movimientos extends Tables {
 		Lista.add(this._saldo);
 		Lista.add(this._monto);
 		return super.Select(Lista);
-
 	}
 
 	public int Insert() {
@@ -194,6 +192,43 @@ public class Movimientos extends Tables {
 		ArrayList<Movimientos> arrayMovimientos = new ArrayList<Movimientos>();
 
 		ResultSet rs = this.Select();
+		Movimientos oMovimiento;
+
+		try {
+			while (rs.next()) {
+				oMovimiento = new Movimientos();
+				oMovimiento.set_id(rs.getInt("id"));
+				oMovimiento.set_idcuenta(rs.getInt("idCuenta"));
+				oMovimiento.set_fecha(rs.getTime("Fecha").toString());
+				oMovimiento.set_tipo(rs.getInt("Tipo"));
+				oMovimiento.set_origen(rs.getInt("Origen"));
+				oMovimiento.set_saldo(rs.getDouble("Saldo"));
+				oMovimiento.set_monto(rs.getDouble("Monto"));
+				arrayMovimientos.add(oMovimiento);
+			}
+		}
+
+		catch (SQLException e) {
+			_log.log(Level.WARNING,
+					e.getStackTrace().toString() + "\n" + e.getMessage());
+		}
+		return arrayMovimientos;
+	}
+
+	public ArrayList<Movimientos> ultimosCargados(int cantidad) {
+		
+		StringBuilder sb = new StringBuilder("call Movimientos_Ultimos(");
+		sb.append(this._id + ",");
+		sb.append(this._idcuenta + ",");
+		sb.append(this._fecha.get_Fecha() + ",");
+		sb.append(this._tipo + ",");
+		sb.append(this._origen + ",");
+		sb.append(this._saldo + ",");
+		sb.append(this._monto + ",");
+		sb.append(cantidad + ")");
+		ResultSet rs = super.Custom(sb.toString());
+		
+		ArrayList<Movimientos> arrayMovimientos = new ArrayList<Movimientos>();
 		Movimientos oMovimiento;
 
 		try {

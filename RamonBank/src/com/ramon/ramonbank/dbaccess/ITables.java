@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.ramon.ramonbank.exceptions.OperationException;
 
 public interface ITables {
+	public ResultSet Custom(String query);
 	
 	public ResultSet Select(ArrayList<Object> Lista);
 	
