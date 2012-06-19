@@ -2,6 +2,7 @@ package com.ramon.ramonbank.dbaccess.tables;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.ramon.ramonbank.dbaccess.Tables;
@@ -156,4 +157,29 @@ public class Cuentas extends Tables {
 		}
 		return -1;
 	}
-}
+	
+	public ArrayList<Cuentas> LoadList() throws OperationException{
+		ArrayList<Cuentas> arrayCuentas = new ArrayList<Cuentas>();
+		ResultSet rs = this.Select();
+		Cuentas oCuenta;
+
+		try {
+			while(rs.next()){
+				oCuenta = new Cuentas();
+				oCuenta.set_id(rs.getInt("id"));
+				oCuenta.set_idCliente(rs.getInt("idCliente"));
+				oCuenta.set_tipo(rs.getInt("Tipo"));
+				// Como la base de datos tiene un boolean, tengo que
+				// transformarlo a int
+				oCuenta.set_estado(rs.getBoolean("Estado"));
+				oCuenta.set_saldo(rs.getInt("Saldo"));
+				oCuenta.set_descubierto(rs.getInt("Descubierto"));
+				
+				arrayCuentas.add(oCuenta);
+			}
+		} catch (SQLException e) {
+			_log.log(Level.WARNING, e.getStackTrace().toString());
+		}
+		return arrayCuentas;
+	}
+	}

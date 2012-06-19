@@ -1,6 +1,10 @@
 package com.ramon.ramonbank.businesslogic;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.dbaccess.tables.Cuentas;
@@ -64,7 +68,16 @@ public class ServiciosCliente {
 					+ TIPO_CUENTA.get_enum(_cuenta.get_tipo()).cantMax() + "/s");
 		}
 	}
-
+	public ArrayList<Cuentas> listarCuentas(Cuentas cuenta) throws OperationException{
+		if (this._cliente == null) {
+			throw new OperationException("El objeto cliente es null");
+		}
+		if (cuenta == null) {
+			throw new OperationException("El objeto cuenta es null");
+		}
+		
+		return cuenta.LoadList();
+	}
 	/**
 	 * Prestamo a una cuenta especifica, se pagan costos de movimiento si es
 	 * necesario
