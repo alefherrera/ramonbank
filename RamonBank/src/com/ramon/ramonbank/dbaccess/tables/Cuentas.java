@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.ramon.ramonbank.businesslogic.utils.TIPO_CUENTA;
 import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
 
@@ -81,7 +83,9 @@ public class Cuentas extends Tables {
 	public void set_descubierto(double _descubierto) {
 		this._descubierto = _descubierto;
 	}
-
+	public String get_tipo_nombre(){
+		return TIPO_CUENTA.get_enum(this._tipo).nombre();
+	}
 
 	// Acceso a BD
 	public ResultSet Select() {
