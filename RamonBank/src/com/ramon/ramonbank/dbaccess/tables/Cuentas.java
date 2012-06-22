@@ -86,6 +86,10 @@ public class Cuentas extends Tables {
 	public String get_tipo_nombre(){
 		return TIPO_CUENTA.get_enum(this._tipo).nombre();
 	}
+	public double get_limite_descubierto(){
+		//TODO: En la muestra de cuentas mostrar el límite
+		return TIPO_CUENTA.get_enum(this._tipo).limiteDescubierto();
+	}
 
 	// Acceso a BD
 	public ResultSet Select() {

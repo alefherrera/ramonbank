@@ -69,16 +69,19 @@ public class ServiciosCliente {
 					+ TIPO_CUENTA.get_enum(_cuenta.get_tipo()).cantMax() + "/s");
 		}
 	}
-	public ArrayList<Cuentas> listarCuentas(Cuentas cuenta) throws OperationException{
+
+	public ArrayList<Cuentas> listarCuentas(Cuentas cuenta)
+			throws OperationException {
 		if (this._cliente == null) {
 			throw new OperationException("El objeto cliente es null");
 		}
 		if (cuenta == null) {
 			throw new OperationException("El objeto cuenta es null");
 		}
-		
+
 		return cuenta.LoadList();
 	}
+
 	/**
 	 * Prestamo a una cuenta especifica, se pagan costos de movimiento si es
 	 * necesario
@@ -114,7 +117,7 @@ public class ServiciosCliente {
 				.costoMovimiento();
 
 		// Cobro en caso de tener un costo de movimiento
-		if (!(_cuenta.get_saldo() > _cantPrestamo * _costoMovimiento)) {
+		if (!(_cuenta.get_saldo() >= _cantPrestamo * _costoMovimiento)) {
 
 			throw new OperationException(
 					"No hay suficiente saldo para realizar el movimiento");
@@ -130,6 +133,77 @@ public class ServiciosCliente {
 		_cuenta.set_saldo(_cuenta.get_saldo()
 				- (_cantPrestamo * _costoMovimiento));
 		_cuenta.set_saldo(_cuenta.get_saldo() + _cantPrestamo);
+
+		_cuenta.Update();
+
+		Prestamos _prestamo = new Prestamos();
+		// Son decimales, mas facil de manejar para codigo, en la base de datos
+		// guardo enteros
+		_prestamo.set_interes(PRESTAMO.INTERES_SIN_CUENTA.number() * 100);
+		_prestamo.set_idCliente(_cuenta.get_idCliente());
+		_prestamo.set_cantCuotas(_cantCuotas);
+		_prestamo.set_idCuenta(_cuenta.get_id());
+		_prestamo.set_monto(_cantPrestamo);
+		return _prestamo.Insert();
+	}
+
+	/**
+	 * Se paga con descubierto si es necesario
+	 * 
+	 * @param _cantPrestamo
+	 * @param _cantCuotas
+	 * @param _idCuenta
+	 * @return
+	 * @throws OperationException
+	 */
+	public int solicitarPrestamoDescubierto(int _cantPrestamo, int _cantCuotas,
+			int _idCuenta) throws OperationException {
+		if (_cantCuotas <= 0) {
+			throw new OperationException("La cantidad de cuotas es incorrecta");
+		}
+
+		if (this._cliente == null) {
+			throw new OperationException("El objeto cliente es null");
+		}
+
+		if (_idCuenta <= 0) {
+			throw new OperationException("La cuenta es incorrecta");
+		}
+
+		if (_cantPrestamo < PRESTAMO.MINIMO.number()) {
+			throw new OperationException("El minimo de un prestamo es 5000");
+		}
+
+		Cuentas _cuenta = new Cuentas();
+		_cuenta.set_id(_idCuenta);
+		_cuenta = _cuenta.Load();
+		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuenta.get_tipo())
+				.costoMovimiento();
+
+		// Cobro en caso de tener un costo de movimiento
+		if (!(_cuenta.get_saldo() >= _cantPrestamo * _costoMovimiento)) {
+			double resto = _cantPrestamo * _costoMovimiento
+					- _cuenta.get_saldo();
+			if (resto + _cuenta.get_descubierto() > _cuenta
+					.get_limite_descubierto()) {
+				throw new OperationException(
+						"El límite del descubierto y saldo no es suficiente para realizar la operación");
+			} else {
+				_cuenta.set_saldo(0);
+				_cuenta.set_descubierto(_cuenta.get_descubierto() + resto);
+			}
+		} else {
+			_cuenta.set_saldo(_cuenta.get_saldo()
+					- (_cantPrestamo * _costoMovimiento));
+			_cuenta.set_saldo(_cuenta.get_saldo() + _cantPrestamo);
+		}
+		Movimientos _movimiento = new Movimientos();
+		_movimiento.set_idcuenta(_idCuenta);
+		_movimiento.set_saldo(_cuenta.get_saldo());
+		_movimiento.set_tipo(MOVIMIENTO.TIPO.DEPOSITO.id());
+		_movimiento.set_origen(MOVIMIENTO.ORIGEN.PRESTAMO.id());
+		_movimiento.set_monto(_cantPrestamo);
+		_movimiento.Insert();
 
 		_cuenta.Update();
 
@@ -183,6 +257,7 @@ public class ServiciosCliente {
 			throw new OperationException(
 					"No hay suficiente saldo para realizar el movimiento");
 		}
+
 		Movimientos _movimiento = new Movimientos();
 		_movimiento.set_idcuenta(_cuenta.get_id());
 		_movimiento.set_saldo(_cuenta.get_saldo());
@@ -194,6 +269,78 @@ public class ServiciosCliente {
 		_cuenta.set_saldo(_cuenta.get_saldo()
 				- (_cantPrestamo * _costoMovimiento));
 		_cuenta.set_saldo(_cuenta.get_saldo() + _cantPrestamo);
+
+		_cuenta.Update();
+
+		Prestamos _prestamo = new Prestamos();
+		// Son decimales, mas facil de manejar para codigo, en la base de datos
+		// guardo enteros
+		_prestamo.set_interes(PRESTAMO.INTERES_SIN_CUENTA.number() * 100);
+		_prestamo.set_idCliente(_cuenta.get_idCliente());
+		_prestamo.set_cantCuotas(_cantCuotas);
+		_prestamo.set_idCuenta(_cuenta.get_id());
+		_prestamo.set_monto(_cantPrestamo);
+		return _prestamo.Insert();
+	}
+
+	/**
+	 * Se paga con descubierto si es necesario
+	 * 
+	 * @param _cantPrestamo
+	 * @param _cantCuotas
+	 * @param _cuenta
+	 * @return
+	 * @throws OperationException
+	 */
+	public int solicitarPrestamoDescubierto(int _cantPrestamo, int _cantCuotas,
+			Cuentas _cuenta) throws OperationException {
+		if (_cantCuotas <= 0) {
+			throw new OperationException("La cantidad de cuotas es incorrecta");
+		}
+
+		if (this._cliente == null) {
+			throw new OperationException("El objeto cliente es null");
+		}
+		if (_cuenta == null) {
+			throw new OperationException("El objeto cuenta es null");
+		}
+		if (_cantPrestamo < PRESTAMO.MINIMO.number()) {
+			throw new OperationException("El minimo de un prestamo es 5000");
+		}
+
+		if (_cuenta.Cantidad() <= 0) {
+			throw new OperationException("La cuenta es incorrecta");
+		}
+
+		_cuenta = _cuenta.Load();
+		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuenta.get_tipo())
+				.costoMovimiento();
+
+		// Cobro en caso de tener un costo de movimiento
+		if (!(_cuenta.get_saldo() >= _cantPrestamo * _costoMovimiento)) {
+			double resto = _cantPrestamo * _costoMovimiento
+					- _cuenta.get_saldo();
+			if (resto + _cuenta.get_descubierto() > _cuenta
+					.get_limite_descubierto()) {
+				throw new OperationException(
+						"El límite del descubierto y saldo no es suficiente para realizar la operación");
+			} else {
+				_cuenta.set_saldo(0);
+				_cuenta.set_descubierto(_cuenta.get_descubierto() + resto);
+			}
+		} else {
+			_cuenta.set_saldo(_cuenta.get_saldo()
+					- (_cantPrestamo * _costoMovimiento));
+			_cuenta.set_saldo(_cuenta.get_saldo() + _cantPrestamo);
+		}
+
+		Movimientos _movimiento = new Movimientos();
+		_movimiento.set_idcuenta(_cuenta.get_id());
+		_movimiento.set_saldo(_cuenta.get_saldo());
+		_movimiento.set_tipo(MOVIMIENTO.TIPO.DEPOSITO.id());
+		_movimiento.set_origen(MOVIMIENTO.ORIGEN.PRESTAMO.id());
+		_movimiento.set_monto(_cantPrestamo);
+		_movimiento.Insert();
 
 		_cuenta.Update();
 
@@ -478,6 +625,80 @@ public class ServiciosCliente {
 	}
 
 	/**
+	 * Pago un servicio desde una cuenta, si es necesario uso descubierto
+	 * 
+	 * @param _idServicio
+	 * @param _cuenta
+	 * @return
+	 * @throws OperationException
+	 */
+	public int pagarServicioDescubierto(int _idServicio, Cuentas _cuenta)
+			throws OperationException {
+		// Validaciones
+		if (this._cliente == null) {
+			throw new OperationException("El objeto cliente es null");
+		}
+		if (_cuenta == null) {
+			throw new OperationException("El objeto cuenta es null");
+		}
+
+		Servicios _servicio = new Servicios();
+		_servicio.set_id(_idServicio);
+
+		if (_servicio.Cantidad() == 0) {
+			throw new OperationException("El servicio no existe");
+		}
+
+		if (_cuenta.Cantidad() <= 0) {
+			throw new OperationException("La cuenta es incorrecta");
+		}
+
+		_cuenta.Load();
+		_servicio.Load();
+
+		if (_cuenta.get_idCliente() != _cliente.get_id()) {
+			throw new OperationException("El cliente y la cuenta no concuerdan");
+		}
+
+		// Proceso
+		double _monto = _servicio.get_monto();
+		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuenta.get_tipo())
+				.costoMovimiento();
+		double totalPago = _monto + (_monto * _costoMovimiento);
+
+		if (!(_cuenta.get_saldo() >= totalPago)) {
+			double resto = totalPago - _cuenta.get_saldo();
+			if (resto + _cuenta.get_descubierto() > _cuenta
+					.get_limite_descubierto()) {
+				throw new OperationException(
+						"El límite del descubierto y saldo no es suficiente para realizar la operación");
+			} else {
+				_cuenta.set_saldo(0);
+				_cuenta.set_descubierto(_cuenta.get_descubierto() + resto);
+			}
+
+		} else {
+			_cuenta.set_saldo(_cuenta.get_saldo() - (_monto * _costoMovimiento));
+			_cuenta.set_saldo(_cuenta.get_saldo() - _monto);
+		}
+
+		Movimientos _movimiento = new Movimientos();
+		_movimiento.set_idcuenta(_cuenta.get_id());
+		_movimiento.set_monto(_monto);
+		_movimiento.set_origen(MOVIMIENTO.ORIGEN.SERVICIO.id());
+		_movimiento.set_tipo(MOVIMIENTO.TIPO.EXTRACCION.id());
+		_movimiento.set_saldo(_cuenta.get_saldo());
+		_movimiento.Insert();
+
+		_cuenta.Update();
+
+		PagoServicios _pagoServicios = new PagoServicios();
+		_pagoServicios.set_nroCuenta(_cuenta.get_id());
+		_pagoServicios.set_idServicio(_servicio.get_id());
+		return _pagoServicios.Insert();
+	}
+
+	/**
 	 * Deposito de efectivo en una cuenta
 	 * 
 	 * @param _cuenta
@@ -523,14 +744,16 @@ public class ServiciosCliente {
 
 		return;
 	}
-	
+
 	/**
 	 * Extraigo plata, si es necesario cobro el movimiento
+	 * 
 	 * @param _cuenta
 	 * @param _cantidad
 	 * @throws OperationException
 	 */
-	public void extraer(Cuentas _cuenta, int _cantidad)throws OperationException{
+	public void extraer(Cuentas _cuenta, int _cantidad)
+			throws OperationException {
 		if (_cuenta == null) {
 			throw new OperationException("El objeto cuenta es null");
 		}
@@ -547,18 +770,19 @@ public class ServiciosCliente {
 		if (_cuenta.get_idCliente() != this._cliente.get_id()) {
 			throw new OperationException("El cliente y la cuenta no concuerdan");
 		}
-		
-		
+
 		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuenta.get_tipo())
 				.costoMovimiento();
-		
-		if(_cuenta.get_saldo() < _cantidad + _cantidad*_costoMovimiento){
-			throw new OperationException("No hay suficiente saldo para realizar la transferencia");
+
+		if (_cuenta.get_saldo() < _cantidad + _cantidad * _costoMovimiento) {
+			throw new OperationException(
+					"No hay suficiente saldo para realizar la transferencia");
 		}
-		
-		_cuenta.set_saldo(_cuenta.get_saldo() - _cantidad - _cantidad*_costoMovimiento);
+
+		_cuenta.set_saldo(_cuenta.get_saldo() - _cantidad - _cantidad
+				* _costoMovimiento);
 		_cuenta.Update();
-		
+
 		Movimientos _movimiento = new Movimientos();
 		_movimiento.set_idcuenta(_cuenta.get_id());
 		_movimiento.set_monto(_cantidad);
@@ -566,7 +790,7 @@ public class ServiciosCliente {
 		_movimiento.set_tipo(MOVIMIENTO.TIPO.EXTRACCION.id());
 		_movimiento.set_saldo(_cuenta.get_saldo());
 		_movimiento.Insert();
-		
+
 		return;
 	}
 
@@ -597,26 +821,27 @@ public class ServiciosCliente {
 		if (_cuentaHasta.Cantidad() == 0) {
 			throw new OperationException("La cuenta hasta no existe");
 		}
-		
+
 		_cuentaDesde = _cuentaDesde.Load();
 		_cuentaHasta = _cuentaHasta.Load();
-		
+
 		if (_cuentaDesde.get_idCliente() != this._cliente.get_id()) {
 			throw new OperationException("El cliente y la cuenta no concuerdan");
 		}
-		
-		
-		//Validaciones y proceso desde
+
+		// Validaciones y proceso desde
 		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuentaDesde.get_tipo())
 				.costoMovimiento();
-		
-		if(_cuentaDesde.get_saldo() < _cantidad + _cantidad*_costoMovimiento){
-			throw new OperationException("No hay suficiente saldo para realizar la transferencia");
+
+		if (_cuentaDesde.get_saldo() < _cantidad + _cantidad * _costoMovimiento) {
+			throw new OperationException(
+					"No hay suficiente saldo para realizar la transferencia");
 		}
-		
-		_cuentaDesde.set_saldo(_cuentaDesde.get_saldo() - _cantidad - _cantidad*_costoMovimiento);
+
+		_cuentaDesde.set_saldo(_cuentaDesde.get_saldo() - _cantidad - _cantidad
+				* _costoMovimiento);
 		_cuentaDesde.Update();
-		
+
 		Movimientos _movimiento = new Movimientos();
 		_movimiento.set_idcuenta(_cuentaDesde.get_id());
 		_movimiento.set_monto(_cantidad);
@@ -624,13 +849,14 @@ public class ServiciosCliente {
 		_movimiento.set_tipo(MOVIMIENTO.TIPO.EXTRACCION.id());
 		_movimiento.set_saldo(_cuentaDesde.get_saldo());
 		_movimiento.Insert();
-		
-		//Validaciones y proceso hasta
+
+		// Validaciones y proceso hasta
 		_costoMovimiento = TIPO_CUENTA.get_enum(_cuentaHasta.get_tipo())
 				.costoMovimiento();
-		_cuentaHasta.set_saldo(_cuentaHasta.get_saldo() + _cantidad - _cantidad*_costoMovimiento);
+		_cuentaHasta.set_saldo(_cuentaHasta.get_saldo() + _cantidad - _cantidad
+				* _costoMovimiento);
 		_cuentaHasta.Update();
-		
+
 		_movimiento = new Movimientos();
 		_movimiento.set_idcuenta(_cuentaDesde.get_id());
 		_movimiento.set_monto(_cantidad);
@@ -638,15 +864,15 @@ public class ServiciosCliente {
 		_movimiento.set_tipo(MOVIMIENTO.TIPO.DEPOSITO.id());
 		_movimiento.set_saldo(_cuentaDesde.get_saldo());
 		_movimiento.Insert();
-		
+
 		return;
 	}
-	
-	
-	public int plazoFijo(Cuentas _cuenta, int dias) throws OperationException{
+
+	public int plazoFijo(Cuentas _cuenta) throws OperationException {
 		if (this._cliente == null) {
 			throw new OperationException("El objeto cliente es null");
 		}
+		
 		
 		
 		return 0;
