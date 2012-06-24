@@ -65,8 +65,8 @@ public class ServiciosCliente {
 			return _cuenta.Insert();
 		} else {
 			throw new OperationException("El cliente tiene "
-					+ _cuenta.Cantidad() + " "
-					+ TIPO_CUENTA.get_enum(_cuenta.get_tipo()).cantMax() + "/s");
+					+ _cuenta.Cantidad() + "/"
+					+ TIPO_CUENTA.get_enum(_cuenta.get_tipo()).cantMax() + "/s cuentas creadas");
 		}
 	}
 
@@ -78,7 +78,7 @@ public class ServiciosCliente {
 		if (cuenta == null) {
 			throw new OperationException("El objeto cuenta es null");
 		}
-
+		cuenta.set_idCliente(this._cliente.get_id());
 		return cuenta.LoadList();
 	}
 

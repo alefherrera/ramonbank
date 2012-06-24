@@ -51,6 +51,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>CrearCuentaLoadServlet</display-name>
+    <servlet-name>CrearCuentaLoadServlet</servlet-name>
+    <servlet-class>servlets.CrearCuentaLoadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CrearCuentaLoadServlet</servlet-name>
+    <url-pattern>/CrearCuentaLoadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>CrearCuentaServlet</display-name>
     <servlet-name>CrearCuentaServlet</servlet-name>
     <servlet-class>servlets.CrearCuentaServlet</servlet-class>
