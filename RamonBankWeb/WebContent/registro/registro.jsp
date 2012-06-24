@@ -9,7 +9,7 @@
 			<tbody>
 				<tr>
 					<td>DNI:</td>
-					<td><input type="text" name="dni" class="required number minlength" minlength="8"  maxlength="8" /></td>
+					<td><input type="text" name="dni" class="required number minlength" minlength="8" maxlength="8" /></td>
 				</tr>
 				<tr>
 					<td>Nombre:</td>
@@ -20,7 +20,7 @@
 					<td><input type="text" name="apellido" class="required" /></td>
 				</tr>
 				<tr>
-					<td>Direcicon:</td>
+					<td>Direccion:</td>
 					<td><input type="text" name="direccion" class="required" /></td>
 				</tr>
 				<tr>
