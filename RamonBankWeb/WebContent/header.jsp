@@ -38,15 +38,23 @@
 
 	<c:choose>
 		<c:when test="${sessionScope.cliente == null }">
-			<td><a href="/ramonbank/login/login.jsp">Login</a></td>
-			<td><a href="/ramonbank/registro/registro.jsp">Registro</a></td>
+			<a href="/ramonbank/login/login.jsp">Login</a>
+			<a href="/ramonbank/registro/registro.jsp">Registro</a>
+			<a href="#" id="lnkLogOut">Salir</a>
 
 		</c:when>
 		<c:otherwise>
-			<td>Cliente: ${sessionScope.cliente.get_dni()}</td>
-
-			<td>Nombre: ${sessionScope.cliente.get_nombre()}</td>
-			<td><a href="logout">Salir</a></td>
+			Cliente: ${sessionScope.cliente.get_dni()}
+			Nombre: ${sessionScope.cliente.get_nombre()}
+			<a href="logout">Salir</a>
 		</c:otherwise>
 	</c:choose>
+
+	<form method="post" action="/ramonbank/LogOutServlet" id="formlogout"></form>
+	<script>
+		$("#lnkLogOut").click(function() {
+			document.forms["formlogout"].submit();
+		});
+	</script>
+
 	<a href="/ramonbank/index.jsp"> HOME </a>

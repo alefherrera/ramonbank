@@ -19,7 +19,7 @@
 </form>
 <script>
 	$("#lnksolicitarprestamo").click(function() {
-		document.forms["formservicios"].action = "/ramonbank/ServiciosLoadServlet";
+		document.forms["formservicios"].action = "/ramonbank/ServiciosServlet";
 		document.forms["formservicios"].submit();
 	});
 	$("#lnkpagarservicio").click(function() {
