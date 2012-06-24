@@ -28,6 +28,7 @@ public class RegistroServlet extends BaseServlet {
 		try
 		{
 			ServiciosGeneral.crearCliente(cliente);
+			request.getSession().setAttribute("cliente", cliente);
 			dir = "index.jsp";			
 		}
 		catch(OperationException ex)

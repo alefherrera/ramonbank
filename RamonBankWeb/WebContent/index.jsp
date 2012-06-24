@@ -9,13 +9,22 @@
 		<c:if test="${sessionScope.cliente != null }">
 			<ul>
 				<li><a href="#" id="lnkCuentas">Cuentas</a></li>
-				<li>Jorge</li>
+				<li><a href="#" id="lnkServicios">Servicios</a></li>
 				<li>Alberto</li>
 			</ul>
 		</c:if>
 
 	</tr>
 </table>
-<form method="post" action="/ramonbank/CuentasServlet" id="formcuentas"></form>
-<script>$("#lnkCuentas").click(function(){ document.forms["formcuentas"].submit(); });</script>
+<form method="post" id="formredir"></form>
+<script>
+	$("#lnkCuentas").click(function() {
+		document.forms["formredir"].action = "/ramonbank/CuentasServlet";
+		document.forms["formredir"].submit();
+	});
+	$("#lnkServicios").click(function() {
+		document.forms["formredir"].action = "/ramonbank/Servicios";
+		document.forms["formredir"].submit();
+	});
+</script>
 <jsp:include page="/footer.jsp"></jsp:include>

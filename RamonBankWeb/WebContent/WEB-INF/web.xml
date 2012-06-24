@@ -59,4 +59,24 @@
     <servlet-name>CrearCuentaServlet</servlet-name>
     <url-pattern>/CrearCuentaServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogOurServlet</display-name>
+    <servlet-name>LogOurServlet</servlet-name>
+    <servlet-class>servlets.LogOurServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogOurServlet</servlet-name>
+    <url-pattern>/LogOurServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServiciosLoadServlet</display-name>
+    <servlet-name>ServiciosLoadServlet</servlet-name>
+    <servlet-class>servlets.ServiciosLoadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServiciosLoadServlet</servlet-name>
+    <url-pattern>/ServiciosLoadServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
