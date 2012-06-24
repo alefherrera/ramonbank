@@ -23,7 +23,7 @@
 		document.forms["formredir"].submit();
 	});
 	$("#lnkServicios").click(function() {
-		document.forms["formredir"].action = "/ramonbank/Servicios";
+		document.forms["formredir"].action = "/ramonbank/ServiciosLoadServlet";
 		document.forms["formredir"].submit();
 	});
 </script>
