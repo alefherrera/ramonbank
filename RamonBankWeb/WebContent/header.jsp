@@ -49,4 +49,4 @@
 			<td><a href="logout">Salir</a></td>
 		</c:otherwise>
 	</c:choose>
-	<a href="/ramonbank/index.html"> HOME </a>
+	<a href="/ramonbank/index.jsp"> HOME </a>
