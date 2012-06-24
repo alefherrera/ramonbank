@@ -71,13 +71,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>LogOurServlet</display-name>
-    <servlet-name>LogOurServlet</servlet-name>
-    <servlet-class>servlets.LogOurServlet</servlet-class>
+    <display-name>LogOutServlet</display-name>
+    <servlet-name>LogOutServlet</servlet-name>
+    <servlet-class>servlets.LogOutServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>LogOurServlet</servlet-name>
-    <url-pattern>/LogOurServlet</url-pattern>
+    <servlet-name>LogOutServlet</servlet-name>
+    <url-pattern>/LogOutServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

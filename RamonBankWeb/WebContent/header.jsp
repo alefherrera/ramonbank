@@ -49,7 +49,7 @@
 			<td><a href="#" id="lnkLogOut">Salir</a></td>
 		</c:otherwise>
 	</c:choose>
-	<form method="post" action="/ramonbank/LogOurServlet" id="formlogout"></form>
+	<form method="post" action="/ramonbank/LogOutServlet" id="formlogout"></form>
 	<script>
 		$("#lnkLogOut").click(function() {
 			document.forms["formlogout"].submit();

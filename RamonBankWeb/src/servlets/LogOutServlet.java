@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class LogOurServlet
  */
-public class LogOurServlet extends BaseServlet {
+public class LogOutServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
