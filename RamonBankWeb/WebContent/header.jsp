@@ -36,16 +36,17 @@
 <body>
 
 
-<c:choose>
-			<c:when test="${sessionScope.cliente == null }">
-				<td><a href="/ramonbank/login/login.jsp">Login</a></td>
-				<td><a href="/ramonbank/registro/registro.jsp">Registro</a></td>
-				
-			</c:when>
-			<c:otherwise>
-				<td>Cliente: ${sessionScope.cliente.get_dni()}</td>
+	<c:choose>
+		<c:when test="${sessionScope.cliente == null }">
+			<td><a href="/ramonbank/login/login.jsp">Login</a></td>
+			<td><a href="/ramonbank/registro/registro.jsp">Registro</a></td>
 
-				<td>Nombre: ${sessionScope.cliente.get_nombre()}</td>
-				<td><a href="logout">Salir</a></td>
-			</c:otherwise>
-		</c:choose>
+		</c:when>
+		<c:otherwise>
+			<td>Cliente: ${sessionScope.cliente.get_dni()}</td>
+
+			<td>Nombre: ${sessionScope.cliente.get_nombre()}</td>
+			<td><a href="logout">Salir</a></td>
+		</c:otherwise>
+	</c:choose>
+	<a href="/ramonbank/index.html"> HOME </a>
