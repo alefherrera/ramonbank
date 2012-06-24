@@ -24,7 +24,7 @@
 		</c:forEach>
 	</c:if>
 </table>
-<form method="post" action="/ramonbank/CrearCuentaServlet">
+<form method="post" action="/ramonbank/CrearCuentaLoadServlet">
 	<input type="submit" value="Crear Cuenta">
 </form>
 <jsp:include page="/footer.jsp"></jsp:include>
