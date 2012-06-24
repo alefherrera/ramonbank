@@ -9,7 +9,7 @@
 		<c:if test="${sessionScope.cliente != null }">
 			<ul>
 				<li><a href="#" id="lnkCuentas">Cuentas</a></li>
-				<li>Jorge</li>
+				<li><a href="#" id="lnkServicios">Servicios</a></li>
 				<li>Alberto</li>
 			</ul>
 		</c:if>
