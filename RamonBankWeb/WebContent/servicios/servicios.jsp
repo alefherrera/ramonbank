@@ -14,17 +14,23 @@
 		</c:forEach>
 
 	</select>
-	<a href="#" id="lnksolicitarprestamo">Solicitar Prestamo</a>
-	<a href="#" id="lnkpagarservicio">Pagar Servicio</a>
+	<ul>
+		<li><a href="#" id="lnksolicitarprestamo">Solicitar Prestamo</a></li>
+		<li><a href="#" id="lnkpagarservicio">Pagar Servicio</a></li>
+	</ul>
+
+
 </form>
 <script>
 	$("#lnksolicitarprestamo").click(function() {
 		document.forms["formservicios"].action = "/ramonbank/ServiciosServlet";
 		document.forms["formservicios"].submit();
 	});
-	$("#lnkpagarservicio").click(function() {
-		document.forms["formservicios"].action = "/ramonbank/PagarServicioServlet";
-		document.forms["formservicios"].submit();
-	});
+	$("#lnkpagarservicio")
+			.click(
+					function() {
+						document.forms["formservicios"].action = "/ramonbank/PagarServicioServlet";
+						document.forms["formservicios"].submit();
+					});
 </script>
 <jsp:include page="/footer.jsp"></jsp:include>

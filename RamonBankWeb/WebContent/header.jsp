@@ -36,7 +36,7 @@
 <body>
 	<c:choose>
 		<c:when test="${sessionScope.cliente == null }">
-			<a href="/ramonbank/login/login.jsp">Login</a>
+			<a href="#" id="lnklogin">Login</a>
 			<a href="/ramonbank/registro/registro.jsp">Registro</a>
 		</c:when>
 		<c:otherwise>
@@ -46,9 +46,17 @@
 		</c:otherwise>
 	</c:choose>
 	<a href="/ramonbank/index.jsp"> HOME </a>
-	<form method="post" action="/ramonbank/LogOutServlet" id="formlogout"></form>
 	<script>
+		function CrearForm(accion) {
+			var form = document.createElement("form");
+			form.method = 'post';
+			form.action = accion;
+			form.submit();
+		}
 		$("#lnkLogOut").click(function() {
-			document.forms["formlogout"].submit();
+			CrearForm("/ramonbank/LogOutServlet");
+		});
+		$("#lnklogin").click(function() {
+			CrearForm("/ramonbank/LoginServlet");
 		});
 	</script>

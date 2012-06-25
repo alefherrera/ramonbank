@@ -10,7 +10,6 @@
 			<ul>
 				<li><a href="#" id="lnkCuentas">Cuentas</a></li>
 				<li><a href="#" id="lnkServicios">Servicios</a></li>
-				<li>Alberto</li>
 			</ul>
 		</c:if>
 
@@ -19,12 +18,10 @@
 <form method="post" id="formredir"></form>
 <script>
 	$("#lnkCuentas").click(function() {
-		document.forms["formredir"].action = "/ramonbank/CuentasServlet";
-		document.forms["formredir"].submit();
+		CrearForm("/ramonbank/CuentasServlet");
 	});
 	$("#lnkServicios").click(function() {
-		document.forms["formredir"].action = "/ramonbank/ServiciosLoadServlet";
-		document.forms["formredir"].submit();
+		CrearForm("/ramonbank/ServiciosLoadServlet");
 	});
 </script>
 <jsp:include page="/footer.jsp"></jsp:include>

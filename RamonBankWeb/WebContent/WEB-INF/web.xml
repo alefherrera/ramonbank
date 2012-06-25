@@ -88,5 +88,5 @@
   <servlet-mapping>
     <servlet-name>ServiciosLoadServlet</servlet-name>
     <url-pattern>/ServiciosLoadServlet</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>  
 </web-app>
