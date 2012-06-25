@@ -16,8 +16,6 @@
 
 	</tr>
 </table>
-<form method="post" action="/ramonbank/CuentasServlet" id="formcuentas"></form>
-<script>$("#lnkCuentas").click(function(){ document.forms["formcuentas"].submit(); });</script>
 <form method="post" id="formredir"></form>
 <script>
 	$("#lnkCuentas").click(function() {

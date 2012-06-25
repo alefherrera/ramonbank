@@ -9,7 +9,7 @@
 
 		<c:forEach items="${ CuentasBean.getCuentas() }" var="cuenta">
 			<option value="${ cuenta.get_id() }">
-				<c:out value="${ cuenta.get_id() } - ${ cuenta.get_tipo_nombre();}"></c:out>
+				<c:out value="${ cuenta.get_id() } - ${ cuenta.get_tipo_nombre()}"></c:out>
 			</option>
 		</c:forEach>
 

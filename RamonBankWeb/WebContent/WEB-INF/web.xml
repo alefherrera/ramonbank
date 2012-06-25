@@ -79,4 +79,14 @@
     <servlet-name>LogOutServlet</servlet-name>
     <url-pattern>/LogOutServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServiciosLoadServlet</display-name>
+    <servlet-name>ServiciosLoadServlet</servlet-name>
+    <servlet-class>servlets.ServiciosLoadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServiciosLoadServlet</servlet-name>
+    <url-pattern>/ServiciosLoadServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
