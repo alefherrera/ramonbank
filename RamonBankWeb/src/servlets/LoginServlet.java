@@ -1,6 +1,5 @@
 package servlets;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,13 +28,12 @@ public class LoginServlet extends BaseServlet {
 	protected void Accion(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String dir = new String();
-		try {			
-				Clientes cliente = new Clientes();
-				cliente.set_dni(request.getParameter("dni"));
-				cliente = ServiciosGeneral.loguear(cliente);
-				request.getSession().setAttribute("cliente", cliente);				
-				dir = "index.jsp";
-
+		try {
+			Clientes cliente = new Clientes();
+			cliente.set_dni(request.getParameter("dni"));
+			cliente = ServiciosGeneral.loguear(cliente);
+			request.getSession().setAttribute("cliente", cliente);
+			dir = "index.jsp";
 		} catch (OperationException ex) {
 			MessageBean bean = new MessageBean();
 			bean.setMensaje(ex.getMessage());
