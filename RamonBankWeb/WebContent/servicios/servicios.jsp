@@ -15,22 +15,24 @@
 
 	</select>
 	<ul>
-		<li><a href="#" id="lnksolicitarprestamo">Solicitar Prestamo</a></li>
-		<li><a href="#" id="lnkpagarservicio">Pagar Servicio</a></li>
+		<li><a href="#" id="SolicitarPrestamoServlet" class="lnk">Solicitar
+				Prestamo</a></li>
+		<li><a href="#" id="PagarPrestamoServlet" class="lnk">Pagar
+				Prestamo</a></li>
+		<li><a href="#" id="PagarServicioServlet" class="lnk">Pagar
+				Servicio</a></li>
+		<li><a href="#" id="DepositarServlet" class="lnk">Depositar </a></li>
+		<li><a href="#" id="ExtraerServlet" class="lnk">Extraer</a></li>
+		<li><a href="#" id="TransferirServlet" class="lnk">Transferir</a></li>
 	</ul>
 
 
 </form>
 <script>
-	$("#lnksolicitarprestamo").click(function() {
-		document.forms["formservicios"].action = "/ramonbank/ServiciosServlet";
-		document.forms["formservicios"].submit();
-	});
-	$("#lnkpagarservicio")
-			.click(
-					function() {
-						document.forms["formservicios"].action = "/ramonbank/PagarServicioServlet";
-						document.forms["formservicios"].submit();
-					});
+	$(".lnk").click(
+			function() {
+				SubmitForm(document.forms["formservicios"], "/ramonbank/"
+						+ $(this).attr('id'));
+			});
 </script>
 <jsp:include page="/footer.jsp"></jsp:include>

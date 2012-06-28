@@ -123,7 +123,7 @@
     <description></description>
     <display-name>DepositarServlet</display-name>
     <servlet-name>DepositarServlet</servlet-name>
-    <servlet-class>scope.DepositarServlet</servlet-class>
+    <servlet-class>servlets.servicios.DepositarServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DepositarServlet</servlet-name>

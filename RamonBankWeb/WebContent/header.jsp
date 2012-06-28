@@ -50,9 +50,14 @@
 		function CrearForm(accion) {
 			var form = document.createElement("form");
 			form.method = 'post';
+			SubmitForm(form,accion);
+		}
+		function SubmitForm(form,accion)
+		{
 			form.action = accion;
 			form.submit();
 		}
+		
 		$("#lnkLogOut").click(function() {
 			CrearForm("/ramonbank/LogOutServlet");
 		});
