@@ -92,13 +92,13 @@ public class PlazosFijos extends Tables {
 	}
 
 
-	public int get_acreditacion() {
+	public double get_acreditacion() {
 		return _acreditacion;
 	}
 
 
-	public void set_acreditacion(int _acreditacion) {
-		this._acreditacion = _acreditacion;
+	public void set_acreditacion(int d) {
+		this._acreditacion = d;
 	}
 
 
