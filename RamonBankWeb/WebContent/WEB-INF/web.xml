@@ -149,4 +149,14 @@
     <servlet-name>TransferirServlet</servlet-name>
     <url-pattern>/TransferirServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PlazoFijoServlet</display-name>
+    <servlet-name>PlazoFijoServlet</servlet-name>
+    <servlet-class>servlets.servicios.PlazoFijoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PlazoFijoServlet</servlet-name>
+    <url-pattern>/PlazoFijoServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

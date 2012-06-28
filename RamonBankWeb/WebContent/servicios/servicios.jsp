@@ -24,6 +24,7 @@
 		<li><a href="#" id="DepositarServlet" class="lnk">Depositar </a></li>
 		<li><a href="#" id="ExtraerServlet" class="lnk">Extraer</a></li>
 		<li><a href="#" id="TransferirServlet" class="lnk">Transferir</a></li>
+		<li><a href="#" id="PlazoFijoServlet" class="lnk">Plazo Fijo</a></li>
 	</ul>
 
 
