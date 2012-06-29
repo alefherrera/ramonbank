@@ -18,5 +18,7 @@ public interface ITables {
 	
 	public ITables Load() throws OperationException;
 	
+	public ArrayList<? extends ITables>LoadList() throws OperationException;
+	
 	public int Cantidad();
 }

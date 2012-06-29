@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ramon.ramonbank.businesslogic.utils.MOVIMIENTO;
 import com.ramon.ramonbank.dbaccess.ITables;
 import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;

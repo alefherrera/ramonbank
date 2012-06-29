@@ -3,9 +3,11 @@ package com.ramon.ramonbank.dbaccess.tables;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 //import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.ramon.ramonbank.dbaccess.ITables;
 import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.utils.Fecha;
@@ -173,6 +175,31 @@ public class Prestamos extends Tables {
 				_log.log(Level.WARNING, e.getStackTrace().toString() + "\n" + e.getMessage());
 			}
 			return oPrestamo;
+		}
+		
+		public ArrayList<Prestamos> LoadList() throws OperationException {
+			ArrayList<Prestamos> arrayPrestamos = new ArrayList<Prestamos>();
+
+			ResultSet rs = this.Select();
+			Prestamos oPrestamo = new Prestamos();
+
+			try {
+				while (rs.next()) {
+					oPrestamo.set_id(rs.getInt("id"));
+					oPrestamo.set_fechaAlta(rs.getTime("FechaAlta").toString());
+					oPrestamo.set_monto(rs.getDouble("Monto"));
+					oPrestamo.set_cantCuotas(rs.getInt("CantCuotas"));
+					oPrestamo.set_interes(rs.getDouble("Interes"));
+					oPrestamo.set_idCliente(rs.getInt("idCliente"));
+					oPrestamo.set_idCuenta(rs.getInt("idCuenta"));
+				}
+			}
+
+			catch (SQLException e) {
+				_log.log(Level.WARNING,
+						e.getStackTrace().toString() + "\n" + e.getMessage());
+			}
+			return arrayPrestamos;
 		}
 		
 		public int Cantidad()

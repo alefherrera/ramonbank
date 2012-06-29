@@ -42,6 +42,10 @@ public abstract class Tables implements ITables {
 	public ITables Load() throws OperationException {
 		return null;
 	}
+	
+	public ArrayList<? extends ITables>LoadList() throws OperationException{
+		return null;
+	}
 
 	@Override
 	public int Cantidad() {
