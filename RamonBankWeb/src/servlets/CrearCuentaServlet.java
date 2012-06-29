@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import scope.CuentasBean;
 import scope.MessageBean;
 
-import com.ramon.ramonbank.businesslogic.ServiciosCliente;
 import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.exceptions.OperationException;
+import com.ramon.ramonbank.servicios.ServiciosCliente;
 
 /**
  * Servlet implementation class CrearCuentas

@@ -1,4 +1,4 @@
-package com.ramon.ramonbank.businesslogic;
+package com.ramon.ramonbank.servicios;
 
 import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.exceptions.OperationException;

@@ -3,8 +3,8 @@ package servlets.servicios;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ramon.ramonbank.businesslogic.ServiciosCliente;
 import com.ramon.ramonbank.dbaccess.tables.Clientes;
+import com.ramon.ramonbank.servicios.ServiciosCliente;
 
 import servlets.BaseServlet;
 

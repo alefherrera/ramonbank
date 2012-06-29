@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ramon.ramonbank.businesslogic.utils.TIPO_CUENTA;
+
 import com.ramon.ramonbank.dbaccess.ITables;
 import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
+import com.ramon.ramonbank.servicios.utils.TIPO_CUENTA;
 
 public class Cuentas extends Tables {
 

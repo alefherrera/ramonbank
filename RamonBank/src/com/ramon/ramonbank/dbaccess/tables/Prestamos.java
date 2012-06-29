@@ -26,7 +26,10 @@ public class Prestamos extends Tables {
 	private int _idCuenta;
 	private Fecha _filtro_fechaDesde;
 	private Fecha _filtro_fechaHasta;
+	private int _filtroActivo;
 	
+	
+
 	public Prestamos() {
 		
 		this._id = -1;
@@ -38,6 +41,7 @@ public class Prestamos extends Tables {
 		this._interes = -1;
 		this._idCliente = -1;
 		this._idCuenta = -1;
+		this._filtroActivo = -1;
 	}
 
 	
@@ -113,6 +117,14 @@ public class Prestamos extends Tables {
 		this._filtro_fechaHasta.set_Fecha(filtro_fechaHasta);
 	}
 
+	public int get_filtroActivo() {
+		return _filtroActivo;
+	}
+
+	public void set_filtroActivo(int _filtroActivo) {
+		this._filtroActivo = _filtroActivo;
+	}
+
 		// Acceso a BD
 		public ResultSet Select() {
 			Lista.clear();
@@ -124,6 +136,7 @@ public class Prestamos extends Tables {
 			Lista.add(this._interes);
 			Lista.add(this._idCliente);
 			Lista.add(this._idCuenta);
+			Lista.add(this._filtroActivo);
 			return super.Select(Lista);	
 		}
 

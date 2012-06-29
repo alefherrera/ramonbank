@@ -4,13 +4,14 @@ package com.ramon.ramonbank;
 
 import java.util.logging.Logger;
 
-import com.ramon.ramonbank.businesslogic.ServiciosCliente;
-import com.ramon.ramonbank.businesslogic.utils.TIPO_CUENTA;
+
 import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.dbaccess.tables.Cuentas;
 import com.ramon.ramonbank.dbaccess.tables.PagoPrestamos;
 import com.ramon.ramonbank.dbaccess.tables.Prestamos;
 import com.ramon.ramonbank.exceptions.OperationException;
+import com.ramon.ramonbank.servicios.ServiciosCliente;
+import com.ramon.ramonbank.servicios.utils.TIPO_CUENTA;
 import com.ramon.ramonbank.utils.RBLogger;
 
 public class RamonBank {

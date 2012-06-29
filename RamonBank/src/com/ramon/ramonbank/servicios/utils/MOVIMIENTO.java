@@ -1,4 +1,4 @@
-package com.ramon.ramonbank.businesslogic.utils;
+package com.ramon.ramonbank.servicios.utils;
 
 public class MOVIMIENTO {
 

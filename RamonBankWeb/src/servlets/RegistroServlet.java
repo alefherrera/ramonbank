@@ -5,9 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import scope.MessageBean;
 
-import com.ramon.ramonbank.businesslogic.ServiciosGeneral;
 import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.exceptions.OperationException;
+import com.ramon.ramonbank.servicios.ServiciosGeneral;
 
 /**
  * Servlet implementation class RegistroServlet

@@ -1,4 +1,4 @@
-package com.ramon.ramonbank.businesslogic;
+package com.ramon.ramonbank.servicios;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class Reportes {
 		}
 		Movimientos movimiento = new Movimientos();
 		movimiento.set_idcuenta(cuenta.get_id());
-		//TODO: CONSULTA SQL Ultimos movimientos por filtro mandado, TOP 5
+
 		return movimiento.ultimosCargados(cantidad);
 	}
 }

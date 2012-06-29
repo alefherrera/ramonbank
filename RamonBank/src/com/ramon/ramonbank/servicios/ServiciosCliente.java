@@ -1,4 +1,4 @@
-package com.ramon.ramonbank.businesslogic;
+package com.ramon.ramonbank.servicios;
 
 import java.util.Date;
 import java.sql.ResultSet;
@@ -19,12 +19,12 @@ import com.ramon.ramonbank.dbaccess.tables.PlazosFijos;
 import com.ramon.ramonbank.dbaccess.tables.Prestamos;
 import com.ramon.ramonbank.dbaccess.tables.Servicios;
 import com.ramon.ramonbank.exceptions.OperationException;
+import com.ramon.ramonbank.servicios.utils.MOVIMIENTO;
+import com.ramon.ramonbank.servicios.utils.ORIGEN;
+import com.ramon.ramonbank.servicios.utils.PLAZO_FIJO;
+import com.ramon.ramonbank.servicios.utils.PRESTAMO;
+import com.ramon.ramonbank.servicios.utils.TIPO_CUENTA;
 import com.ramon.ramonbank.utils.Fecha;
-import com.ramon.ramonbank.businesslogic.utils.MOVIMIENTO;
-import com.ramon.ramonbank.businesslogic.utils.ORIGEN;
-import com.ramon.ramonbank.businesslogic.utils.PLAZO_FIJO;
-import com.ramon.ramonbank.businesslogic.utils.TIPO_CUENTA;
-import com.ramon.ramonbank.businesslogic.utils.PRESTAMO;
 
 public class ServiciosCliente {
 	private Clientes _cliente;
@@ -477,7 +477,6 @@ public class ServiciosCliente {
 					"No hay suficiente saldo para realizar el movimiento");
 		}
 
-		
 		double montoTotal = _monto + (_monto * _costoMovimiento);
 		// Registro movimiento
 		Movimientos _movimiento = new Movimientos();
@@ -568,6 +567,29 @@ public class ServiciosCliente {
 		_pagoPrestamo.set_origen(ORIGEN.CUENTA.id());
 		_pagoPrestamo.set_monto(_monto);
 		return _pagoPrestamo.Insert();
+	}
+
+	/**
+	 * Devuelve los prestamos del cliente
+	 * 
+	 * @param prestamo
+	 *            Filtro de prestamos, new para crear sin filtros.
+	 * @return
+	 */
+	public ArrayList<Prestamos> listarPrestamos(Prestamos prestamo)
+			throws OperationException {
+		if (this._cliente == null) {
+			throw new OperationException("El objeto cliente es null");
+		}
+		if (prestamo == null) {
+			throw new OperationException("El objeto prestamo es null");
+		}
+		prestamo.set_idCliente(this._cliente.get_id());
+
+		// TODO: Modificar el select de prestamos para que filtre los que estan
+		// activos o no, de acuerdo al filtroactivo
+		return prestamo.LoadList();
+
 	}
 
 	/**
@@ -746,7 +768,7 @@ public class ServiciosCliente {
 		_cuenta.set_saldo(_cuenta.get_saldo() + _monto
 				- (_monto * _costoMovimiento));
 		_cuenta.Update();
-		
+
 		double montoTotal = _monto - (_monto * _costoMovimiento);
 		Movimientos _movimiento = new Movimientos();
 		_movimiento.set_idcuenta(_cuenta.get_id());
@@ -766,8 +788,7 @@ public class ServiciosCliente {
 	 * @param _monto
 	 * @throws OperationException
 	 */
-	public void extraer(Cuentas _cuenta, int _monto)
-			throws OperationException {
+	public void extraer(Cuentas _cuenta, int _monto) throws OperationException {
 		if (_cuenta == null) {
 			throw new OperationException("El objeto cuenta es null");
 		}
@@ -853,7 +874,6 @@ public class ServiciosCliente {
 					"No hay suficiente saldo para realizar la transferencia");
 		}
 
-
 		_cuentaDesde.set_saldo(_cuentaDesde.get_saldo() - _monto - _monto
 				* _costoMovimiento);
 		_cuentaDesde.Update();
@@ -888,7 +908,9 @@ public class ServiciosCliente {
 
 	/**
 	 * Plazo fijo desde cuenta, se retira en efectivo
-	 * @param _cuentaOrigen Cuenta de Origen de los fondos
+	 * 
+	 * @param _cuentaOrigen
+	 *            Cuenta de Origen de los fondos
 	 * @param _monto
 	 * @param vencimiento
 	 * @return
@@ -914,8 +936,8 @@ public class ServiciosCliente {
 		_cuentaOrigen.Load();
 
 		// Validaciones y proceso desde
-		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuentaOrigen.get_tipo())
-				.costoMovimiento();
+		double _costoMovimiento = TIPO_CUENTA
+				.get_enum(_cuentaOrigen.get_tipo()).costoMovimiento();
 		double _montoTotal = _monto + (_monto * _costoMovimiento);
 
 		if (_cuentaOrigen.get_saldo() < _montoTotal) {
@@ -947,20 +969,21 @@ public class ServiciosCliente {
 		_movimiento.set_origen(MOVIMIENTO.ORIGEN.PLAZO_FIJO.id());
 		_movimiento.set_tipo(MOVIMIENTO.TIPO.EXTRACCION.id());
 		_movimiento.set_saldo(_cuentaOrigen.get_saldo());
-		
+
 		return idPlazo;
 	}
-	
+
 	/**
 	 * Plazo fijo desde cuenta, se retira en una cuenta
+	 * 
 	 * @param _cuentaOrigen
 	 * @param _monto
 	 * @param vencimiento
 	 * @return
 	 * @throws OperationException
 	 */
-	public int plazoFijo(Cuentas _cuentaOrigen, int _monto, Fecha vencimiento, Cuentas _cuentaDestino)
-			throws OperationException {
+	public int plazoFijo(Cuentas _cuentaOrigen, int _monto, Fecha vencimiento,
+			Cuentas _cuentaDestino) throws OperationException {
 		if (this._cliente == null) {
 			throw new OperationException("El objeto cliente es null");
 		}
@@ -976,15 +999,15 @@ public class ServiciosCliente {
 		if (_cuentaOrigen.Cantidad() == 0) {
 			throw new OperationException("No existe la cuenta origen");
 		}
-		if(_cuentaDestino.Cantidad() == 0){
+		if (_cuentaDestino.Cantidad() == 0) {
 			throw new OperationException("No existe la cuenta destino");
 		}
 		_cuentaDestino.Load();
 		_cuentaOrigen.Load();
 
 		// Validaciones y proceso desde
-		double _costoMovimiento = TIPO_CUENTA.get_enum(_cuentaOrigen.get_tipo())
-				.costoMovimiento();
+		double _costoMovimiento = TIPO_CUENTA
+				.get_enum(_cuentaOrigen.get_tipo()).costoMovimiento();
 		double _montoTotal = _monto + (_monto * _costoMovimiento);
 
 		if (_cuentaOrigen.get_saldo() < _montoTotal) {
@@ -1005,7 +1028,7 @@ public class ServiciosCliente {
 		_plazoFijo.set_nroCuentaDestino(_cuentaDestino.get_id());
 		_plazoFijo.set_nroCuentaOrigen(_cuentaOrigen.get_id());
 		_plazoFijo.set_origen(ORIGEN.CUENTA.id());
-		
+
 		int idPlazo = _plazoFijo.Insert();
 
 		_cuentaOrigen.set_saldo(_cuentaOrigen.get_saldo() - _montoTotal);
@@ -1017,12 +1040,13 @@ public class ServiciosCliente {
 		_movimiento.set_origen(MOVIMIENTO.ORIGEN.PLAZO_FIJO.id());
 		_movimiento.set_tipo(MOVIMIENTO.TIPO.EXTRACCION.id());
 		_movimiento.set_saldo(_cuentaOrigen.get_saldo());
-		
+
 		return idPlazo;
 	}
-	
+
 	/**
 	 * Plazo fijo en efectivo, se retira en cuenta
+	 * 
 	 * @param _cuenta
 	 * @param _monto
 	 * @param vencimiento
@@ -1041,7 +1065,7 @@ public class ServiciosCliente {
 		if (_monto <= 0) {
 			throw new OperationException("La cantidad es incorrecta");
 		}
-		if(_cuentaDestino.Cantidad() == 0){
+		if (_cuentaDestino.Cantidad() == 0) {
 			throw new OperationException("No existe la cuenta destino");
 		}
 		_cuentaDestino.Load();
@@ -1059,12 +1083,13 @@ public class ServiciosCliente {
 		_plazoFijo.set_nroCuentaDestino(_cuentaDestino.get_id());
 		_plazoFijo.set_nroCuentaOrigen(0);
 		_plazoFijo.set_origen(ORIGEN.EFECTIVO.id());
-	
+
 		return _plazoFijo.Insert();
 	}
-	
+
 	/**
 	 * Plazo fijo en efectivo, se retira en efectivo
+	 * 
 	 * @param _monto
 	 * @param vencimiento
 	 * @return
@@ -1082,7 +1107,6 @@ public class ServiciosCliente {
 			throw new OperationException("La cantidad es incorrecta");
 		}
 
-
 		long msDif = vencimiento.get_Date().getTime() - Fecha.now().getTime();
 		int _dias = (int) ((((msDif / 1000) / 60) / 60) / 24);
 
@@ -1096,7 +1120,7 @@ public class ServiciosCliente {
 		_plazoFijo.set_nroCuentaDestino(0);
 		_plazoFijo.set_nroCuentaOrigen(0);
 		_plazoFijo.set_origen(ORIGEN.EFECTIVO.id());
-	
+
 		return _plazoFijo.Insert();
 	}
 }

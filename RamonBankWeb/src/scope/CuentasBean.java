@@ -3,8 +3,9 @@ package scope;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.ramon.ramonbank.businesslogic.utils.TIPO_CUENTA;
+
 import com.ramon.ramonbank.dbaccess.tables.Cuentas;
+import com.ramon.ramonbank.servicios.utils.TIPO_CUENTA;
 
 public class CuentasBean implements Serializable {
 	
