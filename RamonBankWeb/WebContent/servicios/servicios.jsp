@@ -11,7 +11,7 @@
 			<ul>				
 				<li><a href="#" id="solicitarprestamo" class="lnk">Solicitar
 						Prestamo</a></li>
-				<li><a href="#" id="pagarprestamo" class="lnk">Pagar
+				<li><a href="#" id="PagarPrestamoLoadServlet" class="lnk">Pagar
 						Prestamo</a></li>
 			</ul>
 		<li><a href="#" id="pagarservicio" class="lnk">Pagar

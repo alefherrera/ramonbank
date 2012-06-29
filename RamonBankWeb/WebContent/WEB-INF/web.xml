@@ -179,4 +179,14 @@
     <servlet-name>ComboLoadServlet</servlet-name>
     <url-pattern>/ComboLoadServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PagarPrestamoLoadServlet</display-name>
+    <servlet-name>PagarPrestamoLoadServlet</servlet-name>
+    <servlet-class>servlets.servicios.prestamos.PagarPrestamoLoadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PagarPrestamoLoadServlet</servlet-name>
+    <url-pattern>/PagarPrestamoLoadServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

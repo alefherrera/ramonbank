@@ -1,4 +1,4 @@
-package servlets.servicios;
+package servlets.servicios.prestamos;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,6 +12,7 @@ import com.ramon.ramonbank.dbaccess.tables.Cuentas;
 import com.ramon.ramonbank.dbaccess.tables.Prestamos;
 
 import servlets.BaseServlet;
+import servlets.servicios.BaseServiciosServlet;
 
 /**
  * Servlet implementation class PagarPrestamoServlet

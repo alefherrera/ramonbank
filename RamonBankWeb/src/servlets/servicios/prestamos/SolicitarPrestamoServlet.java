@@ -1,4 +1,4 @@
-package servlets.servicios;
+package servlets.servicios.prestamos;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +12,7 @@ import scope.CuentasBean;
 import scope.MessageBean;
 import servlets.BaseServlet;
 import servlets.CrearCuentaLoadServlet;
+import servlets.servicios.BaseServiciosServlet;
 
 /**
  * Servlet implementation class SolicitarPrestamoServlet
