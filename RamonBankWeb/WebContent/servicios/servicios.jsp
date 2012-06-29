@@ -5,35 +5,29 @@
 <jsp:useBean id="CuentasBean" scope="request" type="scope.CuentasBean"></jsp:useBean>
 <form id="formservicios" method="post">
 
-	<select name="comboCuenta">
-
-		<c:forEach items="${ CuentasBean.getCuentas() }" var="cuenta">
-			<option value="${ cuenta.get_id() }">
-				<c:out value="${ cuenta.get_id() } - ${ cuenta.get_tipo_nombre()}"></c:out>
-			</option>
-		</c:forEach>
-
-	</select>
+	<input type="hidden" name="dir" id="dir" />
 	<ul>
-		<li><a href="#" id="SolicitarPrestamoServlet" class="lnk">Solicitar
-				Prestamo</a></li>
-		<li><a href="#" id="PagarPrestamoServlet" class="lnk">Pagar
-				Prestamo</a></li>
-		<li><a href="#" id="PagarServicioServlet" class="lnk">Pagar
+		<li>Prestamo
+			<ul>				
+				<li><a href="#" id="solicitarprestamo" class="lnk">Solicitar
+						Prestamo</a></li>
+				<li><a href="#" id="pagarprestamo" class="lnk">Pagar
+						Prestamo</a></li>
+			</ul>
+		<li><a href="#" id="pagarservicio" class="lnk">Pagar
 				Servicio</a></li>
-		<li><a href="#" id="DepositarServlet" class="lnk">Depositar </a></li>
-		<li><a href="#" id="ExtraerServlet" class="lnk">Extraer</a></li>
-		<li><a href="#" id="TransferirServlet" class="lnk">Transferir</a></li>
-		<li><a href="#" id="PlazoFijoServlet" class="lnk">Plazo Fijo</a></li>
+		<li><a href="#" id="depositar" class="lnk">Depositar </a></li>
+		<li><a href="#" id="extraer" class="lnk">Extraer</a></li>
+		<li><a href="#" id="transferir" class="lnk">Transferir</a></li>
+		<li><a href="#" id="plazofijo" class="lnk">Plazo Fijo</a></li>
 	</ul>
-
 
 </form>
 <script>
 	$(".lnk").click(
 			function() {
-				SubmitForm(document.forms["formservicios"], "/ramonbank/"
-						+ $(this).attr('id'));
+				$("#dir").val($(this).attr('id'));
+				SubmitForm(document.forms["formservicios"], "/ramonbank/ComboLoadServlet");
 			});
 </script>
 <jsp:include page="/footer.jsp"></jsp:include>

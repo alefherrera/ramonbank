@@ -10,27 +10,26 @@ import com.ramon.ramonbank.businesslogic.ServiciosCliente;
 import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.dbaccess.tables.Cuentas;
 
+import scope.CuentasBean;
 import servlets.BaseServlet;
 
 /**
- * Servlet implementation class PagarServicioServlet
+ * Servlet implementation class ComboLoadServlet
  */
-public class PagarServicioServlet extends BaseServiciosServlet {
+public class ComboLoadServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void Accion(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		super.Accion(request, response);
-		
-		int idServicio = Integer.parseInt(request
-				.getParameter("idServicio"));
-		
-		Cuentas cuenta = new Cuentas();
-		cuenta.set_id(Integer.parseInt(request.getParameter("idCuenta")));
-		cuenta.Load();
-		
-		servicio.pagarServicio(idServicio, cuenta);
+		ServiciosCliente service = new ServiciosCliente((Clientes) request
+				.getSession().getAttribute("cliente"));
+
+		CuentasBean bean = new CuentasBean();
+		bean.setCuentas(service.listarCuentas(new Cuentas()));
+
+		request.setAttribute("CuentasBean", bean);
+		request.getRequestDispatcher("/servicios/"+ request.getParameter("dir") + ".jsp").forward(request, response);
 		
 	}
        

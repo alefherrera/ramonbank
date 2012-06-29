@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/header.jsp"></jsp:include>
 <jsp:useBean id="CuentasBean" scope="request" type="scope.CuentasBean"></jsp:useBean>
-<jsp:useBean id="msjBean" scope="request" class="scope.MessageBean"></jsp:useBean>
+
 
 <form method="post" action="/ramonbank/CrearCuentaServlet">
 	<select name="comboTipoCuenta">
@@ -17,10 +17,5 @@
 
 	</select> <input type="submit" value="Crear">
 </form>
-<c:if test="${msjBean != null }">
-	<br>
-	<p style="color: red;">
-		<c:out value="${msjBean.mensaje }"></c:out>
-	</p>
-</c:if>
+
 <jsp:include page="/footer.jsp"></jsp:include>

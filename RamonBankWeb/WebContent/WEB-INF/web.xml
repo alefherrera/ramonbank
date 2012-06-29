@@ -159,4 +159,24 @@
     <servlet-name>PlazoFijoServlet</servlet-name>
     <url-pattern>/PlazoFijoServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BaseServiciosServlet</display-name>
+    <servlet-name>BaseServiciosServlet</servlet-name>
+    <servlet-class>servlets.servicios.BaseServiciosServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BaseServiciosServlet</servlet-name>
+    <url-pattern>/BaseServiciosServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ComboLoadServlet</display-name>
+    <servlet-name>ComboLoadServlet</servlet-name>
+    <servlet-class>servlets.servicios.ComboLoadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ComboLoadServlet</servlet-name>
+    <url-pattern>/ComboLoadServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

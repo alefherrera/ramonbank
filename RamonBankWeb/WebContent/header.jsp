@@ -34,6 +34,7 @@
 </script>
 </head>
 <body>
+<jsp:useBean id="msjBean" scope="request" class="scope.MessageBean"></jsp:useBean>
 	<c:choose>
 		<c:when test="${sessionScope.cliente == null }">
 			<a href="/ramonbank/login/login.jsp" id="lnklogin">Login</a>
