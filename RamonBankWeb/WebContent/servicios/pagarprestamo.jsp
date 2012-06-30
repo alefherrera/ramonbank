@@ -5,11 +5,11 @@
 <jsp:useBean id="PrestamosBean" scope="request"
 	type="scope.PrestamosBean"></jsp:useBean>
 <form method="post" action="/ramonbank/PagarPrestmoServlet">
-	<c:if test="${PrestamosBean != null}">
-		<input type="hidden" value="{PrestamosBean.Prestamo.get_id()]"
-			name="idPrestamo" id="idPrestamo" />
+	<c:if test="${PrestamosBean != null}">		
+		<input type="hidden" value="${PrestamosBean.prestamo.get_id()}" name="idPrestamo" id="idPrestamo" />
 	</c:if>
-	<input type="text" name="cantidadCuotas" id="cantidadCuotas" />
+	Cuotas:<input type="text"
+		name="cantidadCuotas" id="cantidadCuotas" />
 	<jsp:include page="/combocuenta.jsp"></jsp:include>
 	<input type="submit" value="Pagar">
 </form>
