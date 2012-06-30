@@ -4,7 +4,7 @@
 <jsp:include page="/header.jsp"></jsp:include>
 <jsp:useBean id="PrestamosBean" scope="request"
 	type="scope.PrestamosBean"></jsp:useBean>
-<form method="post" action="/ramonbank/PagarPrestmoServlet">
+<form method="post" action="/ramonbank/PagarPrestamoServlet">
 	<c:if test="${PrestamosBean != null}">		
 		<input type="hidden" value="${PrestamosBean.prestamo.get_id()}" name="idPrestamo" id="idPrestamo" />
 	</c:if>

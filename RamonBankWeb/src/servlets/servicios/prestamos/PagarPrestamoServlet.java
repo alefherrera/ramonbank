@@ -11,6 +11,7 @@ import com.ramon.ramonbank.dbaccess.tables.Cuentas;
 import com.ramon.ramonbank.dbaccess.tables.Prestamos;
 import com.ramon.ramonbank.servicios.ServiciosCliente;
 
+import scope.PrestamosBean;
 import servlets.BaseServlet;
 import servlets.servicios.BaseServiciosServlet;
 
@@ -37,6 +38,12 @@ public class PagarPrestamoServlet extends BaseServiciosServlet {
 		cuenta.Load();
 
 		servicio.pagarPrestamo(prestamo, cantidadCuotas, cuenta);
+		
+		PrestamosBean bean = new PrestamosBean();
+		bean.setPrestamos(servicio.listarPrestamos(new Prestamos()));
+		request.setAttribute("PrestamosBean", bean);
+		
+		request.getRequestDispatcher("/servicios/pagarprestamotable.jsp").forward(request, response);
 
 	}
 
