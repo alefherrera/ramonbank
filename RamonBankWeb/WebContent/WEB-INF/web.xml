@@ -93,7 +93,7 @@
     <description></description>
     <display-name>SolicitarPrestamoServlet</display-name>
     <servlet-name>SolicitarPrestamoServlet</servlet-name>
-    <servlet-class>servlets.servicios.SolicitarPrestamoServlet</servlet-class>
+    <servlet-class>servlets.servicios.prestamos.SolicitarPrestamoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SolicitarPrestamoServlet</servlet-name>
@@ -103,7 +103,7 @@
     <description></description>
     <display-name>PagarPrestamoServlet</display-name>
     <servlet-name>PagarPrestamoServlet</servlet-name>
-    <servlet-class>servlets.servicios.PagarPrestamoServlet</servlet-class>
+    <servlet-class>servlets.servicios.prestamos.PagarPrestamoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>PagarPrestamoServlet</servlet-name>
@@ -181,12 +181,22 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>PagarPrestamoLoadServlet</display-name>
-    <servlet-name>PagarPrestamoLoadServlet</servlet-name>
-    <servlet-class>servlets.servicios.prestamos.PagarPrestamoLoadServlet</servlet-class>
+    <display-name>PagarPrestamoTableLoadServlet</display-name>
+    <servlet-name>PagarPrestamoTableLoadServlet</servlet-name>
+    <servlet-class>servlets.servicios.prestamos.PagarPrestamoTableLoadServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PagarPrestamoLoadServlet</servlet-name>
-    <url-pattern>/PagarPrestamoLoadServlet</url-pattern>
+    <servlet-name>PagarPrestamoTableLoadServlet</servlet-name>
+    <url-pattern>/PagarPrestamoTableLoadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PagarPrestamoTableServlet</display-name>
+    <servlet-name>PagarPrestamoTableServlet</servlet-name>
+    <servlet-class>servlets.servicios.prestamos.PagarPrestamoTableServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PagarPrestamoTableServlet</servlet-name>
+    <url-pattern>/PagarPrestamoTableServlet</url-pattern>
   </servlet-mapping>
 </web-app>

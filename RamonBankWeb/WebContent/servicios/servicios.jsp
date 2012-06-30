@@ -2,20 +2,17 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/header.jsp"></jsp:include>
-<jsp:useBean id="CuentasBean" scope="request" type="scope.CuentasBean"></jsp:useBean>
 <form id="formservicios" method="post">
 
 	<input type="hidden" name="dir" id="dir" />
 	<ul>
 		<li>Prestamo
-			<ul>				
+			<ul>
 				<li><a href="#" id="solicitarprestamo" class="lnk">Solicitar
 						Prestamo</a></li>
-				<li><a href="#" id="PagarPrestamoLoadServlet" class="lnk">Pagar
-						Prestamo</a></li>
+				<li><a href="#" id="pagarprestamo">Pagar Prestamo</a></li>
 			</ul>
-		<li><a href="#" id="pagarservicio" class="lnk">Pagar
-				Servicio</a></li>
+		<li><a href="#" id="pagarservicio" class="lnk">Pagar Servicio</a></li>
 		<li><a href="#" id="depositar" class="lnk">Depositar </a></li>
 		<li><a href="#" id="extraer" class="lnk">Extraer</a></li>
 		<li><a href="#" id="transferir" class="lnk">Transferir</a></li>
@@ -27,7 +24,11 @@
 	$(".lnk").click(
 			function() {
 				$("#dir").val($(this).attr('id'));
-				SubmitForm(document.forms["formservicios"], "/ramonbank/ComboLoadServlet");
+				SubmitForm(document.forms["formservicios"],
+						"/ramonbank/ComboLoadServlet");
 			});
+	$("#pagarprestamo").click(function() {
+		CrearForm("/ramonbank/PagarPrestamoTableLoadServlet");
+	});
 </script>
 <jsp:include page="/footer.jsp"></jsp:include>

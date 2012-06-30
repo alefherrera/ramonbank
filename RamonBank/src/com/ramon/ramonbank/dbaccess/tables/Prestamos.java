@@ -136,7 +136,6 @@ public class Prestamos extends Tables {
 			Lista.add(this._interes);
 			Lista.add(this._idCliente);
 			Lista.add(this._idCuenta);
-			Lista.add(this._filtroActivo);
 			return super.Select(Lista);	
 		}
 
@@ -194,10 +193,11 @@ public class Prestamos extends Tables {
 			ArrayList<Prestamos> arrayPrestamos = new ArrayList<Prestamos>();
 
 			ResultSet rs = this.Select();
-			Prestamos oPrestamo = new Prestamos();
+			Prestamos oPrestamo;
 
 			try {
 				while (rs.next()) {
+					oPrestamo = new Prestamos();
 					oPrestamo.set_id(rs.getInt("id"));
 					oPrestamo.set_fechaAlta(rs.getTime("FechaAlta").toString());
 					oPrestamo.set_monto(rs.getDouble("Monto"));
@@ -205,6 +205,8 @@ public class Prestamos extends Tables {
 					oPrestamo.set_interes(rs.getDouble("Interes"));
 					oPrestamo.set_idCliente(rs.getInt("idCliente"));
 					oPrestamo.set_idCuenta(rs.getInt("idCuenta"));
+					
+					arrayPrestamos.add(oPrestamo);
 				}
 			}
 
