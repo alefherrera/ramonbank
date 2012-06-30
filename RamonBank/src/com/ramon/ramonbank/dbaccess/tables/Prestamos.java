@@ -147,6 +147,7 @@ public class Prestamos extends Tables {
 			Lista.add(this._interes);
 			Lista.add(this._idCliente);
 			Lista.add(this._idCuenta);
+			Lista.add(this._filtroActivo);
 			return super.Select(Lista);	
 		}
 
