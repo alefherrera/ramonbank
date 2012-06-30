@@ -621,8 +621,8 @@ public class ServiciosCliente {
 			throw new OperationException("La cuenta es incorrecta");
 		}
 
-		_cuenta.Load();
-		_servicio.Load();
+		_cuenta = _cuenta.Load();
+		_servicio = _servicio.Load();
 
 		if (_cuenta.get_idCliente() != _cliente.get_id()) {
 			throw new OperationException("El cliente y la cuenta no concuerdan");
@@ -686,8 +686,8 @@ public class ServiciosCliente {
 			throw new OperationException("La cuenta es incorrecta");
 		}
 
-		_cuenta.Load();
-		_servicio.Load();
+		_cuenta = _cuenta.Load();
+		_servicio = _servicio.Load();
 
 		if (_cuenta.get_idCliente() != _cliente.get_id()) {
 			throw new OperationException("El cliente y la cuenta no concuerdan");
@@ -933,7 +933,7 @@ public class ServiciosCliente {
 		if (_cuentaOrigen.Cantidad() == 0) {
 			throw new OperationException("No existe la cuenta");
 		}
-		_cuentaOrigen.Load();
+		_cuentaOrigen = _cuentaOrigen.Load();
 
 		// Validaciones y proceso desde
 		double _costoMovimiento = TIPO_CUENTA
@@ -1002,8 +1002,8 @@ public class ServiciosCliente {
 		if (_cuentaDestino.Cantidad() == 0) {
 			throw new OperationException("No existe la cuenta destino");
 		}
-		_cuentaDestino.Load();
-		_cuentaOrigen.Load();
+		_cuentaDestino = _cuentaDestino.Load();
+		_cuentaOrigen = _cuentaOrigen.Load();
 
 		// Validaciones y proceso desde
 		double _costoMovimiento = TIPO_CUENTA
@@ -1068,7 +1068,7 @@ public class ServiciosCliente {
 		if (_cuentaDestino.Cantidad() == 0) {
 			throw new OperationException("No existe la cuenta destino");
 		}
-		_cuentaDestino.Load();
+		_cuentaDestino = _cuentaDestino.Load();
 
 		long msDif = vencimiento.get_Date().getTime() - Fecha.now().getTime();
 		int _dias = (int) ((((msDif / 1000) / 60) / 60) / 24);

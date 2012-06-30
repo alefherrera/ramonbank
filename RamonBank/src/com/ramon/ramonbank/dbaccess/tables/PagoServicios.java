@@ -17,7 +17,7 @@ public class PagoServicios extends Tables {
 	
 	private int _id;
 	private Fecha _fechaAlta;
-	private double _nroCuenta;
+	private int _nroCuenta;
 	private int _idServicio;
 	private Fecha _filtro_fechaDesde;
 	private Fecha _filtro_fechaHasta;
@@ -65,11 +65,11 @@ public class PagoServicios extends Tables {
 	public void set_filtro_fechaHasta(String filtro_fechaHasta) {
 		this._filtro_fechaHasta.set_Fecha(filtro_fechaHasta);
 	}
-	public double get_nroCuenta() {
+	public int get_nroCuenta() {
 		return _nroCuenta;
 	}
 
-	public void set_nroCuenta(double _nroCuenta) {
+	public void set_nroCuenta(int _nroCuenta) {
 		this._nroCuenta = _nroCuenta;
 	}
 

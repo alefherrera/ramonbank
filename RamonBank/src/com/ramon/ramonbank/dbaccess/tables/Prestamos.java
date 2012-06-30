@@ -27,7 +27,7 @@ public class Prestamos extends Tables {
 	private Fecha _filtro_fechaDesde;
 	private Fecha _filtro_fechaHasta;
 	private int _filtroActivo;
-	
+	private int _cantCuotasPagadas;
 	
 
 	public Prestamos() {
@@ -124,6 +124,17 @@ public class Prestamos extends Tables {
 	public void set_filtroActivo(int _filtroActivo) {
 		this._filtroActivo = _filtroActivo;
 	}
+	
+
+		public int get_cantCuotasPagadas() {
+		return _cantCuotasPagadas;
+	}
+
+
+	public void set_cantCuotasPagadas(int _cantCuotasPagadas) {
+		this._cantCuotasPagadas = _cantCuotasPagadas;
+	}
+
 
 		// Acceso a BD
 		public ResultSet Select() {
@@ -179,6 +190,11 @@ public class Prestamos extends Tables {
 					oPrestamo.set_interes(rs.getDouble("Interes"));
 					oPrestamo.set_idCliente(rs.getInt("idCliente"));
 					oPrestamo.set_idCuenta(rs.getInt("idCuenta"));
+					
+					PagoPrestamos ppagados = new PagoPrestamos();
+					ppagados.set_idPrestamo(oPrestamo.get_id());
+					
+					oPrestamo.set_cantCuotasPagadas(ppagados.CantidadCuotas());
 				} else {
 					throw new OperationException("No se encontro ningun " + this.getClass().getName());
 			}
@@ -206,6 +222,10 @@ public class Prestamos extends Tables {
 					oPrestamo.set_idCliente(rs.getInt("idCliente"));
 					oPrestamo.set_idCuenta(rs.getInt("idCuenta"));
 					
+					PagoPrestamos ppagados = new PagoPrestamos();
+					ppagados.set_idPrestamo(oPrestamo.get_id());
+					
+					oPrestamo.set_cantCuotasPagadas(ppagados.CantidadCuotas());
 					arrayPrestamos.add(oPrestamo);
 				}
 			}

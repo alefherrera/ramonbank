@@ -2,6 +2,7 @@ package com.ramon.ramonbank.dbaccess.tables;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -273,6 +274,34 @@ public class PlazosFijos extends Tables {
 			_log.log(Level.WARNING, e.getStackTrace().toString());
 		}
 		return -1;
+	}
+	
+	public ArrayList<PlazosFijos> LoadList() throws OperationException {
+		ArrayList<PlazosFijos> arrayPlazosFijos = new ArrayList<PlazosFijos>();
+
+		ResultSet rs = this.Select();
+		PlazosFijos oPlazosFijos;
+
+		try {
+			while (rs.next()) {
+				oPlazosFijos = new PlazosFijos();
+				oPlazosFijos.set_id(rs.getInt("id"));
+				oPlazosFijos.set_fechaAlta(rs.getTime("FechaAlta").toString());
+				oPlazosFijos.set_fechaVencimiento(rs.getTime("FechaAlta").toString());
+				oPlazosFijos.set_idCliente(rs.getInt("idCliente"));
+				oPlazosFijos.set_origen(rs.getInt("Origen"));
+				oPlazosFijos.set_nroCuentaOrigen(rs.getInt("NroCuentaOrigen"));
+				oPlazosFijos.set_monto(rs.getDouble("Monto"));
+				oPlazosFijos.set_monto(rs.getDouble("Interes"));
+				arrayPlazosFijos.add(oPlazosFijos);
+			}
+		}
+
+		catch (SQLException e) {
+			_log.log(Level.WARNING,
+					e.getStackTrace().toString() + "\n" + e.getMessage());
+		}
+		return arrayPlazosFijos;
 	}
 
 }
