@@ -81,16 +81,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ServiciosLoadServlet</display-name>
-    <servlet-name>ServiciosLoadServlet</servlet-name>
-    <servlet-class>servlets.ServiciosLoadServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ServiciosLoadServlet</servlet-name>
-    <url-pattern>/ServiciosLoadServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>SolicitarPrestamoServlet</display-name>
     <servlet-name>SolicitarPrestamoServlet</servlet-name>
     <servlet-class>servlets.servicios.prestamos.SolicitarPrestamoServlet</servlet-class>
