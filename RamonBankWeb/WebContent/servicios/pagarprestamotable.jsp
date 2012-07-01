@@ -7,9 +7,10 @@
 <table border="1">
 	<c:if test="${PrestamosBean != null}">
 		<tr>
-			
+
 			<th>Fecha Alta</th>
 			<th>Cuotas</th>
+			<th>Cuotas Pagadas</th>
 			<th>Monto</th>
 			<th>Interes</th>
 			<th>Pagar</th>
@@ -19,28 +20,31 @@
 			<tr>
 				<td><c:out value="${prestamo.get_fechaAlta()}"></c:out></td>
 				<td><c:out value="${prestamo.get_cantCuotas()}"></c:out></td>
+				<td><c:out value="${prestamo.get_cantCuotasPagadas()}"></c:out></td>
 				<td><c:out value="${prestamo.get_monto()}"></c:out></td>
 				<td><c:out value="${prestamo.get_interes()}"></c:out></td>
-				<td><a href="#" id="${prestamo.get_id()}" class="lnk">Pagar</a>
+				<td><c:if
+						test="${prestamo.get_cantCuotas() != prestamo.get_cantCuotasPagadas()}">
 
+						<a href="#" id="${prestamo.get_id()}" class="lnk">Pagar</a>
+
+					</c:if></td>
 			</tr>
 
 		</c:forEach>
 	</c:if>
 </table>
 <script>
-	$(".lnk").click(
-			function() {
-				var form = document.createElement("form");
-				form.method = 'post';
-				var hidden = document.createElement("input");
-				hidden.type = 'hidden';
-				hidden.value = $(this).attr('id');
-				hidden.id = "idPrestamo";
-				hidden.name = "idPrestamo";
-				form.appendChild(hidden);				
-				SubmitForm(form,
-						"/ramonbank/PagarPrestamoTableServlet");
-			});
+	$(".lnk").click(function() {
+		var form = document.createElement("form");
+		form.method = 'post';
+		var hidden = document.createElement("input");
+		hidden.type = 'hidden';
+		hidden.value = $(this).attr('id');
+		hidden.id = "idPrestamo";
+		hidden.name = "idPrestamo";
+		form.appendChild(hidden);
+		SubmitForm(form, "/ramonbank/PagarPrestamoTableServlet");
+	});
 </script>
 <jsp:include page="/footer.jsp"></jsp:include>

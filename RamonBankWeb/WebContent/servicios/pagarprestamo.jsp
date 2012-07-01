@@ -13,4 +13,7 @@
 	<jsp:include page="/combocuenta.jsp"></jsp:include>
 	<input type="submit" value="Pagar">
 </form>
+<script type="text/javascript">
+	$(document).ready(function () { $("#idCuenta").append("<option value='0'>Efectivo</option>"); });
+</script>
 <jsp:include page="/footer.jsp"></jsp:include>
