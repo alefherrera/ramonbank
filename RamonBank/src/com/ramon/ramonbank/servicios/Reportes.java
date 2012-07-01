@@ -83,8 +83,7 @@ public class Reportes {
 	 * @return
 	 * @throws OperationException
 	 */
-	public static ArrayList<PlazosFijos> reportePlazosFijos(Clientes cliente,
-			boolean vencidos) throws OperationException {
+	public static ArrayList<PlazosFijos> reportePlazosFijos(Clientes cliente) throws OperationException {
 		if (cliente == null) {
 			throw new OperationException("Cliente es null");
 		}
@@ -95,11 +94,7 @@ public class Reportes {
 
 		PlazosFijos plazofijo = new PlazosFijos();
 		plazofijo.set_idCliente(cliente.get_id());
-		if (vencidos) {
-			plazofijo.set_filtro_fechaVencimientoHasta(Fecha.now().toString());
-		} else {
-			plazofijo.set_filtro_fechaVencimientoDesde(Fecha.now().toString());
-		}
+		
 
 		return plazofijo.LoadList();
 	}

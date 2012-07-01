@@ -203,7 +203,7 @@
     <description></description>
     <display-name>ReportesPlazosFijosLoadServlet</display-name>
     <servlet-name>ReportesPlazosFijosLoadServlet</servlet-name>
-    <servlet-class>servlets.reportes.PlazosFijosLoadServlet</servlet-class>
+    <servlet-class>servlets.reportes.ReportesPlazosFijosLoadServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ReportesPlazosFijosLoadServlet</servlet-name>
