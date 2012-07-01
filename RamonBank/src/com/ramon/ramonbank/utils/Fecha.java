@@ -11,7 +11,9 @@ public class Fecha {
 	private String _Fecha;
 
 	public String get_Fecha() {
-		return _Fecha;
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+		return dateFormat.format(this.get_Date());
 	}
 
 	public void set_Fecha(String _Fecha) {
@@ -31,6 +33,13 @@ public class Fecha {
 		}
 		return date;
 	}
+	
+	public String get_FechaIngles(){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		return dateFormat.format(this.get_Date());
+	}
+	
 	public static int nroDiaActual() {
 		DateFormat dateFormat = new SimpleDateFormat("dd");
 		Date date = new Date();

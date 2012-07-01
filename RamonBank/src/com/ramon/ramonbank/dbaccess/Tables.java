@@ -69,7 +69,11 @@ public abstract class Tables implements ITables {
 			} else if (Obj.getClass().equals(Boolean.class)) {
 				Query += ((Boolean)Obj).booleanValue();
 			} else if (Obj.getClass().equals(Fecha.class)) {
-				Query += ((Fecha)Obj).get_Fecha();				
+				if (((Fecha)Obj).get_Fecha().equals("0"))
+				{
+					Query += ((Fecha)Obj).get_Fecha();
+				}else
+					Query += "'" + ((Fecha)Obj).get_FechaIngles() + "'";				
 			}
 			if(Obj != null){
 				Query += ",";
