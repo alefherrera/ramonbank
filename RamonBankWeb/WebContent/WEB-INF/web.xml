@@ -239,4 +239,14 @@
     <servlet-name>ReportesDepositoExtraccionLoadServlet</servlet-name>
     <url-pattern>/ReportesDepositoExtraccionLoadServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ComboLoadServicioServlet</display-name>
+    <servlet-name>ComboLoadServicioServlet</servlet-name>
+    <servlet-class>servlets.ComboLoadServicioServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ComboLoadServicioServlet</servlet-name>
+    <url-pattern>/ComboLoadServicioServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
