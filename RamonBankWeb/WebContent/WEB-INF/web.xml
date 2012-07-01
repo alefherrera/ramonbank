@@ -201,42 +201,42 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>MovimientosLoadServlet</display-name>
-    <servlet-name>MovimientosLoadServlet</servlet-name>
-    <servlet-class>servlets.reportes.MovimientosLoadServlet</servlet-class>
+    <display-name>ReportesMovimientosLoadServlet</display-name>
+    <servlet-name>ReportesMovimientosLoadServlet</servlet-name>
+    <servlet-class>servlets.reportes.ReportesMovimientosLoadServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MovimientosLoad</servlet-name>
-    <url-pattern>/MovimientosLoad</url-pattern>
+    <servlet-name>ReportesMovimientosLoadServlet</servlet-name>
+    <url-pattern>/ReportesMovimientosLoadServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>PlazosFijosLoadServlet</display-name>
-    <servlet-name>PlazosFijosLoadServlet</servlet-name>
+    <display-name>ReportesPlazosFijosLoadServlet</display-name>
+    <servlet-name>ReportesPlazosFijosLoadServlet</servlet-name>
     <servlet-class>servlets.reportes.PlazosFijosLoadServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PlazosFijosLoadServlet</servlet-name>
-    <url-pattern>/PlazosFijosLoadServlet</url-pattern>
+    <servlet-name>ReportesPlazosFijosLoadServlet</servlet-name>
+    <url-pattern>/ReportesPlazosFijosLoadServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>TransferenciasLoadServlet</display-name>
-    <servlet-name>TransferenciasLoadServlet</servlet-name>
+    <display-name>ReportesTransferenciasLoadServlet</display-name>
+    <servlet-name>ReportesTransferenciasLoadServlet</servlet-name>
     <servlet-class>servlets.reportes.TransferenciasLoadServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>TransferenciasLoadServlet</servlet-name>
-    <url-pattern>/TransferenciasLoadServlet</url-pattern>
+    <servlet-name>ReportesTransferenciasLoadServlet</servlet-name>
+    <url-pattern>/ReportesTransferenciasLoadServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ServiciosPagadosLoadServlet</display-name>
-    <servlet-name>ServiciosPagadosLoadServlet</servlet-name>
-    <servlet-class>servlets.reportes.ServiciosPagadosLoadServlet</servlet-class>
+    <display-name>ReportesServiciosPagadosLoadServlet</display-name>
+    <servlet-name>ReportesServiciosPagadosLoadServlet</servlet-name>
+    <servlet-class>servlets.reportes.ReportesServiciosPagadosLoadServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ServiciosPagadosLoadServlet</servlet-name>
-    <url-pattern>/ServiciosPagadosLoadServlet</url-pattern>
+    <servlet-name>ReportesServiciosPagadosLoadServlet</servlet-name>
+    <url-pattern>/ReportesServiciosPagadosLoadServlet</url-pattern>
   </servlet-mapping>
 </web-app>

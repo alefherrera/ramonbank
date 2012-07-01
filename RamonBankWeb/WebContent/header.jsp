@@ -34,6 +34,7 @@
 </script>
 </head>
 <body>
+<img alt="" src="http://i.imgur.com/R9qK6.png"><br/>
 <jsp:useBean id="msjBean" scope="request" class="scope.MessageBean"></jsp:useBean>
 	<c:choose>
 		<c:when test="${sessionScope.cliente == null }">
