@@ -199,4 +199,44 @@
     <servlet-name>PagarPrestamoTableServlet</servlet-name>
     <url-pattern>/PagarPrestamoTableServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MovimientosLoadServlet</display-name>
+    <servlet-name>MovimientosLoadServlet</servlet-name>
+    <servlet-class>servlets.reportes.MovimientosLoadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MovimientosLoad</servlet-name>
+    <url-pattern>/MovimientosLoad</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PlazosFijosLoadServlet</display-name>
+    <servlet-name>PlazosFijosLoadServlet</servlet-name>
+    <servlet-class>servlets.reportes.PlazosFijosLoadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PlazosFijosLoadServlet</servlet-name>
+    <url-pattern>/PlazosFijosLoadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TransferenciasLoadServlet</display-name>
+    <servlet-name>TransferenciasLoadServlet</servlet-name>
+    <servlet-class>servlets.reportes.TransferenciasLoadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TransferenciasLoadServlet</servlet-name>
+    <url-pattern>/TransferenciasLoadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServiciosPagadosLoadServlet</display-name>
+    <servlet-name>ServiciosPagadosLoadServlet</servlet-name>
+    <servlet-class>servlets.reportes.ServiciosPagadosLoadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServiciosPagadosLoadServlet</servlet-name>
+    <url-pattern>/ServiciosPagadosLoadServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
