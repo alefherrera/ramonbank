@@ -12,7 +12,7 @@
 						Prestamo</a></li>
 				<li><a href="#" id="pagarprestamo">Pagar Prestamo</a></li>
 			</ul>
-		<li><a href="#" id="pagarservicio" class="lnk">Pagar Servicio</a></li>
+		<li><a href="#" id="pagarservicio">Pagar Servicio</a></li>
 		<li><a href="#" id="depositar" class="lnk">Depositar </a></li>
 		<li><a href="#" id="extraer" class="lnk">Extraer</a></li>
 		<li><a href="#" id="transferir" class="lnk">Transferir</a></li>
@@ -26,6 +26,12 @@
 				$("#dir").val('/servicios/' + $(this).attr('id'));
 				SubmitForm(document.forms["formservicios"],
 						"/ramonbank/ComboLoadServlet");
+			});
+	$("#pagarservicio").click(
+			function() {
+				$("#dir").val('/servicios/pagarservicio');
+				SubmitForm(document.forms["formservicios"],
+						"/ramonbank/ComboLoadServicioServlet");
 			});
 	$("#pagarprestamo").click(function() {
 		CrearForm("/ramonbank/PagarPrestamoTableLoadServlet");

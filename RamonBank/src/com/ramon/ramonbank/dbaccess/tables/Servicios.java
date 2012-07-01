@@ -3,6 +3,7 @@ package com.ramon.ramonbank.dbaccess.tables;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 //import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -102,6 +103,29 @@ public class Servicios extends Tables {
 		return oPagoServicio;
 	}
 
+	public ArrayList<Servicios> LoadList() throws OperationException {
+		ArrayList<Servicios> arrayServicios = new ArrayList<Servicios>();
+
+		ResultSet rs = this.Select();
+		Servicios oPagoServicio;
+
+		try {
+			while (rs.next()) {
+				oPagoServicio = new Servicios();
+				oPagoServicio.set_id(rs.getInt("id"));
+				oPagoServicio.set_descripcion(rs.getString("Descripcion"));
+				oPagoServicio.set_monto(rs.getDouble("MontoFijo"));
+				arrayServicios.add(oPagoServicio);
+			}
+		}
+
+		catch (SQLException e) {
+			_log.log(Level.WARNING,
+					e.getStackTrace().toString() + "\n" + e.getMessage());
+		}
+		return arrayServicios;
+	}
+	
 	public int Cantidad() {
 		ResultSet rs = this.Select();
 		try {
