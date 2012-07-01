@@ -8,6 +8,7 @@
 <table border="1">
 	<c:if test="${CuentasBean != null}">
 		<tr>
+			<th>Nro Cuenta</th>
 			<th>Tipo</th>
 			<th>Saldo</th>
 			<th>Descubierto</th>
@@ -15,8 +16,8 @@
 		<c:forEach items="${CuentasBean.cuentas}" var="cuenta">
 
 			<tr>
+				<td><c:out value="${cuenta.get_id()}"></c:out></td>
 				<td><c:out value="${cuenta.get_tipo_nombre()}"></c:out></td>
-
 				<td><c:out value="${cuenta.get_saldo()}"></c:out></td>
 				<td><c:out value="${cuenta.get_descubierto()}"></c:out></td>
 			</tr>
