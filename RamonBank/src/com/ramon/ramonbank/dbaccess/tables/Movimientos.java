@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import com.ramon.ramonbank.dbaccess.ITables;
 import com.ramon.ramonbank.dbaccess.Tables;
 import com.ramon.ramonbank.exceptions.OperationException;
+import com.ramon.ramonbank.servicios.utils.MOVIMIENTO;
 import com.ramon.ramonbank.utils.Fecha;
 
 public class Movimientos extends Tables {
@@ -87,6 +88,13 @@ public class Movimientos extends Tables {
 		this._filtro_fechaHasta.set_Fecha(filtro_fechaHasta);
 	}
 
+	public String get_tipo_nombre() {
+		return MOVIMIENTO.TIPO.get_enum(this.get_tipo()).nombre();
+	}
+	public String get_origen_nombre() {
+		return MOVIMIENTO.ORIGEN.get_enum(this.get_origen()).nombre();
+	}
+	
 	private int _idcuenta;
 	private Fecha _fecha;
 	private int _tipo;

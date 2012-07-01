@@ -1,37 +1,43 @@
 package servlets.reportes;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ramon.ramonbank.dbaccess.tables.Clientes;
+import com.ramon.ramonbank.dbaccess.tables.Cuentas;
+import com.ramon.ramonbank.dbaccess.tables.Movimientos;
+import com.ramon.ramonbank.servicios.Reportes;
+import com.ramon.ramonbank.servicios.ServiciosCliente;
+
+import scope.CuentasBean;
+import scope.MovimientosBean;
+import servlets.servicios.BaseServiciosServlet;
+
 /**
- * Servlet implementation class MovimientosLoad
+ * Servlet implementation class DepositarServlet
  */
-public class ReportesMovimientosLoadServlet extends HttpServlet {
+public class ReportesMovimientosLoadServlet extends BaseServiciosServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReportesMovimientosLoadServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
+	@Override
+	protected void Accion(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		Cuentas cuenta = new Cuentas();
+		cuenta.set_id(Integer.parseInt(request.getParameter("idCuenta")));
+		ArrayList<Movimientos> movimientos = Reportes.ultimosMovimientos(cuenta, 5);
+		
+		MovimientosBean movBean = new MovimientosBean();
+		movBean.set_movimientos(movimientos);
+		
+		request.setAttribute("movimientosBean", movBean);
+		
+		CuentasBean bean = new CuentasBean();
+		bean.setCuentas(servicio.listarCuentas(new Cuentas()));
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.setAttribute("CuentasBean", bean);
+		request.getRequestDispatcher("/reportes/ultimosmovimientos.jsp").forward(request, response);
 	}
 
 }

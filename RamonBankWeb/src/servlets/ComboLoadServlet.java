@@ -28,7 +28,7 @@ public class ComboLoadServlet extends BaseServlet {
 		bean.setCuentas(service.listarCuentas(new Cuentas()));
 
 		request.setAttribute("CuentasBean", bean);
-		request.getRequestDispatcher("/servicios/"+ request.getParameter("dir") + ".jsp").forward(request, response);
+		request.getRequestDispatcher(request.getParameter("dir") + ".jsp").forward(request, response);
 		
 	}
        

@@ -9,7 +9,8 @@
 		<c:if test="${sessionScope.cliente != null }">
 			<ul>
 				<li><a href="#" id="lnkCuentas">Cuentas</a></li>
-				<li><a href="#" id="lnkServicios">Servicios</a></li>
+				<li><a href="/ramonbank/servicios/servicios.jsp" id="lnkServicios">Servicios</a></li>
+				<li><a href="/ramonbank/reportes/reportes.jsp" id="lnkReportes">Reportes</a></li>
 			</ul>
 		</c:if>
 

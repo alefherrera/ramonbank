@@ -23,7 +23,7 @@
 <script>
 	$(".lnk").click(
 			function() {
-				$("#dir").val($(this).attr('id'));
+				$("#dir").val('/servicios/' + $(this).attr('id'));
 				SubmitForm(document.forms["formservicios"],
 						"/ramonbank/ComboLoadServlet");
 			});
