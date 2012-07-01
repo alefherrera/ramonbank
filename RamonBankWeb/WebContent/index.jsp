@@ -7,11 +7,13 @@
 	<tr>
 
 		<c:if test="${sessionScope.cliente != null }">
+		<div id="menu">
 			<ul>
 				<li><a href="#" id="lnkCuentas">Cuentas</a></li>
 				<li><a href="/ramonbank/servicios/servicios.jsp" id="lnkServicios">Servicios</a></li>
 				<li><a href="/ramonbank/reportes/reportes.jsp" id="lnkReportes">Reportes</a></li>
 			</ul>
+			</div>
 		</c:if>
 
 	</tr>

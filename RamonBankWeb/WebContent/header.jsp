@@ -6,7 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 <script type="text/javascript" src="/ramonbank/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/ramonbank/jquery.validate.min.js"></script>
 <script type="text/javascript">
@@ -35,33 +34,33 @@
 </script>
 </head>
 <body>
-<img alt="" src="http://i.imgur.com/R9qK6.png"><br/>
-<jsp:useBean id="msjBean" scope="request" class="scope.MessageBean"></jsp:useBean>
-	<c:choose>
-		<c:when test="${sessionScope.cliente == null }">
-			<a href="/ramonbank/login/login.jsp" id="lnklogin">Login</a>
-			<a href="/ramonbank/registro/registro.jsp">Registro</a>
-		</c:when>
-		<c:otherwise>
+	<img alt="" src="http://i.imgur.com/R9qK6.png">
+	<br />
+		<jsp:useBean id="msjBean" scope="request" class="scope.MessageBean"></jsp:useBean>
+		<c:choose>
+			<c:when test="${sessionScope.cliente == null }">
+				<a href="/ramonbank/login/login.jsp" id="lnklogin">Login</a>
+				<a href="/ramonbank/registro/registro.jsp">Registro</a>
+			</c:when>
+			<c:otherwise>
 			Cliente: ${sessionScope.cliente.get_dni()}
 			Nombre: ${sessionScope.cliente.get_nombre()}
 			<a href="#" id="lnkLogOut">Salir</a>
-		</c:otherwise>
-	</c:choose>
-	<a href="/ramonbank/index.jsp"> HOME </a>
-	<script>
-		function CrearForm(accion) {
-			var form = document.createElement("form");
-			form.method = 'post';
-			SubmitForm(form,accion);
-		}
-		function SubmitForm(form,accion)
-		{
-			form.action = accion;
-			form.submit();
-		}
-		
-		$("#lnkLogOut").click(function() {
-			CrearForm("/ramonbank/LogOutServlet");
-		});
-	</script>
+			</c:otherwise>
+		</c:choose>
+		<a href="/ramonbank/index.jsp"> HOME </a>
+		<script>
+			function CrearForm(accion) {
+				var form = document.createElement("form");
+				form.method = 'post';
+				SubmitForm(form, accion);
+			}
+			function SubmitForm(form, accion) {
+				form.action = accion;
+				form.submit();
+			}
+
+			$("#lnkLogOut").click(function() {
+				CrearForm("/ramonbank/LogOutServlet");
+			});
+		</script>
