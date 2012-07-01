@@ -215,6 +215,8 @@ public class PlazosFijos extends Tables {
 		Lista.add(this._idCliente);
 		Lista.add(this._origen);
 		Lista.add(this._nroCuentaOrigen);
+		Lista.add(this._acreditacion);
+		Lista.add(this._nroCuentaDestino);
 		Lista.add(this._monto);
 		Lista.add(this._interes);
 		return super.Insert(Lista);	
