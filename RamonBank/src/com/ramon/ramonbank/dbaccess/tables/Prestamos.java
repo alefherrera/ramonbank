@@ -185,7 +185,7 @@ public class Prestamos extends Tables {
 			try {
 				if (rs.next()) {
 					oPrestamo.set_id(rs.getInt("id"));
-					oPrestamo.set_fechaAlta(rs.getTime("FechaAlta").toString());
+					oPrestamo.set_fechaAlta(rs.getDate("FechaAlta").toString());
 					oPrestamo.set_monto(rs.getDouble("Monto"));
 					oPrestamo.set_cantCuotas(rs.getInt("CantCuotas"));
 					oPrestamo.set_interes(rs.getDouble("Interes"));
@@ -216,7 +216,7 @@ public class Prestamos extends Tables {
 				while (rs.next()) {
 					oPrestamo = new Prestamos();
 					oPrestamo.set_id(rs.getInt("id"));
-					oPrestamo.set_fechaAlta(rs.getTime("FechaAlta").toString());
+					oPrestamo.set_fechaAlta(rs.getDate("FechaAlta").toString());
 					oPrestamo.set_monto(rs.getDouble("Monto"));
 					oPrestamo.set_cantCuotas(rs.getInt("CantCuotas"));
 					oPrestamo.set_interes(rs.getDouble("Interes"));

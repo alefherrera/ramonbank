@@ -167,7 +167,7 @@ public class Movimientos extends Tables {
 			if (rs.next()) {
 				oMovimiento.set_id(rs.getInt("id"));
 				oMovimiento.set_idcuenta(rs.getInt("idCuenta"));
-				oMovimiento.set_fecha(rs.getTime("Fecha").toString());
+				oMovimiento.set_fecha(rs.getDate("Fecha").toString());
 				oMovimiento.set_tipo(rs.getInt("Tipo"));
 				oMovimiento.set_origen(rs.getInt("Origen"));
 				oMovimiento.set_saldo(rs.getDouble("Saldo"));
@@ -207,7 +207,7 @@ public class Movimientos extends Tables {
 				oMovimiento = new Movimientos();
 				oMovimiento.set_id(rs.getInt("id"));
 				oMovimiento.set_idcuenta(rs.getInt("idCuenta"));
-				oMovimiento.set_fecha(rs.getTime("Fecha").toString());
+				oMovimiento.set_fecha(rs.getDate("Fecha").toString());
 				oMovimiento.set_tipo(rs.getInt("Tipo"));
 				oMovimiento.set_origen(rs.getInt("Origen"));
 				oMovimiento.set_saldo(rs.getDouble("Saldo"));

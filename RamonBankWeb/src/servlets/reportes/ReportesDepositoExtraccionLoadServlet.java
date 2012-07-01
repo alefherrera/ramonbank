@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ramon.ramonbank.dbaccess.tables.Cuentas;
 import com.ramon.ramonbank.dbaccess.tables.Movimientos;
 import com.ramon.ramonbank.servicios.Reportes;
+import com.ramon.ramonbank.utils.Fecha;
 
 import scope.CuentasBean;
 import scope.MovimientosBean;
@@ -27,7 +28,16 @@ public class ReportesDepositoExtraccionLoadServlet extends BaseServiciosServlet 
 		
 		Cuentas cuenta = new Cuentas();
 		cuenta.set_id(Integer.parseInt(request.getParameter("idCuenta")));
-		ArrayList<Movimientos> movimientos = Reportes.transferenciasCuenta(cuenta);
+		
+		Fecha fechaDesde = new Fecha() ;
+		fechaDesde.set_Fecha(request.getParameter("FechaDesde"));
+		
+		Fecha fechaHasta = new Fecha() ;
+		fechaHasta.set_Fecha(request.getParameter("FechaHasta"));
+		
+		int tipoMovimiento = Integer.parseInt(request.getParameter("tipoMovimiento"));
+		
+		ArrayList<Movimientos> movimientos = Reportes.movimientosCuenta(cuenta, fechaDesde, fechaHasta, tipoMovimiento);
 
 		MovimientosBean movBean = new MovimientosBean();
 		movBean.setMovimientos(movimientos);

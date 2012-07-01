@@ -144,7 +144,7 @@ public class PagoPrestamos extends Tables {
 		try {
 			if (rs.next()) {
 				oPagoPrestamo.set_id(rs.getInt("id"));
-				oPagoPrestamo.set_fecha(rs.getTime("Fecha").toString());
+				oPagoPrestamo.set_fecha(rs.getDate("Fecha").toString());
 				oPagoPrestamo.set_origen(rs.getInt("Origen"));
 				oPagoPrestamo.set_idPrestamo(rs.getInt("idPrestamo"));
 				oPagoPrestamo.set_cantCuotas(rs.getInt("CantCuotas"));

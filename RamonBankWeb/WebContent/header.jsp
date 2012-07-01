@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 <script type="text/javascript" src="/ramonbank/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/ramonbank/jquery.validate.min.js"></script>
 <script type="text/javascript">

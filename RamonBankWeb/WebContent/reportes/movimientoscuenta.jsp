@@ -7,7 +7,16 @@
 <form method="post"
 	action="/ramonbank/ReportesDepositoExtraccionLoadServlet">
 	<jsp:include page="/combocuenta.jsp"></jsp:include>
-	<br /> <input type="submit" value="Cargar" />
+	<input type="text" id="FechaDesde" name="FechaDesde" />
+	<input type="text" id="FechaHasta" name="FechaHasta" />
+	<select id="tipoMovimiento" name="tipoMovimiento">
+	<c:forEach items="${ movimientosBean.getTipos() }" var="tipo">
+			<option value="${ tipo.id() }">
+				<c:out value="${ tipo.nombre() }"></c:out>
+			</option>
+		</c:forEach>
+	</select>
+	 <input type="submit" value="Cargar" />
 </form>
 <c:if test="${movimientosBean.movimientos != null}">
 	<table border="1">

@@ -135,7 +135,7 @@ public class PagoServicios extends Tables {
 			try {
 				if (rs.next()) {
 					oPagoServicio.set_id(rs.getInt("id"));
-					oPagoServicio.set_fechaAlta(rs.getTime("Fecha").toString());
+					oPagoServicio.set_fechaAlta(rs.getDate("Fecha").toString());
 					oPagoServicio.set_nroCuenta(rs.getInt("NroCuenta"));
 					oPagoServicio.set_idServicio(rs.getInt("idServicio"));
 					oPagoServicio.set_Servicio(rs.getString("Descripcion"));

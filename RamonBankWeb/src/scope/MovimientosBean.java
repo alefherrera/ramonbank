@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 
 import com.ramon.ramonbank.dbaccess.tables.Movimientos;
+import com.ramon.ramonbank.servicios.utils.MOVIMIENTO;
+import com.ramon.ramonbank.servicios.utils.TIPO_CUENTA;
 
 public class MovimientosBean implements Serializable {
 	
@@ -22,6 +24,10 @@ public class MovimientosBean implements Serializable {
 	}
 	public ArrayList<Movimientos> getMovimientos() {
 		return movimientos;
+	}
+	
+	public MOVIMIENTO.TIPO[] getTipos(){
+		return MOVIMIENTO.TIPO.values();
 	}
 
 	
