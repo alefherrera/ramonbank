@@ -10,9 +10,10 @@
 				Movimientos</a></li>
 		<li><a href="#" id="movimientoscuenta" class="lnk">Depósitos
 				o Extracciones </a></li>
-		<li><a href="#" id="plazosfijos">Plazos Fijos</a></li>
-		<li><a href="#" id="serviciospagados">Historial
-				de Servicios Pagados</a></li>
+		<li><a href="#" id="ReportesPlazosFijosLoadServlet"
+			class="servlet">Plazos Fijos</a></li>
+		<li><a href="#" id="ReportesServiciosPagadosLoadServlet"
+			class="servlet">Historial de Servicios Pagados</a></li>
 		<li><a href="#" id="transferencias" class="lnk">Transferencias</a></li>
 	</ul>
 </form>
@@ -23,6 +24,11 @@
 				$("#dir").val("/reportes/" + $(this).attr('id'));
 				SubmitForm(document.forms["formservicios"],
 						"/ramonbank/ComboLoadServlet");
+			});
+	$(".servlet").click(
+			function() {
+				SubmitForm(document.forms["formservicios"], "/ramonbank/"
+						+ $(this).attr('id'));
 			});
 </script>
 <jsp:include page="/footer.jsp"></jsp:include>

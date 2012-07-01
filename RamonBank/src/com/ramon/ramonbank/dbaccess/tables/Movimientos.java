@@ -121,6 +121,7 @@ public class Movimientos extends Tables {
 	public ResultSet Select() {
 		Lista.clear();
 		Lista.add(this._id);
+		Lista.add(this._idcuenta);
 		Lista.add(this._filtro_fechaDesde);
 		Lista.add(this._filtro_fechaHasta);
 		Lista.add(this._tipo);

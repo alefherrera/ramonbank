@@ -35,7 +35,7 @@ public class MOVIMIENTO {
 	}
 
 	public enum ORIGEN {
-		CAJA(1, "Extraccion"), TRANSFERENCIA(2, "Deposito"), SERVICIO(3,
+		CAJA(1, "Extraccion"), TRANSFERENCIA(2, "Transferencia"), SERVICIO(3,
 				"Servicio"), PRESTAMO(4, "Prestamo"), PLAZO_FIJO(5,
 				"Plazo Fijo");
 

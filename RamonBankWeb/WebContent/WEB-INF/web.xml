@@ -213,7 +213,7 @@
     <description></description>
     <display-name>ReportesTransferenciasLoadServlet</display-name>
     <servlet-name>ReportesTransferenciasLoadServlet</servlet-name>
-    <servlet-class>servlets.reportes.TransferenciasLoadServlet</servlet-class>
+    <servlet-class>servlets.reportes.ReportesTransferenciasLoadServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ReportesTransferenciasLoadServlet</servlet-name>

@@ -12,6 +12,7 @@
 	<table border="1">
 		<tr>
 			<th>Fecha Alta</th>
+			<th>Cuenta</th>
 			<th>Tipo</th>
 			<th>Origen</th>
 			<th>Saldo</th>
@@ -20,6 +21,7 @@
 		<c:forEach items="${movimientosBean.movimientos}" var="movimiento">
 			<tr>
 				<td><c:out value="${movimiento.get_fecha()}"></c:out></td>
+				<td><c:out value="${movimiento.get_idcuenta()}"></c:out></td>
 				<td><c:out value="${movimiento.get_tipo_nombre()}"></c:out></td>
 				<td><c:out value="${movimiento.get_origen_nombre()}"></c:out></td>
 				<td><c:out value="${movimiento.get_saldo()}"></c:out></td>
