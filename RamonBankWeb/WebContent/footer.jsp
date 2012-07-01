@@ -14,7 +14,7 @@
 	});
 </script>
 <div id="footer">
-	<p>&copy; Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org">FCT</a>. Photos by <a href="http://fotogrph.com/">Fotogrph</a>.</p>
+	<p>&copy;  All rights reserved. Design by RamonLabs</a>.</p>
 </div>
 </body>
 </html>

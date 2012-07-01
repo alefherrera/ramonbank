@@ -5,20 +5,19 @@
 <form id="formservicios" method="post">
 
 	<input type="hidden" name="dir" id="dir" />
-	<ul>
-		<li>Prestamo
-			<ul>
-				<li><a href="#" id="solicitarprestamo" class="lnk">Solicitar
-						Prestamo</a></li>
-				<li><a href="#" id="pagarprestamo">Pagar Prestamo</a></li>
-			</ul>
-		<li><a href="#" id="pagarservicio">Pagar Servicio</a></li>
-		<li><a href="#" id="depositar" class="lnk">Depositar </a></li>
-		<li><a href="#" id="extraer" class="lnk">Extraer</a></li>
-		<li><a href="#" id="transferir" class="lnk">Transferir</a></li>
-		<li><a href="#" id="plazofijo" class="lnk">Plazo Fijo</a></li>
-	</ul>
-
+		<ul>
+			<li>Prestamo
+				<ul>
+					<li><a href="#" id="solicitarprestamo" class="lnk">Solicitar
+							Prestamo</a></li>
+					<li><a href="#" id="pagarprestamo">Pagar Prestamo</a></li>
+				</ul>
+			<li><a href="#" id="pagarservicio">Pagar Servicio</a></li>
+			<li><a href="#" id="depositar" class="lnk">Depositar </a></li>
+			<li><a href="#" id="extraer" class="lnk">Extraer</a></li>
+			<li><a href="#" id="transferir" class="lnk">Transferir</a></li>
+			<li><a href="#" id="plazofijo" class="lnk">Plazo Fijo</a></li>
+		</ul>
 </form>
 <script>
 	$(".lnk").click(
