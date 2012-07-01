@@ -420,10 +420,10 @@ public class ServiciosCliente {
 		if (_cuenta == null) {
 			throw new OperationException("El objeto cuenta es null");
 		}
-		if(cantidadCuotas == ""){
+		if (cantidadCuotas == "") {
 			throw new OperationException("Debe ingresar la cantidad de cuotas");
 		}
-		if(!Validator.isNumeric(cantidadCuotas)){
+		if (!Validator.isNumeric(cantidadCuotas)) {
 			throw new OperationException("Cantidad de cuotas debe ser numérico");
 		}
 		int _cantidadCuotas = Integer.parseInt(cantidadCuotas);
@@ -525,15 +525,15 @@ public class ServiciosCliente {
 		if (_prestamo == null) {
 			throw new OperationException("El objeto prestamo es null");
 		}
-		
-		if(cantidadCuotas == ""){
+
+		if (cantidadCuotas == "") {
 			throw new OperationException("Debe ingresar la cantidad de cuotas");
 		}
-		if(!Validator.isNumeric(cantidadCuotas)){
+		if (!Validator.isNumeric(cantidadCuotas)) {
 			throw new OperationException("Cantidad de cuotas debe ser numérico");
 		}
 		int _cantidadCuotas = Integer.parseInt(cantidadCuotas);
-		
+
 		if (_cantidadCuotas <= 0) {
 			throw new OperationException("Cantidad de cuotas incorrecta: "
 					+ _cantidadCuotas);
@@ -938,9 +938,7 @@ public class ServiciosCliente {
 		if (this._cliente == null) {
 			throw new OperationException("El objeto cliente es null");
 		}
-		if (_cuentaOrigen.get_idCliente() != this._cliente.get_id()) {
-			throw new OperationException("La cuenta y el cliente no concuerdan");
-		}
+
 		if (vencimiento.get_Date().before(Fecha.now())) {
 			throw new OperationException("La fecha es incorrecta");
 		}
@@ -951,6 +949,10 @@ public class ServiciosCliente {
 			throw new OperationException("No existe la cuenta");
 		}
 		_cuentaOrigen = _cuentaOrigen.Load();
+
+		if (_cuentaOrigen.get_idCliente() != this._cliente.get_id()) {
+			throw new OperationException("La cuenta y el cliente no concuerdan");
+		}
 
 		// Validaciones y proceso desde
 		double _costoMovimiento = TIPO_CUENTA
@@ -1004,9 +1006,7 @@ public class ServiciosCliente {
 		if (this._cliente == null) {
 			throw new OperationException("El objeto cliente es null");
 		}
-		if (_cuentaOrigen.get_idCliente() != this._cliente.get_id()) {
-			throw new OperationException("La cuenta y el cliente no concuerdan");
-		}
+
 		if (vencimiento.get_Date().before(Fecha.now())) {
 			throw new OperationException("La fecha es incorrecta");
 		}
@@ -1021,6 +1021,10 @@ public class ServiciosCliente {
 		}
 		_cuentaDestino = _cuentaDestino.Load();
 		_cuentaOrigen = _cuentaOrigen.Load();
+
+		if (_cuentaOrigen.get_idCliente() != this._cliente.get_id()) {
+			throw new OperationException("La cuenta y el cliente no concuerdan");
+		}
 
 		// Validaciones y proceso desde
 		double _costoMovimiento = TIPO_CUENTA
