@@ -25,6 +25,7 @@ import com.ramon.ramonbank.servicios.utils.PLAZO_FIJO;
 import com.ramon.ramonbank.servicios.utils.PRESTAMO;
 import com.ramon.ramonbank.servicios.utils.TIPO_CUENTA;
 import com.ramon.ramonbank.utils.Fecha;
+import com.ramon.ramonbank.utils.Validator;
 
 public class ServiciosCliente {
 	private Clientes _cliente;
@@ -407,7 +408,7 @@ public class ServiciosCliente {
 	 * @return id del nuevo registro del pago de prestamo
 	 * @throws OperationException
 	 */
-	public int pagarPrestamo(Prestamos _prestamo, int _cantidadCuotas,
+	public int pagarPrestamo(Prestamos _prestamo, String cantidadCuotas,
 			Cuentas _cuenta) throws OperationException {
 		// Validaciones
 		if (this._cliente == null) {
@@ -419,6 +420,13 @@ public class ServiciosCliente {
 		if (_cuenta == null) {
 			throw new OperationException("El objeto cuenta es null");
 		}
+		if(cantidadCuotas == ""){
+			throw new OperationException("Debe ingresar la cantidad de cuotas");
+		}
+		if(!Validator.isNumeric(cantidadCuotas)){
+			throw new OperationException("Cantidad de cuotas debe ser numérico");
+		}
+		int _cantidadCuotas = Integer.parseInt(cantidadCuotas);
 		if (_cantidadCuotas <= 0) {
 			throw new OperationException("Cantidad de cuotas incorrecta: "
 					+ _cantidadCuotas);
@@ -508,7 +516,7 @@ public class ServiciosCliente {
 	 * @return id del registro del pago prestamo
 	 * @throws OperationException
 	 */
-	public int pagarPrestamo(Prestamos _prestamo, int _cantidadCuotas)
+	public int pagarPrestamo(Prestamos _prestamo, String cantidadCuotas)
 			throws OperationException {
 		// Validaciones
 		if (this._cliente == null) {
@@ -517,6 +525,15 @@ public class ServiciosCliente {
 		if (_prestamo == null) {
 			throw new OperationException("El objeto prestamo es null");
 		}
+		
+		if(cantidadCuotas == ""){
+			throw new OperationException("Debe ingresar la cantidad de cuotas");
+		}
+		if(!Validator.isNumeric(cantidadCuotas)){
+			throw new OperationException("Cantidad de cuotas debe ser numérico");
+		}
+		int _cantidadCuotas = Integer.parseInt(cantidadCuotas);
+		
 		if (_cantidadCuotas <= 0) {
 			throw new OperationException("Cantidad de cuotas incorrecta: "
 					+ _cantidadCuotas);
