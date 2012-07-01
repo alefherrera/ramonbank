@@ -21,12 +21,13 @@ public class PagoServicios extends Tables {
 	private int _idServicio;
 	private Fecha _filtro_fechaDesde;
 	private Fecha _filtro_fechaHasta;
-
+	private String _Servicio;
 	
 	public PagoServicios() {
-		
 		this._id = -1;
 		this._fechaAlta = new Fecha();
+		this._filtro_fechaDesde = new Fecha();
+		this._filtro_fechaHasta = new Fecha();
 		this._nroCuenta = -1;
 		this._idServicio = -1;
 	}
@@ -83,6 +84,17 @@ public class PagoServicios extends Tables {
 		this._idServicio = _idServicio;
 	}
 
+		public String get_Servicio() {
+		return _Servicio;
+	}
+
+
+
+	public void set_Servicio(String _Servicio) {
+		this._Servicio = _Servicio;
+	}
+
+
 
 		// Acceso a BD
 		public ResultSet Select() {
@@ -123,12 +135,11 @@ public class PagoServicios extends Tables {
 			try {
 				if (rs.next()) {
 					oPagoServicio.set_id(rs.getInt("id"));
-					oPagoServicio.set_fechaAlta(rs.getTime("FechaAlta").toString());
+					oPagoServicio.set_fechaAlta(rs.getTime("Fecha").toString());
 					oPagoServicio.set_nroCuenta(rs.getInt("NroCuenta"));
 					oPagoServicio.set_idServicio(rs.getInt("idServicio"));
-				} else {
-					throw new OperationException("No se encontro ningun " + this.getClass().getName());
-			}
+					oPagoServicio.set_Servicio(rs.getString("Descripcion"));
+				}
 
 			} catch (SQLException e) {
 				_log.log(Level.WARNING, e.getStackTrace().toString() + "\n" + e.getMessage());

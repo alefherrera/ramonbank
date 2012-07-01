@@ -7,6 +7,7 @@ import com.ramon.ramonbank.dbaccess.tables.Cuentas;
 import com.ramon.ramonbank.dbaccess.tables.Movimientos;
 import com.ramon.ramonbank.dbaccess.tables.PagoServicios;
 import com.ramon.ramonbank.dbaccess.tables.PlazosFijos;
+import com.ramon.ramonbank.dbaccess.tables.Servicios;
 import com.ramon.ramonbank.exceptions.OperationException;
 import com.ramon.ramonbank.servicios.utils.MOVIMIENTO;
 import com.ramon.ramonbank.servicios.utils.PLAZO_FIJO;
@@ -16,8 +17,10 @@ import com.ramon.ramonbank.utils.Fecha;
 public class Reportes {
 	/**
 	 * Ultimos movimientos de la cuenta
+	 * 
 	 * @param cuenta
-	 * @param cantidad Cantidad para poner en el top
+	 * @param cantidad
+	 *            Cantidad para poner en el top
 	 * @return
 	 * @throws OperationException
 	 */
@@ -72,45 +75,48 @@ public class Reportes {
 
 	/**
 	 * Lista de plazos fijos
+	 * 
 	 * @param cliente
-	 * @param vencidos true si queres vencidos, false si queres no vencidos (dependen de la fecha actual)
+	 * @param vencidos
+	 *            true si queres vencidos, false si queres no vencidos (dependen
+	 *            de la fecha actual)
 	 * @return
 	 * @throws OperationException
 	 */
 	public static ArrayList<PlazosFijos> reportePlazosFijos(Clientes cliente,
 			boolean vencidos) throws OperationException {
-		if(cliente == null){
+		if (cliente == null) {
 			throw new OperationException("Cliente es null");
 		}
-		if(cliente.Cantidad() == 0){
+		if (cliente.Cantidad() == 0) {
 			throw new OperationException("El cliente no existe");
 		}
 		cliente = cliente.Load();
-		
-		
+
 		PlazosFijos plazofijo = new PlazosFijos();
 		plazofijo.set_idCliente(cliente.get_id());
-		if(vencidos){
+		if (vencidos) {
 			plazofijo.set_filtro_fechaVencimientoHasta(Fecha.now().toString());
-		}
-		else{
+		} else {
 			plazofijo.set_filtro_fechaVencimientoDesde(Fecha.now().toString());
 		}
-		
+
 		return plazofijo.LoadList();
 	}
-	
+
 	/**
 	 * Pago de servicios por cliente
+	 * 
 	 * @param cliente
 	 * @return
 	 * @throws OperationException
 	 */
-	public static ArrayList<PagoServicios> serviciosPagados(Clientes cliente) throws OperationException{
-		if(cliente == null){
+	public static ArrayList<PagoServicios> serviciosPagados(Clientes cliente)
+			throws OperationException {
+		if (cliente == null) {
 			throw new OperationException("Cliente es null");
 		}
-		if(cliente.Cantidad() == 0){
+		if (cliente.Cantidad() == 0) {
 			throw new OperationException("El cliente no existe");
 		}
 		cliente = cliente.Load();
@@ -118,21 +124,33 @@ public class Reportes {
 		cuenta.set_idCliente(cliente.get_id());
 		ArrayList<Cuentas> arrayCuentas = new ArrayList<Cuentas>();
 		arrayCuentas = cuenta.LoadList();
-		
+
+		Servicios servicio = new Servicios();
+
 		ArrayList<PagoServicios> pagoservicios = new ArrayList<PagoServicios>();
-		for(Cuentas c : arrayCuentas ){
-			PagoServicios pservicio = new PagoServicios();
-			pservicio.set_nroCuenta(c.get_id());
-			pservicio = pservicio.Load();
-			pagoservicios.add(pservicio);
+		ArrayList<Servicios> arrayServicios = new ArrayList<Servicios>();
+		arrayServicios = servicio.LoadList();
+
+		for (Cuentas c : arrayCuentas) {
+			for (Servicios s : arrayServicios) {
+				PagoServicios pservicio = new PagoServicios();
+				pservicio.set_nroCuenta(c.get_id());
+				pservicio.set_idServicio(s.get_id());
+
+				pservicio = pservicio.Load();
+				if (pservicio.get_id() != -1) {
+					pagoservicios.add(pservicio);
+				}
+			}
 		}
-		
+
 		return pagoservicios;
 	}
-	
+
 	/**
 	 * Transferencias de una cuenta
-	 * @param cuenta 
+	 * 
+	 * @param cuenta
 	 * @return
 	 * @throws OperationException
 	 */
@@ -150,7 +168,7 @@ public class Reportes {
 		Movimientos movimiento = new Movimientos();
 		movimiento.set_idcuenta(cuenta.get_id());
 		movimiento.set_origen(MOVIMIENTO.ORIGEN.TRANSFERENCIA.id());
-		
+
 		return movimiento.LoadList();
 	}
 }

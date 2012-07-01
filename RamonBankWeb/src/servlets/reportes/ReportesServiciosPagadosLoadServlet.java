@@ -8,6 +8,7 @@ import com.ramon.ramonbank.dbaccess.tables.PagoServicios;
 import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.servicios.Reportes;
 
+import scope.ServiciosBean;
 import servlets.BaseServlet;
 
 /**
@@ -24,9 +25,9 @@ public class ReportesServiciosPagadosLoadServlet extends BaseServlet {
 				.getSession().getAttribute("cliente"));
 		
 		ServiciosBean servBean = new ServiciosBean();
-		servBean.setServicios(arrayservicios);
+		servBean.setPagoServicios(arrayservicios);
 		
 		request.setAttribute("serviciosBean", servBean);
-		request.getRequestDispatcher("serviciospagados").forward(request, response);
+		request.getRequestDispatcher("/reportes/serviciospagados.jsp").forward(request, response);
 	}
 }

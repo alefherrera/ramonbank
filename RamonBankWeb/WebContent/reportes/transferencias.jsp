@@ -13,10 +13,7 @@
 		<tr>
 			<th>Fecha Alta</th>
 			<th>Cuenta</th>
-			<th>Tipo</th>
-			<th>Origen</th>
-			<th>Saldo</th>
-			<th>Monto</th>
+			<th>Servicio</th>
 		</tr>
 		<c:forEach items="${movimientosBean.movimientos}" var="movimiento">
 			<tr>
