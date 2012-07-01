@@ -10,13 +10,18 @@ public class MovimientosBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	ArrayList<Movimientos> movimientos;	
+	ArrayList<Movimientos> movimientos;
+
+	
 
 	public MovimientosBean() {
 	}
 	
-	public void set_movimientos(ArrayList<Movimientos> movimientos) {
+	public void setMovimientos(ArrayList<Movimientos> movimientos) {
 		this.movimientos = movimientos;
+	}
+	public ArrayList<Movimientos> getMovimientos() {
+		return movimientos;
 	}
 
 	

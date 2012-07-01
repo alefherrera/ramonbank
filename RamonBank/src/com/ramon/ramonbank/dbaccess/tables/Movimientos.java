@@ -227,7 +227,8 @@ public class Movimientos extends Tables {
 		StringBuilder sb = new StringBuilder("call Movimientos_Ultimos(");
 		sb.append(this._id + ",");
 		sb.append(this._idcuenta + ",");
-		sb.append(this._fecha.get_Fecha() + ",");
+		sb.append(this._filtro_fechaDesde.get_Fecha() + ",");
+		sb.append(this._filtro_fechaHasta.get_Fecha() + ",");
 		sb.append(this._tipo + ",");
 		sb.append(this._origen + ",");
 		sb.append(this._saldo + ",");

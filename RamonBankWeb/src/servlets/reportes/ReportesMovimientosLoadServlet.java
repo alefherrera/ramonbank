@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ramon.ramonbank.dbaccess.tables.Clientes;
 import com.ramon.ramonbank.dbaccess.tables.Cuentas;
 import com.ramon.ramonbank.dbaccess.tables.Movimientos;
 import com.ramon.ramonbank.servicios.Reportes;
-import com.ramon.ramonbank.servicios.ServiciosCliente;
 
 import scope.CuentasBean;
 import scope.MovimientosBean;
@@ -24,13 +22,15 @@ public class ReportesMovimientosLoadServlet extends BaseServiciosServlet {
 	@Override
 	protected void Accion(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		super.Accion(request, response);
+		
 		Cuentas cuenta = new Cuentas();
 		cuenta.set_id(Integer.parseInt(request.getParameter("idCuenta")));
 		ArrayList<Movimientos> movimientos = Reportes.ultimosMovimientos(cuenta, 5);
 		
 		MovimientosBean movBean = new MovimientosBean();
-		movBean.set_movimientos(movimientos);
-		
+		movBean.setMovimientos(movimientos);
+
 		request.setAttribute("movimientosBean", movBean);
 		
 		CuentasBean bean = new CuentasBean();
@@ -39,5 +39,4 @@ public class ReportesMovimientosLoadServlet extends BaseServiciosServlet {
 		request.setAttribute("CuentasBean", bean);
 		request.getRequestDispatcher("/reportes/ultimosmovimientos.jsp").forward(request, response);
 	}
-
 }

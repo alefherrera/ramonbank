@@ -239,4 +239,14 @@
     <servlet-name>ReportesServiciosPagadosLoadServlet</servlet-name>
     <url-pattern>/ReportesServiciosPagadosLoadServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReportesDepositoExtraccionLoadServlet</display-name>
+    <servlet-name>ReportesDepositoExtraccionLoadServlet</servlet-name>
+    <servlet-class>servlets.reportes.ReportesDepositoExtraccionLoadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReportesDepositoExtraccionLoadServlet</servlet-name>
+    <url-pattern>/ReportesDepositoExtraccionLoadServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

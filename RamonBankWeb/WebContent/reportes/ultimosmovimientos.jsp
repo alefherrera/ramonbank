@@ -8,7 +8,7 @@
 	<jsp:include page="/combocuenta.jsp"></jsp:include>
 	<br /> <input type="submit" value="Cargar" />
 </form>
-<c:if test="${movimientosBean != null} ">
+<c:if test="${movimientosBean.movimientos != null}">
 	<table border="1">
 		<tr>
 			<th>Fecha Alta</th>
