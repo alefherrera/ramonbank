@@ -173,7 +173,7 @@
     <description></description>
     <display-name>ComboLoadServlet</display-name>
     <servlet-name>ComboLoadServlet</servlet-name>
-    <servlet-class>servlets.servicios.ComboLoadServlet</servlet-class>
+    <servlet-class>servlets.ComboLoadServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ComboLoadServlet</servlet-name>

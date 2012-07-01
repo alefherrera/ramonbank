@@ -1,4 +1,4 @@
-package servlets.servicios;
+package servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,7 +11,6 @@ import com.ramon.ramonbank.dbaccess.tables.Cuentas;
 import com.ramon.ramonbank.servicios.ServiciosCliente;
 
 import scope.CuentasBean;
-import servlets.BaseServlet;
 
 /**
  * Servlet implementation class ComboLoadServlet
